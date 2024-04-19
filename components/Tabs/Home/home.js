@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     return (
       <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Map" component={map} />
-          <Stack.Screen name="Map" component={map} />
         </Stack.Navigator>
     );
   }
