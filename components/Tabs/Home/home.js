@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     logo: {
       width: 66,
       height: 58,
-    },
+    },qwerqwerqwerqwer
   });
 
   const Stack = createNativeStackNavigator();
