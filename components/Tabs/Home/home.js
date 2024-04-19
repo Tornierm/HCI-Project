@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     logo: {
       width: 66,
       height: 58,
-    },qwerqwerqwerqwer
+    },
   });
 
   const Stack = createNativeStackNavigator();
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   export default function Home() {
     return (
       <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Map" component={map} />
           <Stack.Screen name="Map" component={map} />
         </Stack.Navigator>
     );
