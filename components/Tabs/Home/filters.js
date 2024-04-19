@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -18,12 +17,10 @@ const styles = StyleSheet.create({
     },
   });
   
-  export default function Home() {
+  export default function Filters() {
     return (
       <View style={styles.container}>
-        <Image style={styles.logo} source={require('../../../assets/S.png')}/>
-        <Text>Welcome to Sitdown you fuckers.</Text>
-        <StatusBar style="auto" />
+        <Text>filters</Text>
       </View>
     );
   }
