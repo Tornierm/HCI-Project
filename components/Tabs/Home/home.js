@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   const Stack = createNativeStackNavigator();
 
   export default function Home({ navigation }) {
-
+qwerqwer
     return (
       <Stack.Navigator  initialRouteName="Home">
           <Stack.Screen 
