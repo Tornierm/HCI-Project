@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     },
   });
   
-  export default function Home() {
+  export default function Map() {
     return (
       <View style={styles.container}>
         <Image style={styles.logo} source={require('../../../assets/S.png')}/>
