@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
         setTmpFilterConfig({ ...tmpFilterConfig, ...update });
       }
 
-      // you can use this as a pattern for updating a single filter value :)
       const toggleRestriction = (restriction) => {
         //create a tmp copy of the restrictions
         const tmpRestrictions = [...tmpFilterConfig.restrictions];
@@ -53,9 +52,32 @@ const styles = StyleSheet.create({
             tmpRestrictions.splice(index, 1);
           }
         }
+        //update our config
         updateFilterConfig({restrictions: tmpRestrictions})
       }
 
+      /*
+      
+      To-do
+      use the "toggleRestriction" function as a blueprint
+      */
+
+      const toggleFeatures = () => {
+
+      }
+
+      const setPrice = () => {
+        
+      }
+
+      const setDistance = () => {
+        
+      }
+
+      const setReviews = () => {
+        
+      }
+      
       return <View style={styles.container}>
 
         {/* This is for the Restriction Chips*/}
@@ -71,6 +93,21 @@ const styles = StyleSheet.create({
              })
           }
         </View>
+
+        {/*
+      
+          To-do
+          
+          implement all the UI components 
+        */}
+
+        {/* This is for the Feature Chips*/}
+
+        {/* This is for the Price Slider*/}
+
+        {/* This is for the Distance Slider*/}
+
+        {/* This is for the Reviews*/}
         
           <Button
             onPress={() => applyFilters()}
