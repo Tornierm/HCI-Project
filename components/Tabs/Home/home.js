@@ -30,8 +30,6 @@ const styles = StyleSheet.create({
 
   export default function Home({ navigation }) {
 
-    const Filters = 
-
     return (
       <Stack.Navigator  initialRouteName="Home">
           <Stack.Screen 
