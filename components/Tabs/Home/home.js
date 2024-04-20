@@ -30,17 +30,20 @@ const styles = StyleSheet.create({
 
   export default function Home({ navigation }) {
 
+    const Filters = 
+
     return (
       <Stack.Navigator  initialRouteName="Home">
           <Stack.Screen 
             name="Map" 
             component={map} 
+            
             options={{
               headerRight: () => (
                 <Button
                   onPress={() => navigation.navigate('Filters')}
                   type="outline"  
-                  radius={"md"}
+                  radius={"md"}re
                 >
                     Filter
                     <Icon 
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
               headerLeft: () => (
                 <Button
                   onPress={() => navigation.navigate('List')}
-                  type="outline"  
+                  type="outline"
                   radius={"md"}
                 >
                     Search
