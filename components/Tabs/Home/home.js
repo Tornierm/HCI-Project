@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
                 <Button
                   onPress={() => navigation.navigate('Filters')}
                   type="outline"  
-                  radius={"md"}re
+                  radius={"md"}
                 >
                     Filter
                     <Icon 
