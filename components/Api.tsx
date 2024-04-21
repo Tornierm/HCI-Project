@@ -1,4 +1,4 @@
-import { ICafe, Restrictions } from "./types";
+import { Features, ICafe, Price, Rating, Restrictions } from "./types";
 
 const CoffeeShops: ICafe[] = [
     {
@@ -21,10 +21,15 @@ const CoffeeShops: ICafe[] = [
                 imageSrc: undefined
             }
         ],
+        features: [
+            Features.Laptop,
+        ],
         location: {
             left: 200,
             top: 200,
-        }
+        },
+        rating: Rating.worst,
+        price: Price.cheap,
     },
     /*
         add more cafes here
