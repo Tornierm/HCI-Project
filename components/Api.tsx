@@ -26,6 +26,9 @@ const CoffeeShops: ICafe[] = [
             top: 200,
         }
     },
+    /*
+        add more cafes here
+    */
 ]
 
 export const getCaffees = () => {
