@@ -1,4 +1,4 @@
-import { Icon } from '@rneui/base';
+import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { getCaffees } from '../../Api';
@@ -35,22 +35,36 @@ const styles = StyleSheet.create({
     icon: {
       position: 'relative',
     },
+    overlay:{
+      flex:1,
+      justifyContent:"center",
+      alignItems: "center",
+      ...StyleSheet.absoluteFillObject, // Takes the entire space of its container
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
+    }
   });
 
   
   
   export default function Map({navigation}) {
     const [cafes, setCafes] = useState<ICafe[]>([])
+    const [showOverlay, setShowOverlay] = useState<boolean>(false)
+    const [selectedCafe, setSelectedCafe] = useState<ICafe>()
 
     useEffect(() => {
       setCafes(getCaffees())
     }, [])
 
-    const onIconPress = (cafe: ICafe) => {
+    const openCafeProfile = (cafe: ICafe) => {
       navigation.navigate( 
         "CafeProfile",
         { cafe: cafe }
       )
+    }
+
+    const onIconPress = (cafe: ICafe) => {
+      setSelectedCafe(cafe)
+      setShowOverlay(!showOverlay)
     }
 
     return (
@@ -71,11 +85,18 @@ const styles = StyleSheet.create({
                     onPress={() => onIconPress(cafe)}
                   />
               })}
-              
             </View>
-
           </View>
         </ScrollView>
+        <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
+              
+          <Button
+            onPress={() => openCafeProfile(selectedCafe)}
+          >open profile</Button>
+          <Button
+            onPress={() => onIconPress(null)}
+          >close</Button>
+        </View>
       </View>
     );
   }
