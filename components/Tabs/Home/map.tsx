@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
           </View>
         </ScrollView>
         <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
-              
           <Button
             onPress={() => openCafeProfile(selectedCafe)}
           >open profile</Button>

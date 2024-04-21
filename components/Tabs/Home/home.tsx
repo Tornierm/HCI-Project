@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
       filterConfig: IFilterConfig;
       setFilter: React.Dispatch<React.SetStateAction<IFilterConfig>>;
     };
-    cafeProfile: {
+    CafeProfile: {
       cafe: ICafe;
     };
   };
