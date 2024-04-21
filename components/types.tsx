@@ -8,16 +8,21 @@ export interface IFilterConfig {
 }
 
 //to-do: add all information that might be specified in the profile screen
-export interface IRestaurant {
+export interface ICafe {
     name: String;
     restrictions: Restrictions[];
     offers: IOffer[];
     reviews: IReview[];
+    location: {
+        left: number,
+        top: number,
+    }
 }
 
 //to-do: add all information that might be specified in the offer screen
 export interface IOffer {
     name: String;
+    description: string;
     price: number;
 }
 
