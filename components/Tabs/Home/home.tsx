@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   });
 
   const defaultFilter: IFilterConfig = {
-    restrictions: [Restrictions.Halal, Restrictions.Vegan]
+    restrictions: []
   }
 
   export type RootStackParamList = {

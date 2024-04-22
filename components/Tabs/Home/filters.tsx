@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   
   const Filters: React.FC<Props> = ({ route, navigation }) => {
       
-      const [tmpFilterConfig, setTmpFilterConfig] = useState(route.params.filterConfig);
+      const [tmpFilterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
 
       const applyFilters = () => {
         route.params.setFilter(tmpFilterConfig)
