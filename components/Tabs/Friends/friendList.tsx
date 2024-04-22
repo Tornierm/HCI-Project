@@ -1,5 +1,9 @@
 import { StyleSheet, View, Text} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FriendsParamList } from './friends';
+import { useState } from 'react';
+import { Button } from '@rneui/base';
+import { IUser } from '../../types';
 
 const styles = StyleSheet.create({
     container: {
@@ -20,11 +24,30 @@ const styles = StyleSheet.create({
 
   const Stack = createNativeStackNavigator();
 
+  type Props = NativeStackScreenProps<FriendsParamList, "FriendList">
   
-  export default function FriendList() {
+  export default function FriendList({ route, navigation }) {
+
+    const [friends, setFriends] = useState<IUser[]>(route.params.friends)
+
+    const openFriendsProfile = (friend: IUser) => {
+      navigation.navigate( 
+        "FriendProfile",
+        { friend: friend }
+      )
+    }
+
     return (
         <View>
-            <Text>FriendList</Text>
+            <Text>
+              {JSON.stringify(friends)}
+              {friends.map((friend) => {
+                return <Button
+                  onPress={() => openFriendsProfile(friend)}
+                  >{friend.name}
+                </Button>
+              })}
+            </Text>
         </View>
     );
   }
