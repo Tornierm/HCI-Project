@@ -2,12 +2,13 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import Map from "./map"
 import Filters from "./filters"
 import List from "./list"
+import cafeProfile from "./cafeProfile"
 
 import { Button, Icon } from '@rneui/themed';
 import React, { useState } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { IFilterConfig, Restrictions } from '../../types';
+import { ICafe, IFilterConfig, Restrictions } from '../../types';
 
 
 const styles = StyleSheet.create({
@@ -38,6 +39,9 @@ const styles = StyleSheet.create({
     Filters: {
       filterConfig: IFilterConfig;
       setFilter: React.Dispatch<React.SetStateAction<IFilterConfig>>;
+    };
+    CafeProfile: {
+      cafe: ICafe;
     };
   };
 
@@ -89,6 +93,10 @@ const styles = StyleSheet.create({
               filterConfig: filterConfig,
               setFilter: setFilterConfig
             }}
+           />
+          <Stack.Screen 
+            name="CafeProfile"
+            component={cafeProfile} 
            />
           <Stack.Screen name="List" component={List} />
         </Stack.Navigator>

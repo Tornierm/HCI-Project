@@ -8,16 +8,24 @@ export interface IFilterConfig {
 }
 
 //to-do: add all information that might be specified in the profile screen
-export interface IRestaurant {
+export interface ICafe {
     name: String;
     restrictions: Restrictions[];
     offers: IOffer[];
     reviews: IReview[];
+    rating: Rating;
+    features: Features[];
+    price: Price;
+    location: {
+        left: number,
+        top: number,
+    }
 }
 
 //to-do: add all information that might be specified in the offer screen
 export interface IOffer {
     name: String;
+    description: string;
     price: number;
 }
 
@@ -37,4 +45,25 @@ export enum Restrictions {
     Vegan = "Vegan",
     Vegitarian = "Vegitarian",
     Halal = "Halal"
+}
+
+export enum Features {
+    Laptop = "Laptop",
+    Outlet = "Outlet",
+    Booth = "Booth"
+}
+
+export enum Rating {
+    worst = 0,
+    detestable = 1,
+    bad = 2,
+    neutral = 3,
+    good = 4,
+    best = 5,
+}
+
+export enum Price {
+    cheap = "€",
+    middle = "€€",
+    expensive = "€€€"
 }
