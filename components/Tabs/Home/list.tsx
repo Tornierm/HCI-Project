@@ -1,4 +1,10 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { RootStackParamList } from './home';
+import { useState } from 'react';
+import { ICafe } from '../../types';
+import { Button } from '@rneui/base';
+import { openCafeProfile } from './helpers';
 
 const styles = StyleSheet.create({
     container: {
@@ -16,11 +22,28 @@ const styles = StyleSheet.create({
       height: 58,
     },
   });
-  
-  export default function List() {
+
+  type Props = NativeStackScreenProps<RootStackParamList, "List">
+
+  const List: React.FC<Props> = ({ route, navigation }) => {
+
+    const [cafes, setCafes] = useState<ICafe[]>(route.params.cafes)
+
     return (
       <View style={styles.container}>
-        <Text>List</Text>
+        {/* The searchbar goes here */}
+
+        
+        {cafes.map((cafe) => {
+          //The items for all the cafes in the area go here
+          return <View>
+            <Button
+              onPress={() => openCafeProfile(cafe, navigation)}
+            >{cafe.name}</Button>
+          </View>
+        })}
       </View>
     );
   }
+
+  export default List;

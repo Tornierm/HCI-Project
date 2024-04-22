@@ -5,10 +5,11 @@ import List from "./list"
 import cafeProfile from "./cafeProfile"
 
 import { Button, Icon } from '@rneui/themed';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ICafe, IFilterConfig, Restrictions } from '../../types';
+import { getCaffees } from '../../Api';
 
 
 const styles = StyleSheet.create({
@@ -34,8 +35,12 @@ const styles = StyleSheet.create({
 
   export type RootStackParamList = {
     Home: undefined;
-    Map: undefined;
-    List: undefined;
+    Map: {
+      cafes: ICafe[];
+    };
+    List: {
+      cafes: ICafe[];
+    };
     Filters: {
       filterConfig: IFilterConfig;
       setFilter: React.Dispatch<React.SetStateAction<IFilterConfig>>;
@@ -50,13 +55,21 @@ const styles = StyleSheet.create({
   export default function Home({ navigation }) {
 
     const [filterConfig, setFilterConfig] = useState(defaultFilter)
+    const [cafes, setCafes] = useState<ICafe[]>([])
+
+    useEffect(() => {
+      setCafes(getCaffees())
+    }, [])
+
+    function openList(): void {
+      navigation.navigate('List', {cafes: cafes});
+    }
 
     return (
       <Stack.Navigator initialRouteName="Home">
           <Stack.Screen 
             name="Map" 
             component={Map} 
-            
             options={{
               headerRight: () => (
                 <Button
@@ -73,7 +86,7 @@ const styles = StyleSheet.create({
               ),
               headerLeft: () => (
                 <Button
-                  onPress={() => navigation.navigate('List')}
+                  onPress={() => openList()}
                   type="outline"
                   radius={"md"}
                 >
@@ -84,6 +97,9 @@ const styles = StyleSheet.create({
                     />
                 </Button>
               ),
+            }}
+            initialParams={{ 
+              cafes: getCaffees()
             }}
           />
           <Stack.Screen 
@@ -98,7 +114,10 @@ const styles = StyleSheet.create({
             name="CafeProfile"
             component={cafeProfile} 
            />
-          <Stack.Screen name="List" component={List} />
+          <Stack.Screen 
+            name="List" 
+            component={List} 
+          />
         </Stack.Navigator>
     );
   }
