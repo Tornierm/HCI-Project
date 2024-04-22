@@ -39,6 +39,7 @@ export interface IUser {
     id: number;
     name: String;
     imageSrc: String;
+    reviews: IReview[];
 }
 
 export enum Restrictions {

@@ -1,4 +1,4 @@
-import { Features, ICafe, Price, Rating, Restrictions } from "./types";
+import { Features, ICafe, IUser, Price, Rating, Restrictions } from "./types";
 
 const CoffeeShops: ICafe[] = [
     {
@@ -36,6 +36,21 @@ const CoffeeShops: ICafe[] = [
     */
 ]
 
+const Friends: IUser[] = [
+    {
+        id: 0,
+        name: "Matteo",
+        imageSrc: "../../assets/Matteo",
+        reviews: []
+    }
+
+]
+
+
 export const getCaffees = () => {
     return CoffeeShops;
+}
+
+export const getFriends = () => {
+    return Friends;
 }
