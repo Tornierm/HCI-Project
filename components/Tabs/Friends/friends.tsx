@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import friendList from "../Friends/friendList"
-import friendProfile from "../Friends/friendProfile"
+import friendList from "./friendList"
+import friendProfile from "./friendProfile"
 
 const styles = StyleSheet.create({
     container: {

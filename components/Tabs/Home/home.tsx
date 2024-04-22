@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-import map from "../Home/map"
-import filters from "../Home/filters"
-import list from "../Home/list"
+import Map from "./map"
+import Filters from "./filters"
+import List from "./list"
 
 import { Button, Icon } from '@rneui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { IFilterConfig, Restrictions } from '../../types';
 
 
 const styles = StyleSheet.create({
@@ -26,15 +27,31 @@ const styles = StyleSheet.create({
     },
   });
 
-  const Stack = createNativeStackNavigator();
+  const defaultFilter: IFilterConfig = {
+    restrictions: [Restrictions.Halal, Restrictions.Vegan]
+  }
+
+  export type RootStackParamList = {
+    Home: undefined;
+    Map: undefined;
+    List: undefined;
+    Filters: {
+      filterConfig: IFilterConfig;
+      setFilter: React.Dispatch<React.SetStateAction<IFilterConfig>>;
+    };
+  };
+
+  const Stack = createNativeStackNavigator<RootStackParamList>();
 
   export default function Home({ navigation }) {
 
+    const [filterConfig, setFilterConfig] = useState(defaultFilter)
+
     return (
-      <Stack.Navigator  initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Home">
           <Stack.Screen 
             name="Map" 
-            component={map} 
+            component={Map} 
             
             options={{
               headerRight: () => (
@@ -65,8 +82,15 @@ const styles = StyleSheet.create({
               ),
             }}
           />
-          <Stack.Screen name="Filters" component={filters} />
-          <Stack.Screen name="List" component={list} />
+          <Stack.Screen 
+            name="Filters"
+            component={Filters} 
+            initialParams={{ 
+              filterConfig: filterConfig,
+              setFilter: setFilterConfig
+            }}
+           />
+          <Stack.Screen name="List" component={List} />
         </Stack.Navigator>
     );
   }
