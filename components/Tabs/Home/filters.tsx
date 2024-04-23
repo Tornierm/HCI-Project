@@ -4,11 +4,12 @@ import { RootStackParamList } from './home';
 import { Button, Chip } from '@rneui/base';
 import { useState } from 'react';
 import { Features, IFilterConfig, Rating, Restrictions } from '../../types';
-import { Slider, Icon } from '@rneui/themed';
+import Slider from '@react-native-community/slider';
+import React from 'react';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "Filters">
-type SlidersComponentProps = {};
+
 
 const styles = StyleSheet.create({
     container: {
@@ -31,8 +32,7 @@ const styles = StyleSheet.create({
       alignItems: "baseline"
     },
   title:{
-      flex: 1,
-      margin: 5,
+      margin: 10,
       fontWeight: "bold",
       justifyContent: "flex-start"
     },
@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
   const Filters: React.FC<Props> = ({ route, navigation }) => {
       
       const [tmpFilterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
+      const [sliderState, setSliderState] = React.useState<number>(1);
+      const [distanceSliderState, setDistanceSliderState] = useState<number>(0);
 
       const applyFilters = () => {
         route.params.setFilter(tmpFilterConfig)
@@ -146,13 +148,6 @@ const styles = StyleSheet.create({
           }
         </View>
 
-        {/*
-      
-          To-do
-          
-          implement all the UI components 
-        */}
-
         {/* Feature Chips*/}
         <View style={styles.chipContainer}>
         <Text style={styles.title}>Feature</Text>
@@ -169,35 +164,32 @@ const styles = StyleSheet.create({
         </View>
 
         {/* This is for the Price Slider*/}
-
-        {/* This is for the Distance Slider
-        <Text style={styles.subHeader}>Distance Slider</Text>
-
-    <View style={[styles.contentView]}>
-      <Slider
-        value={value}
-        onValueChange={setValue}
-        maximumValue={10}
+        <Text style={styles.title}>Price (€)</Text>
+        <Slider
+        style={{width: 300 , height: 40}}
+        value={sliderState}
+        onValueChange={(value) => setSliderState(value)}
         minimumValue={0}
-        step={1}
-        allowTouchTrack
-        trackStyle={{ height: 5, backgroundColor: 'transparent' }}
-        thumbStyle={{ height: 20, width: 20, backgroundColor: 'transparent' }}
-        thumbProps={{
-          children: (
-            <Icon
-              name="heartbeat"
-              type="font-awesome"
-              size={20}
-              reverse
-              containerStyle={{ bottom: 20, right: 20 }}
-              color={color()}
-            />
-          ),
-        }}
-      />
-      <Text style={{ paddingTop: 20 }}>Value: {value}</Text>*}
-    </View>
+        maximumValue={80}
+        minimumTrackTintColor="#blue"
+        maximumTrackTintColor="#cbd5e1"
+        />
+        <Text style={{fontSize: 12, fontWeight: "bold"}}>{sliderState.toFixed().slice(0,2)}</Text>
+
+        {/* This is for the Distance Slider*/}
+        <Text style={styles.title}>Distance (0 km - 10 km)</Text>
+        <Slider
+        style={{width: 300 , height: 40}}
+        value={distanceSliderState}
+        onValueChange={(value) => setDistanceSliderState(value)}
+        minimumValue={0}
+        maximumValue={10}
+        minimumTrackTintColor="#blue"
+        maximumTrackTintColor="#cbd5e1"
+        />
+        <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{Math.round(distanceSliderState)} km</Text>
+
+   
 
         {/* This is for the Reviews*/}
         
