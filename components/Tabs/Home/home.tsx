@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     features: [],
     rating: [],
     distances: [],
+    prices: [],
   }
 
   export type RootStackParamList = {

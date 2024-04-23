@@ -3,9 +3,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
 import { Button, Chip } from '@rneui/base';
 import { useState } from 'react';
-import { Features, IFilterConfig, Rating, Restrictions } from '../../types';
+import { Features, IFilterConfig, Rating, Restrictions, Price, Distance } from '../../types';
 import Slider from '@react-native-community/slider';
 import React from 'react';
+//import { ScrollView } from 'react-native';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "Filters">
@@ -28,20 +29,13 @@ const styles = StyleSheet.create({
     verticalChip:{
       flex: 1,
       flexDirection: "row",
-      justifyContent: "space-around",
-      alignItems: "baseline"
+      alignItems: "center", 
+      justifyContent:"space-between"
     },
   title:{
       margin: 10,
       fontWeight: "bold",
       justifyContent: "flex-start"
-    },
-    subHeader: {
-      backgroundColor : "#2089dc",
-      color : "white",
-      textAlign : "center",
-      paddingVertical : 5,
-      marginBottom : 10
     },
   });
   
@@ -103,12 +97,47 @@ const styles = StyleSheet.create({
 
       }
 
-      const setPrice = () => {
-        
+      const setPrice = (value: number) => {
+        let newPrice: Price;
+
+        // Determine the Price based on the slider value
+        if (value < 30) {
+          newPrice = Price.cheap;
+        } else if (value < 60) {
+          newPrice = Price.medium;
+        } else {
+          newPrice = Price.expensive;
+        }
+        const tmpPrices = [...tmpFilterConfig.prices];
+
+        // Update the prices array with the new price
+        tmpPrices.push(newPrice);
+
+        // update our config
+        //updateFilterConfig({prices: tmpPrices}); -> it prints everything
+        updateFilterConfig({prices:[newPrice]}); //replace prices with a new array that has the latest selected
+        //console.log("PRICE TMP: ", tmpPrices)
       }
 
-      const setDistance = (distances) => {
-        
+      const setDistance = (value: number) => {
+        let newDistance: Distance;
+
+        // Determine the km category based on the slider value
+        if (value < 4) {
+          newDistance = Distance.near;
+        } else if (value < 8) {
+          newDistance = Distance.normal;
+        } else {
+          newDistance = Distance.far;
+        }
+        const tmpDistances = [...tmpFilterConfig.distances];
+
+        // Update the distances array with the new distance
+        tmpDistances.push(newDistance);
+
+        // update our config
+        updateFilterConfig({distances:[newDistance]}); //replace prices with a new array that has the latest selected
+        //console.log("Distance TMP: ", tmpDistances)
         
       }
 
@@ -168,7 +197,10 @@ const styles = StyleSheet.create({
         <Slider
         style={{width: 300 , height: 40}}
         value={sliderState}
-        onValueChange={(value) => setSliderState(value)}
+        onValueChange={(value) => {
+          setSliderState(value);
+          setPrice(value);
+        }}
         minimumValue={0}
         maximumValue={80}
         minimumTrackTintColor="#blue"
@@ -181,7 +213,11 @@ const styles = StyleSheet.create({
         <Slider
         style={{width: 300 , height: 40}}
         value={distanceSliderState}
-        onValueChange={(value) => setDistanceSliderState(value)}
+        onValueChange={(value) => {
+          setDistanceSliderState(value);
+          setDistance(value);
+        }}
+        //onValueChange={(value) => setDistanceSliderState(value)}
         minimumValue={0}
         maximumValue={10}
         minimumTrackTintColor="#blue"
@@ -192,29 +228,32 @@ const styles = StyleSheet.create({
    
 
         {/* This is for the Reviews*/}
-        
-        <View style={styles.verticalChip}>
         <Text style={styles.title}>Reviews</Text>
-        
-          {
-            (Object.keys(Rating) as Array<keyof typeof Rating>).map((ratings) => {
-              return <Chip
-                  type={tmpFilterConfig.rating.includes(Rating[ratings]) ? 'outline' : "solid"}
-                  onPress={() => setReviews(ratings)}
-                >
-                  {ratings}
-                </Chip>
-             })
-          }
-        </View>
+          <View style={styles.verticalChip}>
+          
+            {
+              (Object.keys(Rating) as Array<keyof typeof Rating>).map((ratings) => {
+                return <Chip
+                    type={tmpFilterConfig.rating.includes(Rating[ratings]) ? 'outline' : "solid"}
+                    onPress={() => setReviews(ratings)}
+                    style={{ marginVertical: 5 }}
+                  >
+                    {ratings}
+                  </Chip>
+              })
+            }
+          </View>
+       
+
 
         
           <Button
             onPress={() => applyFilters()}
-          >
+            >
             Submit
           </Button>
       </View>
+
   }
 
   export default Filters;

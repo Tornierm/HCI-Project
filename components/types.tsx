@@ -8,6 +8,7 @@ export interface IFilterConfig {
     features: Features[];
     rating: Rating[];
     distances: Distance[];
+    prices: Price[];
 }
 
 //to-do: add all information that might be specified in the profile screen
@@ -67,13 +68,13 @@ export enum Rating {
 }
 
 export enum Price {
-    cheap = "€",
-    middle = "€€",
-    expensive = "€€€"
+    cheap = "cheap",
+    medium = "medium",
+    expensive = "expensive"
 }
 
 export enum Distance {
-    near = "2 km",
-    normal = "5 km",
-    far = " 10km"
+    near = "near",
+    normal = "normal",
+    far = "far"
 }
