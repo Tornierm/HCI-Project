@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { getCaffees } from '../../Api';
 import { ICafe } from '../../types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from './home';
+import { openCafeProfile } from './helpers';
 
 const styles = StyleSheet.create({
     container: {
@@ -44,23 +47,12 @@ const styles = StyleSheet.create({
     }
   });
 
+  type Props = NativeStackScreenProps<RootStackParamList, "Map">
   
-  
-  export default function Map({navigation}) {
-    const [cafes, setCafes] = useState<ICafe[]>([])
+  const Map: React.FC<Props> = ({ route, navigation }) => {
+    const [cafes, setCafes] = useState<ICafe[]>(route.params.cafes)
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
-
-    useEffect(() => {
-      setCafes(getCaffees())
-    }, [])
-
-    const openCafeProfile = (cafe: ICafe) => {
-      navigation.navigate( 
-        "CafeProfile",
-        { cafe: cafe }
-      )
-    }
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
@@ -90,7 +82,7 @@ const styles = StyleSheet.create({
         </ScrollView>
         <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
           <Button
-            onPress={() => openCafeProfile(selectedCafe)}
+            onPress={() => openCafeProfile(selectedCafe, navigation)}
           >open profile</Button>
           <Button
             onPress={() => onIconPress(null)}
@@ -99,3 +91,5 @@ const styles = StyleSheet.create({
       </View>
     );
   }
+
+  export default Map;
