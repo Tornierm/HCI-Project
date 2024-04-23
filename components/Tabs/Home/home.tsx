@@ -29,7 +29,10 @@ const styles = StyleSheet.create({
   });
 
   const defaultFilter: IFilterConfig = {
-    restrictions: []
+    restrictions: [],
+    features: [],
+    rating: [],
+    distances: [],
   }
 
   export type RootStackParamList = {
