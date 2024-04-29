@@ -5,6 +5,10 @@ Think of interfaces as a blueprint for creating objects. */
 //to-do: add all information that might be specified in the filters screen
 export interface IFilterConfig {
     restrictions: Restrictions[];
+    features: Features[];
+    rating: Rating[];
+    distances: Distance[];
+    prices: Price[];
 }
 
 //to-do: add all information that might be specified in the profile screen
@@ -13,7 +17,7 @@ export interface ICafe {
     restrictions: Restrictions[];
     offers: IOffer[];
     reviews: IReview[];
-    rating: Rating;
+    rating: Rating[];
     features: Features[];
     price: Price;
     location: {
@@ -44,27 +48,33 @@ export interface IUser {
 
 export enum Restrictions {
     Vegan = "Vegan",
-    Vegitarian = "Vegitarian",
+    Vegetarian = "Vegetarian",
     Halal = "Halal"
 }
 
 export enum Features {
     Laptop = "Laptop",
     Outlet = "Outlet",
-    Booth = "Booth"
+    Wifi = "Wifi"
 }
 
 export enum Rating {
-    worst = 0,
-    detestable = 1,
-    bad = 2,
-    neutral = 3,
-    good = 4,
-    best = 5,
+    worst = "0",
+    detestable = "1",
+    bad = "2",
+    neutral = "3",
+    good = "4",
+    best = "5",
 }
 
 export enum Price {
-    cheap = "€",
-    middle = "€€",
-    expensive = "€€€"
+    cheap = "cheap",
+    medium = "medium",
+    expensive = "expensive"
+}
+
+export enum Distance {
+    near = "near",
+    normal = "normal",
+    far = "far"
 }

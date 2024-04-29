@@ -30,7 +30,11 @@ const styles = StyleSheet.create({
   });
 
   const defaultFilter: IFilterConfig = {
-    restrictions: [Restrictions.Halal, Restrictions.Vegan]
+    restrictions: [],
+    features: [],
+    rating: [],
+    distances: [],
+    prices: [],
   }
 
   export type RootStackParamList = {
