@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import Cafeprofile from '../../Cafe profile/cafeprofile';
 
 
 const styles = StyleSheet.create({
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   export default function Activity() {
     return (
       <View style={styles.container}>
-        <Text>Activity</Text>
+        <Cafeprofile name="steven"/>
         <StatusBar style="auto" />
       </View>
     );
