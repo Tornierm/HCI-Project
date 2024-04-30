@@ -1,6 +1,6 @@
 import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native';
 import { getCaffees } from '../../Api';
 import { ICafe } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -44,6 +44,26 @@ const styles = StyleSheet.create({
       alignItems: "center",
       ...StyleSheet.absoluteFillObject, // Takes the entire space of its container
       backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
+    },
+    popup: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+    },
+     modalContent: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      padding: 80,
+      marginLeft: 40,
+      marginTop: 140,
+      borderRadius: 4,
+      width: '80%',
+      alignItems: 'center',
+      height: '40%',
+      shadowOpacity: 0.25,
+    },
+    text:{
+      color: 'white',
     }
   });
 
@@ -56,8 +76,14 @@ const styles = StyleSheet.create({
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
-      setShowOverlay(!showOverlay)
+      setShowOverlay(!showOverlay);
     }
+
+    // const closeModal = () => {
+    //   setSelectedCafe(null)
+    //   setShowOverlay(showOverlay)
+    // };
+    
 
     return (
       <View style={styles.container}>
@@ -75,19 +101,59 @@ const styles = StyleSheet.create({
                     name="location-on"
                     color="red"
                     onPress={() => onIconPress(cafe)}
+                    
                   />
               })}
             </View>
           </View>
         </ScrollView>
-        <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
+
+        {/* <Modal 
+        animationType="slide"
+        transparent={true}
+        >
+            
+          {/* {selectedCafe && (
+            <>
+            <View style={{...styles.popup}}>
+            <View style={styles.modalContent}> 
+        
+              <Button
+                onPress={() => openCafeProfile(selectedCafe, navigation)}
+              >open profile</Button>
+              <Button
+                onPress={() => closeModal()}
+             >close</Button>
+              <Text>{selectedCafe.name}</Text>
+              <Text>Number of Guests: 1</Text>
+              <Text>Date: Today</Text>
+              <Button
+                onPress={() => openCafeProfile(selectedCafe, navigation)}
+              >open profile</Button>
+              <Button
+                onPress={() => onIconPress(null)}
+             >close</Button>
+            </>
+          )} */}
+        {/* </View>
+        </View> */}
+        {/* </View> */}
+      {/* </Modal> */}
+
+
+      
+        <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent, ...styles.text, display: showOverlay? "flex" : "none"}}>
+            
+        {/* <Text>{selectedCafe.name}</Text>  */}
+              <Text>Number of Guests: 1</Text>
+              <Text>Date: Today</Text>
           <Button
             onPress={() => openCafeProfile(selectedCafe, navigation)}
           >open profile</Button>
           <Button
             onPress={() => onIconPress(null)}
           >close</Button>
-        </View>
+            </View>
       </View>
     );
   }
