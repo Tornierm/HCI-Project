@@ -10,7 +10,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-const styles = StyleSheet.create({
+/*const styles = StyleSheet.create({
     searchContainer: {
       flex: 1,
       backgroundColor: '#fff',
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
       width: 66,
       height: 58,
     },
-  });
+  });*/
 
   const Stack = createNativeStackNavigator();
   
@@ -39,25 +39,6 @@ const styles = StyleSheet.create({
   //5- map & location
   //6- book button (maybe put it above)
   const Cafeprofile = ({name, ...images}) => {
-    const [activeTab, setActiveTab] = useState('Map');
-
-    const renderTabContent = () => {
-      switch (activeTab) {
-        case 'Map':
-          return <Map />;
-        case 'Schedule':
-          return <Schedule />;
-        case 'Features':
-          return <Features />;
-        case 'Menu':
-          return <Menu />;
-        case 'Reviews':
-          return <Reviews />;
-        default:
-          return null;
-      }
-    };
-
     return (
       <div>
         <Header name={name} />
@@ -75,21 +56,26 @@ const styles = StyleSheet.create({
   const Tabs = () => {
     const Tab = createBottomTabNavigator();
     return(
-      <NavigationContainer independent={true}>
-        <Tab.Navigator>
-          <Tab.Screen name="Map" component={Map} />
-          <Tab.Screen name="Schedule" component={Schedule} />
+        <Tab.Navigator
+        initialRouteName = "Map"
+          screenOptions={{
+            tabBarActiveTintColor: '#e91e63',
+            tabBarLabelStyle: { fontSize: 12 },
+            tabBarStyle: { backgroundColor: 'powderblue' },
+          }}
+        >
+          <Tab.Screen name="Map" component={Map}/>
+          <Tab.Screen name="Schedule" component={Schedule}/>
           <Tab.Screen name="Features" component={Features} />
           <Tab.Screen name="Menu" component={Menu} />
           <Tab.Screen name="Reviews" component={Reviews} />
         </Tab.Navigator>
-      </NavigationContainer>
     );
   }
 
   const Header = ({name}) => {
     return(
-      <div>
+      <div className="container d-inline-flex">
       <Button
           icon={
             <Icon
@@ -101,7 +87,11 @@ const styles = StyleSheet.create({
           title="Go back"//implement go back
         />
         <h2>{name}</h2>
-        <hline></hline>
+        <Icon
+              name="favorite-outline"
+              size={15}
+              color="#000000"
+        />
       </div>
     )
   }
@@ -115,40 +105,54 @@ const styles = StyleSheet.create({
   }
 
   const Map = () => {
-  return <h1>Map</h1>;
+  return (
+    <View>
+      <Text>Map</Text>
+    </View>
+  );
     //tab
     //reuse milan map
     //show myposition compared to cafe position
   }
 
   const Schedule = () => {
-    //tab
+    //not implementing for the tasks  
     return (
       <div>
-        <h1>Schedule</h1>
+        <h1>Work in progress!</h1>
+        <h3>This page is under construction.</h3>
       </div>
     );
   }
 
   const Features = () => {
-    //tab
-  
+    //not implementing for the tasks  
     return (
       <div>
-        <h1>Features</h1>
+        <h1>Work in progress!</h1>
+        <h3>This page is under construction.</h3>
       </div>
       );
   }
 
   const Menu = () => {
-    //tab
-    return <h1>Menu</h1>;
+    //not implementing for the tasks  
+    return (
+    <div>
+      <h1>Work in progress!</h1>
+      <h3>This page is under construction.</h3>
+    </div>);
   }
+
   const Reviews = () => {
     //tab
     //stars and comments
     //leave a review
-    return <h1>Reviews</h1>;
+    return (
+      <View>
+        <Text>Reviews</Text>
+      </View>
+    );
   }
 
   export default Cafeprofile;
