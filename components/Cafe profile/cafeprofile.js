@@ -1,47 +1,37 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
-import {React, useState} from 'react';
+import {React} from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+//import { NavigationContainer } from '@react-navigation/native';
 //import { SliderBox } from "react-native-image-slider-box";
+import Slider from 'react-slick';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+const styles = StyleSheet.create({
+  headerContainer: {
+      flexDirection: 'row',   // Aligns children in a row
+      alignItems: 'center',   // Centers children vertically in the container
+      justifyContent: 'space-between', // Distributes children evenly with space between them
+      padding: 10,            // Adds some padding around the container
+      backgroundColor: '#333', // Sets a background color
+      height: 60,             // Sets a fixed height for the header
+  },
+  headerTitle: {
+      color: 'white',
+      fontSize: 20,
+      fontWeight: 'bold',
+  },
+  iconButton: {
+      padding: 10,  // Makes it easier to press the icon
+  },
+});
 
-/*const styles = StyleSheet.create({
-    searchContainer: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    tinyLogo: {
-      width: 50,
-      height: 50,
-    },
-    logo: {
-      width: 66,
-      height: 58,
-    },
-  });*/
-
-  const Stack = createNativeStackNavigator();
-  
-  //Cafe name, Picture, Tags with essentials, Reviews, Hours, Price, 
-  //Breakfast, Lunch, Dinner, Extras (lightning, noise, etc), Map Section of where the cafe is, 
-  //Button: Book Now
-  //1- header -> back and title
-  //2- picture
-  //3- cafe info (tags, hours, price, food), using popups as social interaction prototype
-  //4- reviews
-  //5- map & location
-  //6- book button (maybe put it above)
-  const Cafeprofile = ({name, ...images}) => {
+  const Cafeprofile = ({name, images}) => {
     return (
-      <div>
+      <View>
         <Header name={name} />
+        <ImageSlider images={images}/>
         <Tabs/>
         <Button
           onPress={() => bookNow}
@@ -49,53 +39,73 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
           color="#000000"
           accessibilityLabel="Go to book now section"
         />
-      </div>
+      </View>
     );
   };
 
-  const Tabs = () => {
-    const Tab = createBottomTabNavigator();
-    return(
-        <Tab.Navigator
-        initialRouteName = "Map"
-          screenOptions={{
-            tabBarActiveTintColor: '#e91e63',
-            tabBarLabelStyle: { fontSize: 12 },
-            tabBarStyle: { backgroundColor: 'powderblue' },
-          }}
-        >
-          <Tab.Screen name="Map" component={Map}/>
-          <Tab.Screen name="Schedule" component={Schedule}/>
-          <Tab.Screen name="Features" component={Features} />
-          <Tab.Screen name="Menu" component={Menu} />
-          <Tab.Screen name="Reviews" component={Reviews} />
-        </Tab.Navigator>
-    );
-  }
-
   const Header = ({name}) => {
     return(
-      <div className="container d-inline-flex">
-      <Button
-          icon={
-            <Icon
-              name="chevron-left"
-              size={15}
-              color="white"
-            />
-          }
-          title="Go back"//implement go back
+      <View style={styles.headerContainer}>
+      <Icon style={styles.iconButton}
+            name="chevron-left"
+            size={24}
+            color="#ffffff"
         />
-        <h2>{name}</h2>
-        <Icon
+        <Text style={styles.headerTitle}>{name}</Text>
+        <Icon style={styles.iconButton}
               name="favorite-outline"
-              size={15}
-              color="#000000"
+              size={24}
+              color="#ffffff"
+              onPress={() => alert('Added to my favourities!')}
         />
-      </div>
+      </View>
     )
   }
 
+  const ImageSlider = ({ images }) => {
+    // Slider settings
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        autoplay: false,
+        cssEase: "linear"
+    };
+    console.log(images);
+    return (
+        <div style={{ margin: '0 20px' }}>
+            <Slider {...settings}>
+                {images.map((image, index) => (
+                    <div key={index} style={{ width: '100%', height: 300 }}>
+                        <Image source={image} style={{ width: '100%', height: '100%' }} resizeMode="contain"/>
+                    </div>
+                ))}
+            </Slider>
+        </div>
+    );
+};
+
+  const Tabs = () => {
+    const Tab = createMaterialTopTabNavigator();
+    return(
+      <Tab.Navigator
+      initialRouteName="Map"
+      screenOptions={{
+        tabBarActiveTintColor: '#e91e63',
+        tabBarLabelStyle: { fontSize: 12 },
+        tabBarStyle: { backgroundColor: 'white' },
+        tabBarIndicatorStyle: { backgroundColor: 'black' },
+      }}>
+      <Tab.Screen name="Map" component={Map} />
+      <Tab.Screen name="Schedule" component={Schedule} />
+      <Tab.Screen name="Features" component={Features} />
+      <Tab.Screen name="Menu" component={Menu} />
+      <Tab.Screen name="Reviews" component={Reviews} />
+    </Tab.Navigator>
+    );
+  }
   const goBack = () => {
     //goback
   }
@@ -104,96 +114,42 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
     return <p>booked!</p>
   }
 
-  const Map = () => {
-  return (
+  
+  const Tab = createMaterialTopTabNavigator();
+  
+  // Define the components for each tab
+  const Map = () => (
     <View>
-      <Text>Map</Text>
+      <Text>Map View</Text>
     </View>
   );
-    //tab
-    //reuse milan map
-    //show myposition compared to cafe position
-  }
-
-  const Schedule = () => {
-    //not implementing for the tasks  
-    return (
-      <div>
-        <h1>Work in progress!</h1>
-        <h3>This page is under construction.</h3>
-      </div>
-    );
-  }
-
-  const Features = () => {
-    //not implementing for the tasks  
-    return (
-      <div>
-        <h1>Work in progress!</h1>
-        <h3>This page is under construction.</h3>
-      </div>
-      );
-  }
-
-  const Menu = () => {
-    //not implementing for the tasks  
-    return (
-    <div>
-      <h1>Work in progress!</h1>
-      <h3>This page is under construction.</h3>
-    </div>);
-  }
-
-  const Reviews = () => {
-    //tab
-    //stars and comments
-    //leave a review
-    return (
-      <View>
-        <Text>Reviews</Text>
-      </View>
-    );
-  }
+  
+  const Schedule = () => (
+    <View>
+      <Text h2>Work in progress!</Text>
+      <Text h2>This page is under construction...</Text>
+    </View>
+  );
+  
+  const Features = () => (
+    <View>
+      <Text>Features List</Text>
+    </View>
+  );
+  
+  const Menu = () => (
+    <View>
+      <Text h2>Work in progress!</Text>
+      <Text h2>This page is under construction...</Text>
+    </View>
+  );
+  
+  const Reviews = () => (
+    <View>
+      <Text>Reviews</Text>
+    </View>
+  );  
 
   export default Cafeprofile;
 
-    /*return (
-      <Stack.Navigator  initialRouteName="Home">
-          <Stack.Screen 
-            name="Map" 
-            component={map} 
-            
-            options={{
-              headerRight: () => (
-                <Button
-                  onPress={() => navigation.navigate('Filters')}
-                  type="outline"  
-                  radius={"md"}
-                >
-                    Filter
-                    <Icon 
-                      name="filter-alt"
-                      color="blue"
-                    />
-                </Button>
-              ),
-              headerLeft: () => (
-                <Button
-                  onPress={() => navigation.navigate('List')}
-                  type="outline"
-                  radius={"md"}
-                >
-                    Search
-                    <Icon 
-                      name="search"
-                      color="blue"
-                    />
-                </Button>
-              ),
-            }}
-          />
-          <Stack.Screen name="Filters" component={filters} />
-          <Stack.Screen name="List" component={list} />
-        </Stack.Navigator>
-    );*/
   
