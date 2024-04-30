@@ -2,10 +2,11 @@ import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native';
 import { getCaffees } from '../../Api';
-import { ICafe } from '../../types';
+import { Features, ICafe, Restrictions } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
 import { openCafeProfile } from './helpers';
+import CafeProfile from './cafeProfile';
 
 const styles = StyleSheet.create({
     container: {
@@ -63,7 +64,13 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
     },
     text:{
-      color: 'white',
+      fontWeight: 'bold',
+    },
+    buttons:{
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      display: 'flex',
+      flexDirection: 'row',
     }
   });
 
@@ -73,16 +80,22 @@ const styles = StyleSheet.create({
     const [cafes, setCafes] = useState<ICafe[]>(route.params.cafes)
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
+    const [numGuests, setNumGuests] = useState(1);
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
       setShowOverlay(!showOverlay);
     }
 
-    // const closeModal = () => {
-    //   setSelectedCafe(null)
-    //   setShowOverlay(showOverlay)
-    // };
+    const incrementGuests = () => {
+      setNumGuests(numGuests + 1);
+    };
+
+    const decrementGuests = () => {
+      if (numGuests > 1) {
+        setNumGuests(numGuests - 1);
+      }
+    };
     
 
     return (
@@ -139,20 +152,31 @@ const styles = StyleSheet.create({
         </View> */}
         {/* </View> */}
       {/* </Modal> */}
-
-
       
-        <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent, ...styles.text, display: showOverlay? "flex" : "none"}}>
-            
-        {/* <Text>{selectedCafe.name}</Text>  */}
-              <Text>Number of Guests: 1</Text>
-              <Text>Date: Today</Text>
+        <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent, display: showOverlay? "flex" : "none"}}>
+        
+       
+
+        <Text>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
+        <Text> Features: {Features.Laptop}</Text>
+       
+
+        <View style={{...styles.buttons}}>
+
+          <Button onPress={decrementGuests}>-</Button>
+          <Text>Number of Guests {numGuests}</Text>
+          <Button onPress={incrementGuests}>+</Button>
+        </View>
+
+        <View style={{...styles.buttons}}>
           <Button
             onPress={() => openCafeProfile(selectedCafe, navigation)}
-          >open profile</Button>
+          >Go to Cafe</Button>
           <Button
-            onPress={() => onIconPress(null)}
-          >close</Button>
+              onPress={() => onIconPress(null)}
+            >Close</Button>
+        </View>
+
             </View>
       </View>
     );
