@@ -24,17 +24,12 @@ import Steven4 from '../../../assets/CafèProfileImages/Steven4.jpg';
     },
   });*/
   
-  const images = [
-    '../../../assets/CafèProfileImages/Steven1.jpeg',
-    '../../../assets/CafèProfileImages/Steven2.jpeg',
-    '../../../assets/CafèProfileImages/Steven3.jpg',
-    '../../../assets/CafèProfileImages/Steven4.jpg'
-  ]
+  const image ='../../../assets/CafèProfileImages/Steven2.jpeg';
 
   export default function Activity() {
     return (
       <View>
-        <Cafeprofile name="Steven Cafè" images={images}/>
+        <Cafeprofile name="Steven Cafè" address="Calle de Berenguela, 19" image={image}/>
         <StatusBar style="auto" />
       </View>
     );
