@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View,Image, Dimensions, ScrollView } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
 import {React} from 'react';
@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    width:"100%",
+    flexGrow: 1,
+    //justifyContent: 'space-between'
     /*alignItems: 'center',
     justifyContent: 'center',*/
   },
@@ -41,7 +44,7 @@ headerTitleContainer: {
   flex: 'column'
 },
   iconButton: {
-      padding: 10,  // Makes it easier to press the icon
+      padding: 10,
   }, 
   imageContainer: {
     width: '100%', // The container takes the full width of the screen
@@ -62,13 +65,20 @@ headerTitleContainer: {
     fontWeight: 'bold',
     alignItems: 'center',   // Centers children vertically in the container
     justifyContent: 'space-between',
-},
+  },
+  buttonContainer: {
+    width: '100%', // Full width
+    padding: 10, // Padding inside the button container
+  },
+  scrollContainer: {
+    flexGrow: 1
+  }
 });
 
 
   const Cafeprofile = ({name, address, image}) => {
     return (
-      <View style= {styles.container}>
+      <ScrollView style= {styles.container} contentContainerStyle={styles.scrollContainer}>
         <Header name={name} address={address} />
         <View style={styles.imageContainer}>
           <Image
@@ -77,12 +87,14 @@ headerTitleContainer: {
           />
         </View>
         <Tabs/>
-        <Button
-          onPress={() => bookNow}
-          title="Book Now"
-          color="#000000"
-        />
-      </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => alert('Booked!')}
+            title="Book Now"
+            color="#000000"
+          />
+        </View>
+      </ScrollView>
     );
   };
 
@@ -114,21 +126,43 @@ headerTitleContainer: {
         <Tab.Navigator
         initialRouteName="Map"
         screenOptions={{
-          tabBarActiveTintColor: '#e91e63',
+          tabBarActiveTintColor: '#000000',
           tabBarLabelStyle: { fontSize: 12 },
           tabBarStyle: { backgroundColor: 'white' },
           tabBarIndicatorStyle: { backgroundColor: 'black' },
         }}>
-        <Tab.Screen name="Map" component={Map} />
-        <Tab.Screen name="Schedule" component={Schedule} />
-        <Tab.Screen name="Features" component={Features} />
-        <Tab.Screen name="Menu" component={Menu} />
-        <Tab.Screen name="Reviews" component={Reviews} />
+        <Tab.Screen name="Map" component={Map} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+          <Icon name="location-pin" color={color} size={size} />
+          )
+        }}/>
+        <Tab.Screen name="Schedule" component={Schedule} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+          <Icon name="schedule" color={color} size={size} />
+          )
+        }}/>
+        <Tab.Screen name="Features" component={Features} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+          <Icon name="settings" color={color} size={size} />
+          )
+        }}/>
+        <Tab.Screen name="Menu" component={Menu} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+          <Icon name="fastfood" color={color} size={size} />
+          )
+        }}/>
+        <Tab.Screen name="Reviews" component={Reviews} initialParams={{ totalReviews: '4.0' }}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+          <Icon name="star" color={color} size={size} />
+          )
+        }}/>
       </Tab.Navigator>
     );
-  }
-  const goBack = () => {
-    //goback
   }
 
   const bookNow = () => {
@@ -140,8 +174,9 @@ headerTitleContainer: {
   
   // Define the components for each tab
   const Map = () => (
-    <View>
+    <View style={styles.workInProgress}>
       <Text>Map View</Text>
+      <Text>TODO - INSERT THE MAP IMPLEMENTED IN HOME</Text>
     </View>
   );
   
