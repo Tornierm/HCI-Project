@@ -1,23 +1,20 @@
 import { StyleSheet, Text, View,Image, Dimensions, ScrollView } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
-import {React} from 'react';
-//import Map from './map';
+import React, {useState} from 'react';
+import Map from './map';
 import Reviews from './reviews';
-
-//import { NavigationContainer } from '@react-navigation/native';
-//import { SliderBox } from "react-native-image-slider-box";
-//import Slider from 'react-slick';
-
-
-const screenWidth = Dimensions.get('window').width;
+import Header from './header';
+import Features from './features';
+import Schedule from './schedule';
+import Menu from './menu';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     width:"100%",
-    flexGrow: 1,
+
     //justifyContent: 'space-between'
     /*alignItems: 'center',
     justifyContent: 'center',*/
@@ -69,16 +66,15 @@ headerTitleContainer: {
   buttonContainer: {
     width: '100%', // Full width
     padding: 10, // Padding inside the button container
+    //position:'absolute'
   },
-  scrollContainer: {
-    flexGrow: 1
-  }
 });
 
 
   const Cafeprofile = ({name, address, image}) => {
+    
     return (
-      <ScrollView style= {styles.container} contentContainerStyle={styles.scrollContainer}>
+      <View style= {styles.container}>
         <Header name={name} address={address} />
         <View style={styles.imageContainer}>
           <Image
@@ -87,18 +83,19 @@ headerTitleContainer: {
           />
         </View>
         <Tabs/>
-        <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer}>
           <Button
             onPress={() => alert('Booked!')}
             title="Book Now"
-            color="#000000"
+            color="#333"
           />
         </View>
-      </ScrollView>
+      </View>
     );
   };
 
-  const Header = ({name, address}) => {
+  /*const Header = ({name, address}) => {
+    const [isActive, setIsActive] = useState(false);
     return(
       <View style={styles.headerContainer}>
       <Icon style={styles.iconButton}
@@ -111,15 +108,15 @@ headerTitleContainer: {
           <Text style={styles.headerAddress}>{address}</Text>
         </View>
         <Icon style={styles.iconButton}
-              name="favorite-outline"
+              name={isActive ? 'favourite' : "favorite-outline"}
               size={24}
               color="#ffffff"
-              onPress={() => alert('Added to my favourities!')}
+              onPress={setIsActive(!isActive)}
         />
       </View>
     )
-  }
-  
+  }*/
+
   const Tabs = () => {
     const Tab = createMaterialTopTabNavigator();
     return(
@@ -173,14 +170,9 @@ headerTitleContainer: {
   //const Tab = createMaterialTopTabNavigator();
   
   // Define the components for each tab
-  const Map = () => (
-    <View style={styles.workInProgress}>
-      <Text>Map View</Text>
-      <Text>TODO - INSERT THE MAP IMPLEMENTED IN HOME</Text>
-    </View>
-  );
   
-  const Schedule = () => (
+  
+  /*const Schedule = () => (
     <View style={styles.workInProgress}>
       <Text h2>Work in progress!</Text>
       <Text h2>This page is under construction...</Text>
@@ -199,7 +191,7 @@ headerTitleContainer: {
       <Text h2>Work in progress!</Text>
       <Text h2>This page is under construction...</Text>
     </View>
-  );
+  );*/
   
   /*const Reviews = () => (
     <View>

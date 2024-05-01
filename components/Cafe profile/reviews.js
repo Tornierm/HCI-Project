@@ -1,6 +1,6 @@
 import { Button, Icon } from '@rneui/themed';
 import {React} from 'react';
-import { StyleSheet, Text, View,Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View,Image, Dimensions, ScrollView } from 'react-native';
 
 const styles = StyleSheet.create({
     headerContainer: {
@@ -71,13 +71,6 @@ const Reviews = ({route}) => {
             <PreviewReviews/>
             <UserReviews comment="Best coffee in town!" userName={"PippoFranco"}/>
             <UserReviews comment="They do have plugs for everyone!" userName={"Juliopaz65"}/>
-            <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
-            <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
-            <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
-            <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
-            <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
-            <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
-            <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
             <UserReviews comment="No booths but tables are big" userName={"IleniaMariposa"}/>
         </View>
     );
