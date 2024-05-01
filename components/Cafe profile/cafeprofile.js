@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View,Image, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, View,Image} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
-import React, {useState} from 'react';
+import React from 'react';
 import Map from './map';
 import Reviews from './reviews';
 import Header from './header';
@@ -55,13 +55,6 @@ headerTitleContainer: {
     height: 250, // Fixed height, adjust as necessary
     resizeMode: 'cover', // Cover to ensure the aspect ratio is maintained
     borderRadius: 10,
-  },
-  workInProgress: {
-    color: '#000000',
-    fontSize: 20,
-    fontWeight: 'bold',
-    alignItems: 'center',   // Centers children vertically in the container
-    justifyContent: 'space-between',
   },
   buttonContainer: {
     width: '100%', // Full width
