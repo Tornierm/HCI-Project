@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import friendList from "../Friends/friendList"
-import friendProfile from "../Friends/friendProfile"
+import friendList from "./friendList"
+import friendProfile from "./friendProfile"
+import { useState } from 'react';
+import { getFriends } from '../../Api';
+import { IUser } from '../../types';
 
 const styles = StyleSheet.create({
     container: {
@@ -22,11 +25,27 @@ const styles = StyleSheet.create({
 
   const Stack = createNativeStackNavigator();
 
+  export type FriendsParamList = {
+    FriendList: {
+      friends: IUser[],
+    };
+    FriendProfile: {
+      friend: IUser;
+    };
+  };
   
   export default function Friends() {
+    const [friends, setFriends] = useState(getFriends())
+
     return (
         <Stack.Navigator initialRouteName="Friends">
-          <Stack.Screen name="FriendList" component={friendList} />
+          <Stack.Screen 
+            name="FriendList" 
+            component={friendList} 
+            initialParams={{ 
+              friends: friends,
+            }}
+          />
           <Stack.Screen name="FriendProfile" component={friendProfile} />
         </Stack.Navigator>
     );

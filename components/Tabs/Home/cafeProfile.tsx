@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { RootStackParamList } from './home';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 const styles = StyleSheet.create({
     container: {
@@ -16,11 +18,16 @@ const styles = StyleSheet.create({
       height: 58,
     },
   });
+
+  type Props = NativeStackScreenProps<RootStackParamList, "CafeProfile">
   
-  export default function List() {
+const CafeProfile: React.FC<Props> = ({ route, navigation }) => {
+
     return (
       <View style={styles.container}>
-        <Text>List</Text>
+        <Text>CafeProfil</Text>
+        <Text>{JSON.stringify(route.params.cafe)}</Text>
       </View>
     );
   }
+export default CafeProfile;
