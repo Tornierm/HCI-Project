@@ -17,8 +17,8 @@ const CoffeeShops: ICafe[] = [
         reviews: [
             {
                 userId: 0,
-                comment: undefined,
-                imageSrc: undefined
+                comment: "Thsi was the best food ever!",
+                imageSrc: "img/review1.jpg"
             }
         ],
         features: [
@@ -52,8 +52,8 @@ const CoffeeShops: ICafe[] = [
             reviews: [
                 {
                     userId: 0,
-                    comment: undefined,
-                    imageSrc: undefined
+                    comment: "I love this place!",
+                    imageSrc: "img/review1.jpg"
                 }
             ],
             features: [
@@ -96,9 +96,9 @@ const CoffeeShops: ICafe[] = [
                 top: 500,
             },
             rating: Rating.good,
-            price: Price.middle,
-            image: '../assets/CafèProfileImages/Steven1.jpeg'
+            image: '../assets/CafèProfileImages/Steven1.jpeg',
             price: Price.medium,
+            address: "Calle de la Palma, 15, Madrid, Spain"
         },
         {
             name: "Java Halal",
@@ -192,7 +192,7 @@ const CoffeeShops: ICafe[] = [
                 top: 150,
             },
             rating: Rating.good,
-            image: '../assets/CafèProfileImages/Steven4.jpg'
+            image: '../assets/CafèProfileImages/Steven4.jpg',
             price: Price.medium,
         },
         {
@@ -290,8 +290,8 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
 
-            image: '../assets/CafèProfileImages/Steven1.jpeg'
-
+            image: '../assets/CafèProfileImages/Steven1.jpeg',
+            price: Price.cheap
         },
         {
             name: "Halal House",
@@ -322,8 +322,8 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.good,
 
-            image: '../assets/CafèProfileImages/Steven2.jpeg'
-
+            image: '../assets/CafèProfileImages/Steven2.jpeg',
+            price: Price.cheap
         }
 ]   
 

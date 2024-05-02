@@ -21,7 +21,7 @@ export interface ICafe {
     rating: Rating;
     features: Features[];
     price: Price;
-    image: String;
+    image: string;
     location: {
         left: number,
         top: number,
@@ -73,7 +73,8 @@ export enum Rating {
 export enum Price {
     cheap = "cheap",
     medium = "medium",
-    expensive = "expensive"
+    expensive = "expensive",
+    middle = "middle"
 }
 
 export enum Distance {
