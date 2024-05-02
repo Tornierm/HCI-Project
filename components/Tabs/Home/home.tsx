@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Map from "./map"
 import Filters from "./filters"
-import List from "./list"
+import CafeList from "./list"
 import cafeProfile from "./cafeProfile"
 
 import { Button, Icon } from '@rneui/themed';
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     Map: {
       cafes: ICafe[];
     };
-    List: {
+    CafeList: {
       cafes: ICafe[];
     };
     Filters: {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     }, [])
 
     function openList(): void {
-      navigation.navigate('List', {cafes: cafes});
+      navigation.navigate('CafeList', {cafes: cafes});
     }
 
     return (
@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
             component={cafeProfile} 
            />
           <Stack.Screen 
-            name="List" 
-            component={List} 
+            name="CafeList" 
+            component={CafeList} 
           />
         </Stack.Navigator>
     );

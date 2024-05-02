@@ -2,8 +2,11 @@ import { StyleSheet, View, Text} from 'react-native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FriendsParamList } from './friends';
 import { useState } from 'react';
-import { Button } from '@rneui/base';
+import { Button, Icon, SearchBar } from '@rneui/base';
 import { IUser } from '../../types';
+import React from 'react';
+import { ListItem } from '@rneui/themed';
+import { BottomTabBarHeightCallbackContext } from '@react-navigation/bottom-tabs';
 
 const styles = StyleSheet.create({
     container: {
@@ -12,14 +15,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    tinyLogo: {
-      width: 50,
-      height: 50,
-    },
-    logo: {
-      width: 66,
-      height: 58,
-    },
+    ListItem: {
+      borderWidth: 2,
+      borderColor: '#20232a',
+      borderRadius: 6,
+      marginTop: 8,
+      marginLeft: 8,
+      marginRight: 8,
+    }
   });
 
   const Stack = createNativeStackNavigator();
@@ -29,6 +32,21 @@ const styles = StyleSheet.create({
   export default function FriendList({ route, navigation }) {
 
     const [friends, setFriends] = useState<IUser[]>(route.params.friends)
+    const [search, setSearch] = useState("");
+
+    const updateSearch = (search) => {
+      setSearch(search);
+      searchFriends(search)
+    };
+
+    const searchFriends = (search) =>{
+      if(search == ""){
+        setFriends(route.params.friends)
+      } else {
+        const tmp = friends.filter(obj => obj.name.includes(search))
+        setFriends(tmp)
+      }
+    } 
 
     const openFriendsProfile = (friend: IUser) => {
       navigation.navigate( 
@@ -39,15 +57,23 @@ const styles = StyleSheet.create({
 
     return (
         <View>
-            <Text>
-              {JSON.stringify(friends)}
-              {friends.map((friend) => {
-                return <Button
+          <SearchBar
+            placeholder="Search"
+            onChangeText={updateSearch}
+            value={search}
+            platform='ios'
+          />
+              {friends.map((friend, i) => {
+                return <ListItem
+                  key={i}
                   onPress={() => openFriendsProfile(friend)}
-                  >{friend.name}
-                </Button>
+                  style={styles.ListItem}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>{friend.name}</ListItem.Title>
+                  </ListItem.Content>
+                </ListItem>
               })}
-            </Text>
         </View>
     );
   }

@@ -5,6 +5,8 @@ import friendProfile from "./friendProfile"
 import { useState } from 'react';
 import { getFriends } from '../../Api';
 import { IUser } from '../../types';
+import React from 'react';
+
 
 const styles = StyleSheet.create({
     container: {
