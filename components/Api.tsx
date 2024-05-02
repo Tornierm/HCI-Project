@@ -311,10 +311,75 @@ const Friends: IUser[] = [
         id: 0,
         name: "Matteo",
         imageSrc: "../../assets/Matteo",
-        reviews: []
+        reviews: [
+            {
+                userId: 0,
+                comment: "Amazing experience with artisan coffee",
+                imageSrc: "",
+            }
+        ]
+    },
+    {
+        id: 1,
+        name: "Francesco",
+        imageSrc: "../../assets/FRANCESCO.jpg",
+        reviews: [
+            {
+                userId: 1,
+                comment: "Loved the ambiance and the espresso was top-notch!",
+                imageSrc: "../../assets/review_Francesco.jpg"
+            }
+        ]
+    },
+    {
+        id: 2,
+        name: "Milan",
+        imageSrc: "../../assets/MILAN.jpg",
+        reviews: [
+            {
+                userId: 2,
+                comment: "Perfect spot for catching up with friends, great service.",
+                imageSrc: "../../assets/review_Milan.jpg"
+            }
+        ]
+    },
+    {
+        id: 3,
+        name: "Caro",
+        imageSrc: "../../assets/CARO.jpg",
+        reviews: [
+            {
+                userId: 3,
+                comment: "A quiet, cozy place for reading and enjoying a good cup of coffee.",
+                imageSrc: "../../assets/review_Caro.jpg"
+            }
+        ]
+    },
+    {
+        id: 4,
+        name: "Alex",
+        imageSrc: "../../assets/ALEX.jpg",
+        reviews: [
+            {
+                userId: 4,
+                comment: "The coffee is excellent and the pastries are to die for!",
+                imageSrc: "../../assets/review_Alex.jpg"
+            }
+        ]
+    },
+    {
+        id: 5,
+        name: "Manu",
+        imageSrc: "../../assets/MANU.jpg",
+        reviews: [
+            {
+                userId: 5,
+                comment: "Great location, friendly staff, and the cold brew is refreshing!",
+                imageSrc: "../../assets/review_Manu.jpg"
+            }
+        ]
     }
-
-]
+];
 
 
 export const getCaffees = () => {
