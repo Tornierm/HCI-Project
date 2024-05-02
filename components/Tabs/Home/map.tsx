@@ -1,11 +1,11 @@
 import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { getCaffees } from '../../Api';
 import { ICafe } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
 import { openCafeProfile } from './helpers';
+import React from 'react';
 
 const styles = StyleSheet.create({
     container: {
@@ -26,12 +26,15 @@ const styles = StyleSheet.create({
     },
     map: {
       width: 1000,
-      height: 1000,
+      height: 1000,      
     },
     iconContainer: {
       position: 'absolute',
-      top: 20,
-      left: 20,
+      width:1000,
+      height:1000,
+      top:0,
+      left:0,
+      display: "flex",
       flexDirection: 'row',
       zIndex: 2,
     },
@@ -67,7 +70,6 @@ const styles = StyleSheet.create({
             </Image>
             <View style={styles.iconContainer}>
               {cafes.map((cafe, i) => {
-                console.log(cafe)
                   return <Icon
                     key={i}
                     style={{...styles.icon, marginTop:cafe.location.top, marginLeft:cafe.location.left}}

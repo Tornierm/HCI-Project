@@ -25,7 +25,7 @@ const CoffeeShops: ICafe[] = [
             Features.Laptop,
         ],
         location: {
-            left: 200,
+            left: 100,
             top: 200,
         },
         rating: Rating.worst,
@@ -58,8 +58,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Laptop,
             ],
             location: {
-                left: 300,
-                top: 300,
+                left: 100,
+                top: 400,
             },
             rating: Rating.worst,
             price: Price.cheap,
@@ -68,7 +68,7 @@ const CoffeeShops: ICafe[] = [
             name: "The Green Spoon",
             restrictions: [
                 Restrictions.Vegan,
-                Restrictions.Vegitarian
+                Restrictions.Vegetarian
             ],
             offers: [
                 {
@@ -89,11 +89,11 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: 150,
-                top: 450,
+                left: 100,
+                top: 500,
             },
             rating: Rating.good,
-            price: Price.middle,
+            price: Price.medium,
         },
         {
             name: "Java Halal",
@@ -118,8 +118,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: 100,
-                top: 150,
+                left: 0,
+                top: 700,
             },
             rating: Rating.best,
             price: Price.cheap,
@@ -148,8 +148,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Laptop
             ],
             location: {
-                left: -100,
-                top: 50,
+                left: 100,
+                top: 500,
             },
             rating: Rating.neutral,
             price: Price.cheap,
@@ -178,11 +178,11 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: 10,
-                top: 0,
+                left: 0,
+                top: 150,
             },
             rating: Rating.good,
-            price: Price.middle,
+            price: Price.medium,
         },
         {
             name: "Outlet Oasis",
@@ -208,7 +208,7 @@ const CoffeeShops: ICafe[] = [
                 Features.Laptop
             ],
             location: {
-                left: 10,
+                left: 50,
                 top: 250,
             },
             rating: Rating.best,
@@ -217,7 +217,7 @@ const CoffeeShops: ICafe[] = [
         {
             name: "Quiet Corner",
             restrictions: [
-                Restrictions.Vegitarian,
+                Restrictions.Vegetarian,
                 Restrictions.Halal
             ],
             offers: [
@@ -238,17 +238,17 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: 100,
+                left: 0,
                 top: 500,
             },
             rating: Rating.neutral,
-            price: Price.middle,
+            price: Price.medium,
         },
         {
             name: "Veggie Vista",
             restrictions: [
                 Restrictions.Vegan,
-                Restrictions.Vegitarian
+                Restrictions.Vegetarian
             ],
             offers: [
                 {
@@ -269,11 +269,11 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: 30,
-                top: 100,
+                left: 50,
+                top: 150,
             },
             rating: Rating.best,
-            price: Price.middle,
+            price: Price.medium,
         },
         {
             name: "Halal House",
@@ -298,11 +298,11 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: 200,
+                left: 100,
                 top: 300,
             },
             rating: Rating.good,
-            price: Price.middle,
+            price: Price.medium,
         }
 ]   
 
