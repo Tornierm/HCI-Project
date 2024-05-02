@@ -14,12 +14,14 @@ export interface IFilterConfig {
 //to-do: add all information that might be specified in the profile screen
 export interface ICafe {
     name: String;
+    address: String;
     restrictions: Restrictions[];
     offers: IOffer[];
     reviews: IReview[];
     rating: Rating;
     features: Features[];
     price: Price;
+    image: String;
     location: {
         left: number,
         top: number,
