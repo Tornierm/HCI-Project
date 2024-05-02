@@ -124,8 +124,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: 0,
-                top: 700,
+                left: -50,
+                top: 600,
             },
             rating: Rating.best,
             price: Price.cheap,
@@ -252,7 +252,7 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: 0,
+                left: -100,
                 top: 500,
             },
             rating: Rating.neutral,
@@ -285,8 +285,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: 50,
-                top: 150,
+                left: -200,
+                top: 300,
             },
             rating: Rating.best,
 
@@ -317,8 +317,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: 100,
-                top: 300,
+                left: -300,
+                top: 800,
             },
             rating: Rating.good,
 

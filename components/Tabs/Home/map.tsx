@@ -1,11 +1,14 @@
 import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { ICafe } from '../../types';
+import { ICafe, IFilterConfig } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
 import { openCafeProfile } from './helpers';
-import React from 'react';
+import { BottomTabBarHeightCallbackContext } from '@react-navigation/bottom-tabs';
+import { flattenDiagnosticMessageText, isWhiteSpaceLike } from 'typescript';
+import React = require('react');
+import { getCaffees } from '../../Api';
 
 const styles = StyleSheet.create({
     container: {
@@ -47,37 +50,96 @@ const styles = StyleSheet.create({
       alignItems: "center",
       ...StyleSheet.absoluteFillObject, // Takes the entire space of its container
       backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
+    },
+    label: {
+      backgroundColor: "black",
+      color: "white",
+    },
+    header: {
+      width: "100%",
+      padding: 4,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
     }
   });
 
   type Props = NativeStackScreenProps<RootStackParamList, "Map">
   
   const Map: React.FC<Props> = ({ route, navigation }) => {
-    const [cafes, setCafes] = useState<ICafe[]>(route.params.cafes)
+    const [cafes, setCafes] = useState<ICafe[]>(getCaffees())
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
+    const [filterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
       setShowOverlay(!showOverlay)
     }
 
+    useEffect(() => {
+      setTmpFilterConfig(route.params.filterConfig)
+      const tmpCafes = applyFilter(cafes, route.params.filterConfig)
+      setCafes(tmpCafes)
+      console.log(route.params.filterConfig)
+      console.log(tmpCafes.length)
+    },[route.params])
+
+    function openList(): void {
+      navigation.navigate('CafeList', {cafes: cafes});
+    }
+
+    function openFilters(): void {
+      navigation.navigate('Filters', {filterConfig: filterConfig})
+    }
+
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Button
+            onPress={openList}
+            type="outline"
+            radius={"md"}
+          >
+              Search
+              <Icon 
+                name="search"
+                color="blue"
+              />
+          </Button>
+          <Button
+            onPress={openFilters}
+            type="outline"  
+            radius={"md"}
+          >
+              Filter
+              <Icon 
+                name="filter-alt"
+                color="blue"
+              />
+          </Button>
+        </View>
         <ScrollView>
           <View style={styles.mapContainer}>
             <Image style={styles.map} source={require('../../../assets/Map.png')}>
             </Image>
             <View style={styles.iconContainer}>
               {cafes.map((cafe, i) => {
-                  return <Icon
+                  return <View
                     key={i}
                     style={{...styles.icon, marginTop:cafe.location.top, marginLeft:cafe.location.left}}
+                  >
+                    <Text 
+                      style={{...styles.label}}
+                      onPress={() => onIconPress(cafe)}
+
+                    >{cafe.name}</Text>
+                  <Icon
                     size={40} 
                     name="location-on"
                     color="red"
                     onPress={() => onIconPress(cafe)}
-                  />
+                  /></View>
               })}
             </View>
           </View>
@@ -95,3 +157,19 @@ const styles = StyleSheet.create({
   }
 
   export default Map;
+
+function applyFilter(cafes: ICafe[], filterConfig: IFilterConfig) {
+  let tmp = cafes;
+
+  tmp.filter((cafe) => {
+    return filterConfig.rating <= cafe.rating
+  })
+
+  tmp.filter((cafe) => {
+    filterConfig.features.map((feature) => {
+      cafe.features.includes(feature)
+    }) 
+  })
+
+  return tmp;
+}

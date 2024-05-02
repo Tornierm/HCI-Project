@@ -5,11 +5,12 @@ import CafeList from "./list"
 import cafeProfile from "./cafeProfile"
 
 import { Button, Icon } from '@rneui/themed';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ICafe, IFilterConfig, Restrictions } from '../../types';
 import { getCaffees } from '../../Api';
+import React = require('react');
 
 
 const styles = StyleSheet.create({
@@ -29,25 +30,18 @@ const styles = StyleSheet.create({
     },
   });
 
-  const defaultFilter: IFilterConfig = {
-    restrictions: [],
-    features: [],
-    rating: [],
-    distances: [],
-    prices: [],
-  }
-
   export type RootStackParamList = {
-    Home: undefined;
+    Home: {
+      filterConfig: IFilterConfig;
+    };
     Map: {
-      cafes: ICafe[];
+      filterConfig: IFilterConfig;
     };
     CafeList: {
       cafes: ICafe[];
     };
     Filters: {
       filterConfig: IFilterConfig;
-      setFilter: React.Dispatch<React.SetStateAction<IFilterConfig>>;
     };
     CafeProfile: {
       cafe: ICafe;
@@ -56,63 +50,56 @@ const styles = StyleSheet.create({
 
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
-  export default function Home({ navigation }) {
+  export default function Home({route, navigation }) {
 
-    const [filterConfig, setFilterConfig] = useState(defaultFilter)
+    const [filterConfig, setFilterConfig] = useState<IFilterConfig>(route.params.filterConfig)
     const [cafes, setCafes] = useState<ICafe[]>([])
 
     useEffect(() => {
+      setFilterConfig(route.params.filterConfig)
       setCafes(getCaffees())
-    }, [])
+    }, [route.params])
 
-    function openList(): void {
-      navigation.navigate('CafeList', {cafes: cafes});
-    }
+   
 
     return (
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator>
           <Stack.Screen 
             name="Map" 
             component={Map} 
-            options={{
-              headerRight: () => (
-                <Button
-                  onPress={() => navigation.navigate('Filters')}
-                  type="outline"  
-                  radius={"md"}
-                >
-                    Filter
-                    <Icon 
-                      name="filter-alt"
-                      color="blue"
-                    />
-                </Button>
-              ),
-              headerLeft: () => (
-                <Button
-                  onPress={() => openList()}
-                  type="outline"
-                  radius={"md"}
-                >
-                    Search
-                    <Icon 
-                      name="search"
-                      color="blue"
-                    />
-                </Button>
-              ),
-            }}
-            initialParams={{ 
-              cafes: getCaffees()
-            }}
+            initialParams={{filterConfig: filterConfig}}
+            // options={{
+            //   headerRight: () => (
+            //     <Button
+            //       onPress={() => navigation.navigate('Filters', {filterConfig: filterConfig})}
+            //       type="outline"  
+            //       radius={"md"}
+            //     >
+            //         Filter
+            //         <Icon 
+            //           name="filter-alt"
+            //           color="blue"
+            //         />
+            //     </Button>
+            //   ),
+            //   headerLeft: () => (
+            //     <Button
+            //       onPress={() => openList()}
+            //       type="outline"
+            //       radius={"md"}
+            //     >
+            //         Search
+            //         <Icon 
+            //           name="search"
+            //           color="blue"
+            //         />
+            //     </Button>
+            //   ),
+            // }}
           />
           <Stack.Screen 
             name="Filters"
             component={Filters} 
-            initialParams={{ 
-              filterConfig: filterConfig,
-              setFilter: setFilterConfig
-            }}
            />
           <Stack.Screen 
             name="CafeProfile"

@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
 import { Button, Chip } from '@rneui/base';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Features, IFilterConfig, Rating, Restrictions, Price, Distance } from '../../types';
 import Slider from '@react-native-community/slider';
-import React from 'react';
-//import { ScrollView } from 'react-native';
+import { AirbnbRating } from '@rneui/themed';
+import React = require('react');
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "Filters">
@@ -42,12 +42,15 @@ const styles = StyleSheet.create({
   const Filters: React.FC<Props> = ({ route, navigation }) => {
       
       const [tmpFilterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
-      const [sliderState, setSliderState] = React.useState<number>(1);
-      const [distanceSliderState, setDistanceSliderState] = useState<number>(0);
+      const [sliderState, setSliderState] = React.useState<number>(20);
+      const [distanceSliderState, setDistanceSliderState] = useState<number>(5);
+
+      useEffect(() => {
+        setTmpFilterConfig(route.params.filterConfig)
+      },[route.params])
 
       const applyFilters = () => {
-        route.params.setFilter(tmpFilterConfig)
-        navigation.goBack()
+        navigation.navigate('Map', {filterConfig: tmpFilterConfig})
       }
 
       // this function takes a partial filter config and updates the existing filter config
@@ -94,28 +97,40 @@ const styles = StyleSheet.create({
         }
         //update our config
         updateFilterConfig({features: tmpFeatures})
-
       }
 
-      const setPrice = (value: number) => {
-        let newPrice: Price;
+      // const setPrice = (value: number) => {
+      //   let newPrice: Price;
 
-        // Determine the Price based on the slider value
-        if (value < 30) {
-          newPrice = Price.cheap;
-        } else if (value < 60) {
-          newPrice = Price.medium;
-        } else {
-          newPrice = Price.expensive;
-        }
-        const tmpPrices = [...tmpFilterConfig.prices];
+      //   // Determine the Price based on the slider value
+      //   if (value < 30) {
+      //     newPrice = Price.cheap;
+      //   } else if (value < 60) {
+      //     newPrice = Price.medium;
+      //   } else {
+      //     newPrice = Price.expensive;
+      //   }
+      //   const tmpPrices = tmpFilterConfig.prices;
+
+      //   // Update the prices array with the new price
+      //   tmpPrices.push(newPrice);
+
+      //   // update our config
+      //   //updateFilterConfig({prices: tmpPrices}); -> it prints everything
+      //   updateFilterConfig({prices:newPrice}); //replace prices with a new array that has the latest selected
+      //   //console.log("PRICE TMP: ", tmpPrices)
+      // }
+
+      const togglePrice = (value: Price) => {
+        let newPrice: Price = value;
+
+        const tmpPrices = tmpFilterConfig.price;
 
         // Update the prices array with the new price
-        tmpPrices.push(newPrice);
 
         // update our config
         //updateFilterConfig({prices: tmpPrices}); -> it prints everything
-        updateFilterConfig({prices:[newPrice]}); //replace prices with a new array that has the latest selected
+        updateFilterConfig({price:newPrice}); //replace prices with a new array that has the latest selected
         //console.log("PRICE TMP: ", tmpPrices)
       }
 
@@ -142,23 +157,53 @@ const styles = StyleSheet.create({
       }
 
       const setReviews = (ratings) => {
-        const tmpRating = [...tmpFilterConfig.rating];
-        //const selectedRating = parseInt(ratings, 5) as Rating;
-        //if the restriction we want to toggle is not in the restriction -> add it
-        if(!tmpFilterConfig.rating.includes(Rating[ratings])){
-          tmpRating.push(Rating[ratings])
-        } 
-        //otherwise -> remove it
-        else {
-          const index = tmpRating.indexOf(Rating[ratings]);
-          if (index > -1) { 
-            tmpRating.splice(index, 1);
-          }
-        }
-        //update our config
-        updateFilterConfig({rating: tmpRating})
+        // const tmpRating = tmpFilterConfig.rating;
+        // //const selectedRating = parseInt(ratings, 5) as Rating;
+        // //if the restriction we want to toggle is not in the restriction -> add it
+        // if(!tmpFilterConfig.rating.includes(Rating[ratings])){
+        //   tmpRating.push(Rating[ratings])
+        // } 
+        // //otherwise -> remove it
+        // else {
+        //   const index = tmpRating.indexOf(Rating[ratings]);
+        //   if (index > -1) { 
+        //     tmpRating.splice(index, 1);
+        //   }
+        // }
+        // //update our config
+        // updateFilterConfig({rating: tmpRating})
         
       }
+
+      const setRating = (rating: number) => {
+        let enumMemberName: Rating;
+        rating = rating-1;
+        for (const key in Rating) {
+          if (Rating[key] === rating.toString()) {
+            enumMemberName = Rating[key];
+            break;
+          }
+        }
+        updateFilterConfig({rating: enumMemberName})
+      }
+
+      
+    function enumToNumber(rating: Rating): number {
+      switch (rating) {
+          case Rating.worst:
+              return 1;
+          case Rating.bad:
+              return 2;
+          case Rating.neutral:
+              return 3;
+          case Rating.good:
+              return 4;
+          case Rating.best:
+              return 5;
+          default:
+              throw new Error(`Invalid Rating value: ${rating}`);
+      }
+  }
           
       return <View style={styles.container}>
 
@@ -166,8 +211,9 @@ const styles = StyleSheet.create({
         <View style={styles.chipContainer}>
         <Text style={styles.title}>Restrictions</Text>
           {
-            (Object.keys(Restrictions) as Array<keyof typeof Restrictions>).map((restriction) => {
+            (Object.keys(Restrictions) as Array<keyof typeof Restrictions>).map((restriction, i) => {
               return <Chip
+                  key={i}
                   type={tmpFilterConfig.restrictions.includes(Restrictions[restriction]) ? 'outline' : "solid"}
                   onPress={() => toggleRestriction(restriction)}
                 >
@@ -181,8 +227,9 @@ const styles = StyleSheet.create({
         <View style={styles.chipContainer}>
         <Text style={styles.title}>Feature</Text>
           {
-            (Object.keys(Features) as Array<keyof typeof Features>).map((feature) => {
+            (Object.keys(Features) as Array<keyof typeof Features>).map((feature, i) => {
               return <Chip
+                  key={"feature" + i}
                   type={tmpFilterConfig.features.includes(Features[feature]) ? 'outline' : "solid"}
                   onPress={() => toggleFeatures(feature)}
                 >
@@ -193,19 +240,32 @@ const styles = StyleSheet.create({
         </View>
 
         {/* This is for the Price Slider*/}
+        <View style={styles.chipContainer}>
         <Text style={styles.title}>Price (€)</Text>
-        <Slider
-        style={{width: 300 , height: 40}}
-        value={sliderState}
-        onValueChange={(value) => {
-          setSliderState(value);
-          setPrice(value);
-        }}
-        minimumValue={0}
-        maximumValue={80}
-        minimumTrackTintColor="#blue"
-        maximumTrackTintColor="#cbd5e1"
-        />
+          {
+            (Object.keys(Price) as Array<keyof typeof Price>).map((price, i) => {
+              return <Chip
+                  key={"price" + i}
+                  type={tmpFilterConfig.price === Price[price] ? 'outline' : "solid"}
+                  onPress={() => togglePrice(Price[price])}
+                >
+                  {price}
+                </Chip>
+             })
+          }
+        </View>
+        {/* <Slider
+          style={{width: 300 , height: 40}}
+          value={sliderState}
+          onValueChange={(value) => {
+            setSliderState(value);
+            setPrice(value);
+          }}
+          minimumValue={0}
+          maximumValue={30}
+          minimumTrackTintColor="#blue"
+          maximumTrackTintColor="#cbd5e1"
+        /> */}
         <Text style={{fontSize: 12, fontWeight: "bold"}}>{sliderState.toFixed().slice(0,2)}</Text>
 
         {/* This is for the Distance Slider*/}
@@ -225,15 +285,20 @@ const styles = StyleSheet.create({
         />
         <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{Math.round(distanceSliderState)} km</Text>
 
-   
-
         {/* This is for the Reviews*/}
-        <Text style={styles.title}>Reviews</Text>
+        <Text style={styles.title}>Rating</Text>
           <View style={styles.verticalChip}>
-          
-            {
-              (Object.keys(Rating) as Array<keyof typeof Rating>).map((ratings) => {
+          <AirbnbRating 
+            defaultRating={enumToNumber(tmpFilterConfig.rating)}
+            showRating={false}
+            onFinishRating={(number) => setRating(number)}
+          >
+
+          </AirbnbRating>
+            {/* {
+              (Object.keys(Rating) as Array<keyof typeof Rating>).map((ratings, i) => {
                 return <Chip
+                    key={i}
                     type={tmpFilterConfig.rating.includes(Rating[ratings]) ? 'outline' : "solid"}
                     onPress={() => setReviews(ratings)}
                     style={{ marginVertical: 5 }}
@@ -241,12 +306,9 @@ const styles = StyleSheet.create({
                     {ratings}
                   </Chip>
               })
-            }
+            } */}
           </View>
        
-
-
-        
           <Button
             onPress={() => applyFilters()}
             >
