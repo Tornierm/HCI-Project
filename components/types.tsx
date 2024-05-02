@@ -18,7 +18,7 @@ export interface ICafe {
     restrictions: Restrictions[];
     offers: IOffer[];
     reviews: IReview[];
-    rating: Rating[];
+    rating: Rating;
     features: Features[];
     price: Price;
     image: String;
@@ -57,7 +57,8 @@ export enum Restrictions {
 export enum Features {
     Laptop = "Laptop",
     Outlet = "Outlet",
-    Wifi = "Wifi"
+    Wifi = "Wifi",
+    Booth = "Booth"
 }
 
 export enum Rating {
