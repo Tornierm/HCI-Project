@@ -1,8 +1,8 @@
 import { Features, ICafe, IUser, Price, Rating, Restrictions } from "./types";
-
 const CoffeeShops: ICafe[] = [
     {
         name: "Stevens",
+        address: "Calle de Berenguela, 19",
         restrictions: [
             Restrictions.Halal,
             Restrictions.Vegan
@@ -30,12 +30,14 @@ const CoffeeShops: ICafe[] = [
         },
         rating: Rating.worst,
         price: Price.cheap,
+        image: '../assets/CafèProfileImages/Steven2.jpeg'
     },
     /*
         add more cafes here
     */
         {
             name: "Sukis cafè",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Halal,
                 Restrictions.Vegan
@@ -63,6 +65,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.worst,
             price: Price.cheap,
+            image: '../assets/CafèProfileImages/Steven3.jpg'
         },
         {
             name: "The Green Spoon",
@@ -94,9 +97,11 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.good,
             price: Price.middle,
+            image: '../assets/CafèProfileImages/Steven1.jpeg'
         },
         {
             name: "Java Halal",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Halal
             ],
@@ -123,9 +128,11 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
             price: Price.cheap,
+            image: '../assets/CafèProfileImages/Steven4.jpg'
         },
         {
             name: "Caffeine Hub",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Vegan
             ],
@@ -153,9 +160,11 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.neutral,
             price: Price.cheap,
+            image: '../assets/CafèProfileImages/Steven2.jpeg'
         },
         {
             name: "Booth Café",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Halal,
                 Restrictions.Vegan
@@ -183,9 +192,11 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.good,
             price: Price.middle,
+            image: '../assets/CafèProfileImages/Steven4.jpg'
         },
         {
             name: "Outlet Oasis",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Vegan
             ],
@@ -213,9 +224,11 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
             price: Price.expensive,
+            image: '../assets/CafèProfileImages/Steven3.jpg'
         },
         {
             name: "Quiet Corner",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Vegitarian,
                 Restrictions.Halal
@@ -243,9 +256,11 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.neutral,
             price: Price.middle,
+            image: '../assets/CafèProfileImages/Steven2.jpeg'
         },
         {
             name: "Veggie Vista",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Vegan,
                 Restrictions.Vegitarian
@@ -274,9 +289,11 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
             price: Price.middle,
+            image: '../assets/CafèProfileImages/Steven1.jpeg'
         },
         {
             name: "Halal House",
+            address: "Calle de Berenguela, 19",
             restrictions: [
                 Restrictions.Halal
             ],
@@ -303,6 +320,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.good,
             price: Price.middle,
+            image: '../assets/CafèProfileImages/Steven2.jpeg'
         }
 ]   
 

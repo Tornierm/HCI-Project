@@ -35,11 +35,7 @@ const Header = ({name, address}) => {
     }
     return(
       <View style={styles.headerContainer}>
-      <Icon style={styles.iconButton}
-            name="chevron-left"
-            size={24}
-            color="#ffffff"
-        />
+      
         <View style={styles.headerAddress}>
           <Text style={styles.headerTitle}>{name}</Text>
           <Text style={styles.headerAddress}>{address}</Text>
