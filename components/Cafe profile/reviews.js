@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     starContainer: {
         flexDirection: 'row',   // Aligns children in a row
         alignItems: 'center',   // Centers children vertically in the container
-        justifyContent: 'space-between', // Distributes children evenly with space between them
         backgroundColor: '#fff', // Sets a background color
         //height: 60,             // Sets a fixed height for the header
     },
@@ -62,8 +61,7 @@ const styles = StyleSheet.create({
       },
 });
 
-const Reviews = ({route}) => {
-    const { totalReviews } = route.params;
+const Reviews = ({totalReviews}) => {
     return(
         <View>
             <HeaderReviews totalReviews={totalReviews}/>
@@ -80,7 +78,7 @@ const HeaderReviews = ({totalReviews}) => {
     return(
         <View style={styles.headerContainer}>
             <View style={styles.headerContainerReviews}>
-                {totalReviews}
+                <Text>{totalReviews}</Text>
                 <ReviewRate/>
             </View>
             <Button buttonStyle={styles.btnRadius}
@@ -90,7 +88,6 @@ const HeaderReviews = ({totalReviews}) => {
                 color="#000000"
                 type='outline'
             />
-            
     </View>
     )
 }

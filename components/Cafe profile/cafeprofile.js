@@ -1,4 +1,4 @@
-import { StyleSheet, View,Image} from 'react-native';
+import { StyleSheet, View,Image, ScrollView} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
 import React from 'react';
@@ -45,6 +45,7 @@ headerTitleContainer: {
   }, 
   imageContainer: {
     width: '100%', // The container takes the full width of the screen
+    height: 100,
     paddingHorizontal: 10, // Apply horizontal padding to create margins on both sides
     paddingTop: 10, // Top padding for margin from elements above, if necessary
     borderRadius: 10, // Apply border radius to the container
@@ -67,7 +68,7 @@ headerTitleContainer: {
   const Cafeprofile = ({name, address, image}) => {
     
     return (
-      <View style= {styles.container}>
+      <ScrollView style= {styles.container}>
         <Header name={name} address={address} />
         <View style={styles.imageContainer}>
           <Image
@@ -75,7 +76,12 @@ headerTitleContainer: {
             source={{uri:image}}
           />
         </View>
-        <Tabs/>
+        {/* <Tabs/> */}
+        <Map/>
+        <Schedule></Schedule>
+        <Features></Features>
+        <Menu></Menu>
+        <Reviews totalReviews={'4.0'}></Reviews>
       <View style={styles.buttonContainer}>
           <Button
             onPress={() => alert('Booked!')}
@@ -83,7 +89,7 @@ headerTitleContainer: {
             color="#333"
           />
         </View>
-      </View>
+      </ScrollView>
     );
   };
 
