@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet,View} from 'react-native';
+import Cafeprofile from '../../Cafe profile/cafeprofile';
 
 
 const styles = StyleSheet.create({
@@ -19,10 +20,12 @@ const styles = StyleSheet.create({
     },
   });
   
+  const image ='../../../assets/CafèProfileImages/Steven2.jpeg';
+
   export default function Activity() {
     return (
       <View style={styles.container}>
-        <Text>Activity</Text>
+        <Cafeprofile name="Steven Cafè" address="Calle de Berenguela, 19" image={image}/>
         <StatusBar style="auto" />
       </View>
     );
