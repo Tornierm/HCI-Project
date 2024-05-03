@@ -16,9 +16,9 @@ const CoffeeShops: ICafe[] = [
         ],
         reviews: [
             {
-                userId: 0,
+                userName: "Steven",
                 comment: "Thsi was the best food ever!",
-                imageSrc: "img/review1.jpg"
+                imageSrc: "review1.jpg"
             }
         ],
         features: [
@@ -30,7 +30,7 @@ const CoffeeShops: ICafe[] = [
         },
         rating: Rating.worst,
         price: Price.cheap,
-        image: '../assets/CafèProfileImages/Steven2.jpeg'
+        image: 'steven'
     },
     /*
         add more cafes here
@@ -51,9 +51,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 0,
+                    userName: "Sophia",
                     comment: "I love this place!",
-                    imageSrc: "img/review1.jpg"
+                    imageSrc: "review1.jpg"
                 }
             ],
             features: [
@@ -65,7 +65,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.worst,
             price: Price.cheap,
-            image: '../assets/CafèProfileImages/Steven3.jpg'
+            image: 'souki'
         },
         {
             name: "The Green Spoon",
@@ -82,9 +82,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 1,
+                    userName: "Suki",
                     comment: "Great atmosphere and friendly staff.",
-                    imageSrc: "img/review1.jpg"
+                    imageSrc: "review1.jpg"
                 }
             ],
             features: [
@@ -96,7 +96,7 @@ const CoffeeShops: ICafe[] = [
                 top: 200,
             },
             rating: Rating.good,
-            image: '../assets/CafèProfileImages/Steven1.jpeg',
+            image: 'souki',
             price: Price.medium,
             address: "Calle de la Palma, 15, Madrid, Spain"
         },
@@ -115,9 +115,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 2,
+                    userName: "Max",
                     comment: "Perfect place for a morning coffee!",
-                    imageSrc: "img/review2.jpg"
+                    imageSrc: "review2.jpg"
                 }
             ],
             features: [
@@ -129,7 +129,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
             price: Price.cheap,
-            image: '../assets/CafèProfileImages/Steven4.jpg'
+            image: 'other'
         },
         {
             name: "Caffeine Hub",
@@ -146,9 +146,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 3,
+                    userName: "Franz",
                     comment: "Quick service and excellent coffee.",
-                    imageSrc: "img/review3.jpg"
+                    imageSrc: "review3.jpg"
                 }
             ],
             features: [
@@ -161,7 +161,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.neutral,
             price: Price.cheap,
-            image: '../assets/CafèProfileImages/Steven2.jpeg'
+            image: 'other'
         },
         {
             name: "Booth Café",
@@ -179,9 +179,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 4,
+                    userName: "Milan",
                     comment: "Cozy place, perfect for reading or working.",
-                    imageSrc: "img/review4.jpg"
+                    imageSrc: "review4.jpg"
                 }
             ],
             features: [
@@ -192,7 +192,7 @@ const CoffeeShops: ICafe[] = [
                 top: 700,
             },
             rating: Rating.good,
-            image: '../assets/CafèProfileImages/Steven4.jpg',
+            image: 'other',
             price: Price.medium,
         },
         {
@@ -210,9 +210,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 5,
+                    userName: "Caro",
                     comment: "Perfect for remote work!",
-                    imageSrc: "img/review5.jpg"
+                    imageSrc: "review5.jpg"
                 }
             ],
             features: [
@@ -225,7 +225,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
             price: Price.expensive,
-            image: '../assets/CafèProfileImages/Steven3.jpg'
+            image: 'other'
         },
         {
             name: "Quiet Corner",
@@ -243,9 +243,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 6,
+                    userName: "Marlene",
                     comment: "Quiet and peaceful, ideal for studying.",
-                    imageSrc: "img/review6.jpg"
+                    imageSrc: "review6.jpg"
                 }
             ],
             features: [
@@ -257,7 +257,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.neutral,
             price: Price.medium,
-            image: '../assets/CafèProfileImages/Steven2.jpeg'
+            image: 'other'
         },
         {
             name: "Veggie Vista",
@@ -275,9 +275,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 7,
+                    userName: "Sarah",
                     comment: "Delicious vegan options and great coffee.",
-                    imageSrc: "img/review7.jpg"
+                    imageSrc: "review7.jpg"
                 }
             ],
             features: [
@@ -290,7 +290,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
 
-            image: '../assets/CafèProfileImages/Steven1.jpeg',
+            image: 'other',
             price: Price.cheap
         },
         {
@@ -308,9 +308,9 @@ const CoffeeShops: ICafe[] = [
             ],
             reviews: [
                 {
-                    userId: 8,
+                    userName: "Matteo",
                     comment: "Authentic halal food with excellent service.",
-                    imageSrc: "img/review8.jpg"
+                    imageSrc: "review8.jpg"
                 }
             ],
             features: [
@@ -322,7 +322,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.good,
 
-            image: '../assets/CafèProfileImages/Steven2.jpeg',
+            image: 'other',
             price: Price.cheap
         }
 ]   
@@ -334,7 +334,7 @@ const Friends: IUser[] = [
         imageSrc: "../../assets/Matteo",
         reviews: [
             {
-                userId: 0,
+                userName: "Matteo",
                 comment: "Amazing experience with artisan coffee",
                 imageSrc: "",
             }
@@ -346,7 +346,7 @@ const Friends: IUser[] = [
         imageSrc: "../../assets/FRANCESCO.jpg",
         reviews: [
             {
-                userId: 1,
+                userName: "Francesco",
                 comment: "Loved the ambiance and the espresso was top-notch!",
                 imageSrc: "../../assets/review_Francesco.jpg"
             }
@@ -358,7 +358,7 @@ const Friends: IUser[] = [
         imageSrc: "../../assets/MILAN.jpg",
         reviews: [
             {
-                userId: 2,
+                userName: "Milan",
                 comment: "Perfect spot for catching up with friends, great service.",
                 imageSrc: "../../assets/review_Milan.jpg"
             }
@@ -370,7 +370,7 @@ const Friends: IUser[] = [
         imageSrc: "../../assets/CARO.jpg",
         reviews: [
             {
-                userId: 3,
+                userName: "Caro",
                 comment: "A quiet, cozy place for reading and enjoying a good cup of coffee.",
                 imageSrc: "../../assets/review_Caro.jpg"
             }
@@ -382,7 +382,7 @@ const Friends: IUser[] = [
         imageSrc: "../../assets/ALEX.jpg",
         reviews: [
             {
-                userId: 4,
+                userName: "Alex",
                 comment: "The coffee is excellent and the pastries are to die for!",
                 imageSrc: "../../assets/review_Alex.jpg"
             }
@@ -394,7 +394,7 @@ const Friends: IUser[] = [
         imageSrc: "../../assets/MANU.jpg",
         reviews: [
             {
-                userId: 5,
+                userName: "Manu",
                 comment: "Great location, friendly staff, and the cold brew is refreshing!",
                 imageSrc: "../../assets/review_Manu.jpg"
             }

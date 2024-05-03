@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
       },
 });
 
-const Reviews = ({totalReviews}) => {
+const Reviews = (reviews) => {
     return(
         <View>
-            <HeaderReviews totalReviews={totalReviews}/>
+            <HeaderReviews totalReviews={reviews.lenght}/>
             <View style={styles.horizontalLine}/>
             <PreviewReviews/>
             <UserReviews comment="Best coffee in town!" userName={"PippoFranco"}/>

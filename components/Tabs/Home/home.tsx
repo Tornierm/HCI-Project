@@ -4,13 +4,12 @@ import Filters from "./filters"
 import CafeList from "./list"
 import cafeProfile from "./cafeProfile"
 
-import { Button, Icon } from '@rneui/themed';
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ICafe, IFilterConfig, Restrictions } from '../../types';
 import { getCaffees } from '../../Api';
-import React = require('react');
 
 
 const styles = StyleSheet.create({

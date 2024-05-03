@@ -27,7 +27,7 @@ const CafeProfile: React.FC<Props> = ({ route, navigation }) => {
 
     return (
       <View style={styles.container}>
-        <Cafeprofile name={route.params.cafe.name} address={route.params.cafe.address} image={route.params.cafe.image}/>
+        <Cafeprofile cafe={route.params.cafe}/>
       </View>
     );
   }
