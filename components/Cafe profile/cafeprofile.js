@@ -9,6 +9,12 @@ import Features from './features';
 import Schedule from './schedule';
 import Menu from './menu';
 
+const images = {
+  steven: require('../../assets/CafèProfileImages/Steven1.jpeg'),
+  souki: require('../../assets/CafèProfileImages/Steven2.jpeg'),
+  other: require('../../assets/CafèProfileImages/Steven3.jpg'),
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -45,7 +51,7 @@ headerTitleContainer: {
   }, 
   imageContainer: {
     width: '100%', // The container takes the full width of the screen
-    height: 100,
+    height: 200,
     paddingHorizontal: 10, // Apply horizontal padding to create margins on both sides
     paddingTop: 10, // Top padding for margin from elements above, if necessary
     borderRadius: 10, // Apply border radius to the container
@@ -64,16 +70,36 @@ headerTitleContainer: {
   },
 });
 
+const determineImage = (image) => {
+  if(image == "steven"){
+    return images.steven
+  } else if(image == "souki"){
+    return images.souki
+  } else {
+    return images.other
+  }
+}
+  const Cafeprofile = ({cafe:{name,
+      address,
+      restrictions,
+      offers,
+      reviews,
+      rating,
+      features,
+      price,
+      image,
+      location: {
+          left,
+          top,
+    }}}) => {
 
-  const Cafeprofile = ({name, address, image}) => {
-    
     return (
       <ScrollView style= {styles.container}>
         <Header name={name} address={address} />
         <View style={styles.imageContainer}>
           <Image
             style={styles.stretch}
-            source={{uri:image}}
+            source={determineImage(image)}
           />
         </View>
         {/* <Tabs/> */}
@@ -81,7 +107,7 @@ headerTitleContainer: {
         <Schedule></Schedule>
         <Features></Features>
         <Menu></Menu>
-        <Reviews totalReviews={'4.0'}></Reviews>
+        <Reviews reviews={reviews}></Reviews>
       <View style={styles.buttonContainer}>
           <Button
             onPress={() => alert('Booked!')}

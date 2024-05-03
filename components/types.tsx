@@ -6,9 +6,9 @@ Think of interfaces as a blueprint for creating objects. */
 export interface IFilterConfig {
     restrictions: Restrictions[];
     features: Features[];
-    rating: Rating[];
+    rating: Rating;
     distances: Distance[];
-    prices: Price[];
+    price: Price;
 }
 
 //to-do: add all information that might be specified in the profile screen
@@ -36,7 +36,7 @@ export interface IOffer {
 }
 
 export interface IReview {
-    userId: number;
+    userName: string;
     comment: String;
     imageSrc: String;
 }
@@ -63,18 +63,16 @@ export enum Features {
 
 export enum Rating {
     worst = "0",
-    detestable = "1",
-    bad = "2",
-    neutral = "3",
-    good = "4",
-    best = "5",
+    bad = "1",
+    neutral = "2",
+    good = "3",
+    best = "4",
 }
 
 export enum Price {
     cheap = "cheap",
     medium = "medium",
     expensive = "expensive",
-    middle = "middle"
 }
 
 export enum Distance {
