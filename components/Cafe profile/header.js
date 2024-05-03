@@ -30,7 +30,9 @@ const styles = StyleSheet.create({
 const Header = ({name, address}) => {
     const [isActive, setIsActive] = useState(false);
     const toggleIcon = () => {
-        console.log('toggle');
+        if(!isActive){
+          alert('Added to Wishlist!')
+        }
         setIsActive(isActive => isActive = !isActive);
     }
     return(

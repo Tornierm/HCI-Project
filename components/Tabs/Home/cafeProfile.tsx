@@ -27,7 +27,7 @@ const CafeProfile: React.FC<Props> = ({ route, navigation }) => {
 
     return (
       <View style={styles.container}>
-        <Cafeprofile cafe={route.params.cafe}/>
+        <Cafeprofile cafe={route.params.cafe} goBack={() => navigation.goBack()}/>
       </View>
     );
   }
