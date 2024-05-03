@@ -6,8 +6,17 @@ import Friends from "./components/Tabs/Friends/friends"
 import Activity from "./components/Tabs/Activity/activity"
 import Profile from "./components/Tabs/Profile/profile"
 import { Icon } from '@rneui/base';
+import { IFilterConfig, Rating } from './components/types';
 
 const Tab = createBottomTabNavigator();
+
+const defaultFilter = {
+  restrictions: [],
+  features: [],
+  rating: Rating.worst,
+  distances: [],
+  prices: [],
+}
 
 export default function App() {
   return (
@@ -34,7 +43,12 @@ export default function App() {
           tabBarInactiveTintColor: '#7C7C7C',
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen 
+          name="Home"     
+          options={{ headerShown: false }}
+          component={Home} 
+          initialParams={{filterConfig: defaultFilter}}
+        />
         <Tab.Screen name="Activity" component={Activity} />
         <Tab.Screen name="Friends" component={Friends} />
         <Tab.Screen name="Profile" component={Profile} />

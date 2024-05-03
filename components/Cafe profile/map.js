@@ -39,8 +39,7 @@ const Map = () => {
             color="#333"
           />
         </View>
-        </View>
-
+    </View>
   )
 };
 
