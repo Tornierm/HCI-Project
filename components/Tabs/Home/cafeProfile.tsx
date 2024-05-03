@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { RootStackParamList } from './home';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Cafeprofile from '../../Cafe profile/cafeprofile';
+import React = require('react');
 
 const styles = StyleSheet.create({
     container: {
@@ -25,8 +27,7 @@ const CafeProfile: React.FC<Props> = ({ route, navigation }) => {
 
     return (
       <View style={styles.container}>
-        <Text>CafeProfil</Text>
-        <Text>{JSON.stringify(route.params.cafe)}</Text>
+        <Cafeprofile name={route.params.cafe.name} address={route.params.cafe.address} image={route.params.cafe.image}/>
       </View>
     );
   }

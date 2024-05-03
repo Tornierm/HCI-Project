@@ -14,12 +14,14 @@ export interface IFilterConfig {
 //to-do: add all information that might be specified in the profile screen
 export interface ICafe {
     name: String;
+    address: String;
     restrictions: Restrictions[];
     offers: IOffer[];
     reviews: IReview[];
-    rating: Rating[];
+    rating: Rating;
     features: Features[];
     price: Price;
+    image: string;
     location: {
         left: number,
         top: number,
@@ -55,7 +57,8 @@ export enum Restrictions {
 export enum Features {
     Laptop = "Laptop",
     Outlet = "Outlet",
-    Wifi = "Wifi"
+    Wifi = "Wifi",
+    Booth = "Booth"
 }
 
 export enum Rating {
@@ -70,7 +73,8 @@ export enum Rating {
 export enum Price {
     cheap = "cheap",
     medium = "medium",
-    expensive = "expensive"
+    expensive = "expensive",
+    middle = "middle"
 }
 
 export enum Distance {
