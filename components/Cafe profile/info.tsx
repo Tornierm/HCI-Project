@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
 
 interface IOwnProps{
     cafe: ICafe
+    createReview: () => void,
 }
 
 export default function Info(props: IOwnProps) {
@@ -63,6 +64,7 @@ export default function Info(props: IOwnProps) {
     <View style={styles.container}>
         <HeaderReviews
             rating={enumToNumber(props.cafe.rating)}
+            createReview={props.createReview}
         />
         <View
             style={styles.tagContainer}
@@ -105,17 +107,22 @@ export default function Info(props: IOwnProps) {
   )
 }
 
-const HeaderReviews = ({rating}) => {
+interface IHeaderProps{
+    rating: number,
+    createReview: () => void,
+}
+
+const HeaderReviews = (props: IHeaderProps) => {
     return(
         <View style={styles.headerContainer}>
             <AirbnbRating
                 size={20}
-                defaultRating={rating}
+                defaultRating={props.rating}
                 showRating={false}
             />
             <Button style={styles.btnRadius}
                 titleStyle={styles.btnText}
-                onPress={() => alert("Sorry! Page under construction...") }
+                onPress={props.createReview}
                 title="Leave a review!"
                 color="#000000"
                 type='outline'

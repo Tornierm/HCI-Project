@@ -49,6 +49,7 @@ export default function MilansReviews(props: IOwnProps) {
     <View>
       {props.reviews.map((review, i) => {
         return <UserReviews
+          key={i}
           review={review}
         >
         </UserReviews>

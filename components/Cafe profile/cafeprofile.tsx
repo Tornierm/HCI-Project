@@ -1,7 +1,7 @@
-import { StyleSheet,Text, View,Image, ScrollView} from 'react-native';
+import { StyleSheet,Text, View,Image, ScrollView, TextInput} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 import Map from './map';
 import Reviews from './reviews';
 import Header from './header';
@@ -11,7 +11,10 @@ import Menu from './menu';
 import MilansReviews from './milansReviews';
 
 import Info from './info';
-import { ICafe } from '../types';
+import { ICafe, IReview, Rating } from '../types';
+import { AirbnbRating, Input } from '@rneui/base';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../Tabs/Home/home';
 
 const images = {
   steven: require('../../assets/CafèProfileImages/Steven1.jpeg'),
@@ -65,12 +68,36 @@ const styles = StyleSheet.create({
     width: '100%', // Full width
     padding: 10, // Padding inside the button container
     //position:'absolute'
+    
+  },
+  overlayButtonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    width:'100%',
+    justifyContent:"space-between",
+    gap:12,
   },
   h1:{
     width: '100%',
     fontSize: 24,
     textAlign: "center",
     marginVertical: 24,
+  },
+  overlay:{
+    flex:1,
+    justifyContent:"center",
+    alignItems: "center",
+    ...StyleSheet.absoluteFillObject, // Takes the entire space of its container
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
+    padding: 32,
+  },
+  reviewContainer:{
+    width: "100%",
+    height: "100%",
+    display:"flex",
+    justifyContent: "space-between",
+    backgroundColor:"white",
+    padding: 16,
   }
 });
 
@@ -84,41 +111,113 @@ const determineImage = (image) => {
   }
 }
 
+
+
+
 interface IOwnProps{
-  cafe: ICafe
+  cafe: ICafe,
+  goBack: () => void,
+}
+
+const initialReview: IReview = {
+  userName: 'Loic',
+  rating: undefined,
+  comment: undefined,
+  imageSrc: undefined
 }
 
   const Cafeprofile = (props: IOwnProps) => {
+    const [showOverlay, setShowOverlay] = useState(false)
+    const [tmpReview, setTmpReview] = useState(initialReview)
+    const [reviews, setReviews] = useState(props.cafe.reviews)
+
+    const createReview = () => {
+      setShowOverlay(true)
+    }
+
+    const cancelReview = () => {
+      setShowOverlay(false)
+    }
+
+    const submitReview = () => {
+      console.log(tmpReview)
+      setReviews([...reviews, tmpReview])
+      setShowOverlay(false)
+    }
+
+    const updateTmpReview = (update: Partial<IReview>) => {
+      setTmpReview({ ...tmpReview, ...update });
+    }
+
+    function updateRating(value: number): void {
+      console.log(value)
+      console.log(getRatingByKey(value))
+      updateTmpReview({rating: Rating[getRatingByKey(value-1)]})    
+    }
+
+    function getRatingByKey(index: number): string | undefined {
+      // Convert the numeric index to a string to match the enum value
+      const value = String(index);
+      // Iterate over the enum to find the key that matches the value
+      for (const key in Rating) {
+          if (Rating[key as keyof typeof Rating] === value) {
+              return key;  // Return the matching enum key
+          }
+      }
+      return undefined;  // If no match is found, return undefined
+  }
 
     return (
-      <ScrollView style= {styles.container}>
-        <Header name={props.cafe.name} address={props.cafe.address} />
-        <View style={styles.imageContainer}>
-          <Image
-            source={determineImage(props.cafe.image)}
-            style={styles.stretch}
+      <View>
+        <ScrollView style= {styles.container}>
+          <Header name={props.cafe.name} address={props.cafe.address} />
+          <View style={styles.imageContainer}>
+            <Image
+              source={determineImage(props.cafe.image)}
+              style={styles.stretch}
+            />
+          </View>
+          <Text style={styles.h1}>Info</Text>
+          <Info createReview={createReview} cafe={props.cafe}/>
+          <Text style={styles.h1}>Reviews</Text>
+          <MilansReviews reviews={reviews}></MilansReviews>
+          {/* <Tabs/> */}
+          {/* <Reviews reviews={props.cafe.reviews}></Reviews> */}
+          <Text style={styles.h1}>Schedule</Text>
+          <Schedule></Schedule>
+          <Text style={styles.h1}>Directions</Text>
+          <Map/>
+          {/* <Features></Features>
+          <Menu></Menu> */}
+        <View style={styles.buttonContainer}>
+            <Button
+              onPress={() => alert('Booked!')}
+              title="Book Now"
+              color="#333"
+            />
+          </View>
+          
+        </ScrollView>
+      <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
+        <View style={styles.reviewContainer}>
+          <AirbnbRating
+              size={20}
+              defaultRating={0}
+              showRating={false}
+              onFinishRating={(value: number) => updateRating(value)}
           />
-        </View>
-        <Text style={styles.h1}>Info</Text>
-        <Info cafe={props.cafe}/>
-        <Text style={styles.h1}>Reviews</Text>
-        <MilansReviews reviews={props.cafe.reviews}></MilansReviews>
-        {/* <Tabs/> */}
-        {/* <Reviews reviews={props.cafe.reviews}></Reviews> */}
-        <Text style={styles.h1}>Schedule</Text>
-        <Schedule></Schedule>
-        <Text style={styles.h1}>Directions</Text>
-        <Map/>
-        {/* <Features></Features>
-        <Menu></Menu> */}
-      <View style={styles.buttonContainer}>
-          <Button
-            onPress={() => alert('Booked!')}
-            title="Book Now"
-            color="#333"
+          <Input 
+            placeholder='Comment...'
+            leftIcon={{ type: 'font-awesome', name: 'comment' }}
+            onChangeText={(value) => updateTmpReview({comment: value})}
           />
+          <View style={styles.overlayButtonContainer}>
+            <Button onPress={cancelReview}>Cancel</Button>
+            <Button onPress={submitReview}>Submit</Button>
+          </View>
         </View>
-      </ScrollView>
+      </View>
+    </View>
     );
   };
 
