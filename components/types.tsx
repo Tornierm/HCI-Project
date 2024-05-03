@@ -37,6 +37,7 @@ export interface IOffer {
 
 export interface IReview {
     userName: string;
+    rating: Rating;
     comment: String;
     imageSrc: String;
 }
