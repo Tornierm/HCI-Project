@@ -1,22 +1,17 @@
 import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { ICafe, IFilterConfig, Price } from '../../types';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from './home';
+import { ICafe, IFilterConfig } from '../../types';
 import { enumToNumber, openCafeProfile, priceIsSmaller } from './helpers';
 
 import { getCaffees } from '../../Api';
 
 import { StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native';
-import { Features, ICafe, Restrictions } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
-import { openCafeProfile } from './helpers';
-import CafeProfile from './cafeProfile';
 import { TouchableOpacity } from 'react-native';
 
 import React from 'react';
+import { useNavigationContainerRef } from '@react-navigation/native';
 
 
 const styles = StyleSheet.create({
@@ -70,7 +65,7 @@ const styles = StyleSheet.create({
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-    }
+    },
     popup: {
       flex: 1,
       justifyContent: 'center',
@@ -152,6 +147,8 @@ const styles = StyleSheet.create({
     const [filterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
     const [numGuests, setNumGuests] = useState(1);
 
+    const rootNavigation = useNavigationContainerRef();
+
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
       setShowOverlay(!showOverlay);
@@ -169,6 +166,8 @@ const styles = StyleSheet.create({
       navigation.navigate('CafeList', {cafes: cafes});
     }
 
+    
+
     function openFilters(): void {
       navigation.navigate('Filters', {filterConfig: filterConfig})
     }
@@ -182,6 +181,11 @@ const styles = StyleSheet.create({
       }
     };
     
+
+    function book(selectedCafe: ICafe): void {
+      throw new Error('Function not implemented.');
+      //we need to go to activities here
+    }
 
     return (
       <View style={styles.container}>
@@ -237,7 +241,10 @@ const styles = StyleSheet.create({
       
         <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent, display: showOverlay? "flex" : "none"}}>
         
-        <Text style={styles.titleText}>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
+        <Text 
+          style={styles.titleText}
+          onPress={() => openCafeProfile(selectedCafe, navigation)}
+        >{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
 
         <View style={styles.featureContainer}>
           <Text style={styles.featureHeaderText}>Features Available</Text>
@@ -262,7 +269,7 @@ const styles = StyleSheet.create({
           <Text style={styles.buttonText}>Close</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.blueButton} onPress={() => openCafeProfile(selectedCafe, navigation)}>
+        <TouchableOpacity style={styles.blueButton} onPress={() => book(selectedCafe)}>
           <Text style={styles.buttonText}>Book Now</Text>
         </TouchableOpacity>
         </View>
