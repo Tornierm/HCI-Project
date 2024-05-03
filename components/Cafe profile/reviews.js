@@ -80,7 +80,7 @@ const HeaderReviews = ({totalReviews}) => {
     return(
         <View style={styles.headerContainer}>
             <View style={styles.headerContainerReviews}>
-                {totalReviews}
+                <Text>{totalReviews}</Text>
                 <ReviewRate/>
             </View>
             <Button buttonStyle={styles.btnRadius}

@@ -1,4 +1,4 @@
-import { StyleSheet, View,Image} from 'react-native';
+import { StyleSheet, View,Image, ScrollView} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
 import React from 'react';
@@ -67,7 +67,7 @@ headerTitleContainer: {
   const Cafeprofile = ({name, address, image}) => {
     
     return (
-      <View style= {styles.container}>
+      <ScrollView style= {styles.container}>
         <Header name={name} address={address} />
         <View style={styles.imageContainer}>
           <Image
@@ -83,7 +83,7 @@ headerTitleContainer: {
             color="#333"
           />
         </View>
-      </View>
+      </ScrollView>
     );
   };
 
@@ -155,9 +155,9 @@ headerTitleContainer: {
     );
   }
 
-  const bookNow = () => {
+  /*const bookNow = () => {
     return <p>booked!</p>
-  }
+  }*/
 
   
   //const Tab = createMaterialTopTabNavigator();
