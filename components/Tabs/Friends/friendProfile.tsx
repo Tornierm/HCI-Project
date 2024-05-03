@@ -2,10 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FriendsParamList } from './friends';
-import { IUser } from '../../types';
+import { ICafe, IUser } from '../../types';
 import { useState } from 'react';
 import {Card} from 'react-native-paper';
 import {Icon, Button} from '@rneui/themed';
+import { openCafeProfile } from '../Home/helpers';
+import { getCaffees } from '../../Api';
 
 const styles = StyleSheet.create({
     container: {
@@ -59,9 +61,18 @@ const styles = StyleSheet.create({
   const Stack = createNativeStackNavigator();
 
   type Props = NativeStackScreenProps<FriendsParamList, "FriendProfile">
+
+  const getSukis = () => {
+    const cafes = getCaffees();
+    const sukisCafe = cafes.filter((cafe, i) => {
+      if(cafe.name == 'Sukis cafè')
+        return cafe;
+    });
+    return sukisCafe[0];
+  }
   
   export default function FriendProfile({ route, navigation }) {
-    const [friend, setFriend] = useState<IUser>(route.params.friend)
+    const [friend, setFriend] = useState<IUser>(route.params.friend);
     return (
         <ScrollView>
           <Text style={styles.centerText}>
@@ -79,7 +90,7 @@ const styles = StyleSheet.create({
             </View>
             <Card.Actions>
               <Button
-              onPress={() => alert('Booked!')}
+              onPress={() => openCafeProfile(getSukis(),navigation)}
               title="Visit"
               color="#333"
               >Visit</Button>
@@ -97,7 +108,7 @@ const styles = StyleSheet.create({
             </View>
             <Card.Actions>
               <Button
-              onPress={() => alert('Booked!')}
+              onPress={() => alert('Sorry! Page under construction...')}
               title="Visit"
               color="#333"
               >Visit</Button>
@@ -115,7 +126,7 @@ const styles = StyleSheet.create({
             </View>
             <Card.Actions>
               <Button
-              onPress={() => alert('Booked!')}
+              onPress={() => alert('Sorry! Page under construction...')}
               title="Visit"
               color="#333"
               >Visit</Button>
@@ -124,8 +135,6 @@ const styles = StyleSheet.create({
         </ScrollView>
     );
   }
-
-  
 
   const ReviewRate = () => {
     return(
