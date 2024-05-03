@@ -59,42 +59,12 @@ const styles = StyleSheet.create({
       setCafes(getCaffees())
     }, [route.params])
 
-   
-
     return (
       <Stack.Navigator>
           <Stack.Screen 
             name="Map" 
             component={Map} 
             initialParams={{filterConfig: filterConfig}}
-            // options={{
-            //   headerRight: () => (
-            //     <Button
-            //       onPress={() => navigation.navigate('Filters', {filterConfig: filterConfig})}
-            //       type="outline"  
-            //       radius={"md"}
-            //     >
-            //         Filter
-            //         <Icon 
-            //           name="filter-alt"
-            //           color="blue"
-            //         />
-            //     </Button>
-            //   ),
-            //   headerLeft: () => (
-            //     <Button
-            //       onPress={() => openList()}
-            //       type="outline"
-            //       radius={"md"}
-            //     >
-            //         Search
-            //         <Icon 
-            //           name="search"
-            //           color="blue"
-            //         />
-            //     </Button>
-            //   ),
-            // }}
           />
           <Stack.Screen 
             name="Filters"

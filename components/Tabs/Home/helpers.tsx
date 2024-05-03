@@ -7,6 +7,12 @@ export const openCafeProfile = (cafe: ICafe, navigation) => {
     )
   }
 
+  export const openActivities = (navigation) => {
+    navigation.navigate( 
+      "Activity"
+    )
+  }
+
 
   export function enumToNumber(rating: Rating): number {
     switch (rating) {
@@ -21,8 +27,8 @@ export const openCafeProfile = (cafe: ICafe, navigation) => {
         case Rating.best:
             return 5;
         default:
-            throw new Error(`Invalid Rating value: ${rating}`);
-    }
+          return 1;
+        }
 }
 
 export function priceIsSmaller(filterConfig: IFilterConfig, price: Price): boolean {

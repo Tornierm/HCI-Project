@@ -1,4 +1,4 @@
-import { StyleSheet, View,Image, ScrollView} from 'react-native';
+import { StyleSheet,Text, View,Image, ScrollView} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Icon } from '@rneui/themed';
 import React from 'react';
@@ -8,6 +8,10 @@ import Header from './header';
 import Features from './features';
 import Schedule from './schedule';
 import Menu from './menu';
+import MilansReviews from './milansReviews';
+
+import Info from './info';
+import { ICafe } from '../types';
 
 const images = {
   steven: require('../../assets/CafèProfileImages/Steven1.jpeg'),
@@ -17,13 +21,9 @@ const images = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: "flex",
     backgroundColor: '#fff',
-    width:"100%",
-
-    //justifyContent: 'space-between'
-    /*alignItems: 'center',
-    justifyContent: 'center',*/
+    width:'100%',
   },
   headerContainer: {
       flexDirection: 'row',   // Aligns children in a row
@@ -42,32 +42,36 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-},
-headerTitleContainer: {
-  flex: 'column'
-},
+  },
+  headerTitleContainer: {
+    flexDirection: 'column',
+  },
   iconButton: {
       padding: 10,
   }, 
   imageContainer: {
-    width: '100%', // The container takes the full width of the screen
-    height: 200,
-    paddingHorizontal: 10, // Apply horizontal padding to create margins on both sides
-    paddingTop: 10, // Top padding for margin from elements above, if necessary
-    borderRadius: 10, // Apply border radius to the container
-    overflow: 'hidden', // Ensures the contents do not bleed outside the border radius
+    width: '100%',       // Full width of the screen
+    height: 250,         // Fixed height
+    padding: 8,
+    overflow: 'hidden',  // Hide overflow
   },
   stretch: {
-    width: '100%', // Fill the adjusted width considering paddingHorizontal
-    height: 250, // Fixed height, adjust as necessary
-    resizeMode: 'cover', // Cover to ensure the aspect ratio is maintained
-    borderRadius: 10,
+    width: '100%',       // Full width of the container
+    height: '100%',      // Full height of the container
+    resizeMode: 'cover', // Cover to maintain aspect ratio
+    borderRadius: 10,    // Rounded corners
   },
   buttonContainer: {
     width: '100%', // Full width
     padding: 10, // Padding inside the button container
     //position:'absolute'
   },
+  h1:{
+    width: '100%',
+    fontSize: 24,
+    textAlign: "center",
+    marginVertical: 24,
+  }
 });
 
 const determineImage = (image) => {
@@ -79,35 +83,34 @@ const determineImage = (image) => {
     return images.other
   }
 }
-  const Cafeprofile = ({cafe:{name,
-      address,
-      restrictions,
-      offers,
-      reviews,
-      rating,
-      features,
-      price,
-      image,
-      location: {
-          left,
-          top,
-    }}}) => {
+
+interface IOwnProps{
+  cafe: ICafe
+}
+
+  const Cafeprofile = (props: IOwnProps) => {
 
     return (
       <ScrollView style= {styles.container}>
-        <Header name={name} address={address} />
+        <Header name={props.cafe.name} address={props.cafe.address} />
         <View style={styles.imageContainer}>
           <Image
+            source={determineImage(props.cafe.image)}
             style={styles.stretch}
-            source={determineImage(image)}
           />
         </View>
+        <Text style={styles.h1}>Info</Text>
+        <Info cafe={props.cafe}/>
+        <Text style={styles.h1}>Reviews</Text>
+        <MilansReviews reviews={props.cafe.reviews}></MilansReviews>
         {/* <Tabs/> */}
-        <Map/>
+        {/* <Reviews reviews={props.cafe.reviews}></Reviews> */}
+        <Text style={styles.h1}>Schedule</Text>
         <Schedule></Schedule>
-        <Features></Features>
-        <Menu></Menu>
-        <Reviews reviews={reviews}></Reviews>
+        <Text style={styles.h1}>Directions</Text>
+        <Map/>
+        {/* <Features></Features>
+        <Menu></Menu> */}
       <View style={styles.buttonContainer}>
           <Button
             onPress={() => alert('Booked!')}
@@ -142,50 +145,50 @@ const determineImage = (image) => {
     )
   }*/
 
-  const Tabs = () => {
-    const Tab = createMaterialTopTabNavigator();
-    return(
-        <Tab.Navigator
-        initialRouteName="Map"
-        screenOptions={{
-          tabBarActiveTintColor: '#000000',
-          tabBarLabelStyle: { fontSize: 12 },
-          tabBarStyle: { backgroundColor: 'white' },
-          tabBarIndicatorStyle: { backgroundColor: 'black' },
-        }}>
-        <Tab.Screen name="Map" component={Map} 
-        options={{
-          tabBarIcon: ({ color, size }) => (
-          <Icon name="location-pin" color={color} size={size} />
-          )
-        }}/>
-        <Tab.Screen name="Schedule" component={Schedule} 
-        options={{
-          tabBarIcon: ({ color, size }) => (
-          <Icon name="schedule" color={color} size={size} />
-          )
-        }}/>
-        <Tab.Screen name="Features" component={Features} 
-        options={{
-          tabBarIcon: ({ color, size }) => (
-          <Icon name="settings" color={color} size={size} />
-          )
-        }}/>
-        <Tab.Screen name="Menu" component={Menu} 
-        options={{
-          tabBarIcon: ({ color, size }) => (
-          <Icon name="fastfood" color={color} size={size} />
-          )
-        }}/>
-        <Tab.Screen name="Reviews" component={Reviews} initialParams={{ totalReviews: '4.0' }}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-          <Icon name="star" color={color} size={size} />
-          )
-        }}/>
-      </Tab.Navigator>
-    );
-  }
+  // const Tabs = () => {
+  //   const Tab = createMaterialTopTabNavigator();
+  //   return(
+  //       <Tab.Navigator
+  //       initialRouteName="Map"
+  //       screenOptions={{
+  //         tabBarActiveTintColor: '#000000',
+  //         tabBarLabelStyle: { fontSize: 12 },
+  //         tabBarStyle: { backgroundColor: 'white' },
+  //         tabBarIndicatorStyle: { backgroundColor: 'black' },
+  //       }}>
+  //       <Tab.Screen name="Map" component={Map} 
+  //       options={{
+  //         tabBarIcon: ({ color, size }) => (
+  //         <Icon name="location-pin" color={color} size={size} />
+  //         )
+  //       }}/>
+  //       <Tab.Screen name="Schedule" component={Schedule} 
+  //       options={{
+  //         tabBarIcon: ({ color, size }) => (
+  //         <Icon name="schedule" color={color} size={size} />
+  //         )
+  //       }}/>
+  //       <Tab.Screen name="Features" component={Features} 
+  //       options={{
+  //         tabBarIcon: ({ color, size }) => (
+  //         <Icon name="settings" color={color} size={size} />
+  //         )
+  //       }}/>
+  //       <Tab.Screen name="Menu" component={Menu} 
+  //       options={{
+  //         tabBarIcon: ({ color, size }) => (
+  //         <Icon name="fastfood" color={color} size={size} />
+  //         )
+  //       }}/>
+  //       <Tab.Screen name="Reviews" component={Reviews} initialParams={{ totalReviews: '4.0' }}
+  //       options={{
+  //         tabBarIcon: ({ color, size }) => (
+  //         <Icon name="star" color={color} size={size} />
+  //         )
+  //       }}/>
+  //     </Tab.Navigator>
+  //   );
+  // }
 
   const bookNow = () => {
     return <p>booked!</p>

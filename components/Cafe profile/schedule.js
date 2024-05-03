@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   headerContainer: {
       flexDirection: 'row',   // Aligns children in a row
       alignItems: 'center',   // Centers children vertically in the container
-      justifyContent: 'space-between', // Distributes children evenly with space between them
       //padding: 10,            // Adds some padding around the container
       backgroundColor: '#fff', // Sets a background color
       height: 20, 
@@ -34,16 +33,23 @@ const styles = StyleSheet.create({
     width: '100%',
     marginVertical: 10
   },
+  scheduleContainer: {
+    backgroundColor:'#fff',
+    padding: 12,
+  },
+  weekDayText:{
+    width: "33%",
+  }
 });
 
 
 const Schedule = () => {
     return(
-        <View style={{backgroundColor:'#fff'}} > 
+        <View style={styles.scheduleContainer} > 
             <View style={styles.headerContainer}>
-                <Text style={styles.centerText}>Day</Text>
-                <Text style={styles.centerText}>Hours</Text>
-                <Text style={styles.centerText}>Affluence</Text>
+                <Text style={styles.weekDayText}>Day</Text>
+                <Text style={styles.weekDayText}>Hours</Text>
+                <Text style={styles.weekDayText}>Affluence</Text>
             </View>
             <View style={styles.horizontalLine}/>
             <WeekDay day='Monday' hours='9.00 - 20.00' affluence='Not crowded'/>
@@ -65,9 +71,9 @@ const Schedule = () => {
 const WeekDay = ({day,hours, affluence}) => {
     return(
     <View style={styles.headerContainer}>
-        <Text>{day}</Text>
-        <Text>{hours}</Text>
-        <Text>{affluence}</Text>
+        <Text style={styles.weekDayText}>{day}</Text>
+        <Text style={styles.weekDayText}>{hours}</Text>
+        <Text style={styles.weekDayText}>{affluence}</Text>
     </View>
     )
 }
