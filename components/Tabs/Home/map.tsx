@@ -7,6 +7,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
 import { openCafeProfile } from './helpers';
 import CafeProfile from './cafeProfile';
+import { TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
     },
      modalContent: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -63,15 +64,59 @@ const styles = StyleSheet.create({
       height: '40%',
       shadowOpacity: 0.25,
     },
-    text:{
+    titleText: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: 'white',
+      marginBottom: 20, 
+    },
+    buttonText: {
+      color: 'white',
       fontWeight: 'bold',
     },
     buttons:{
-      alignItems: 'stretch',
       justifyContent: 'space-between',
-      display: 'flex',
       flexDirection: 'row',
-    }
+      marginTop:10,
+    },
+    blueButton: {
+      backgroundColor: '#3895d3',
+      fontWeight: 'bold',
+      marginLeft: 40,
+      padding:10,
+      borderRadius: 5,
+    },
+    grayButton: {
+      backgroundColor: 'gray',
+      fontWeight: 'bold',
+      marginRight: 5,
+      padding:10,
+      borderRadius: 5,
+    },
+    featureContainer: {
+      marginBottom: 10,
+    },
+    featureHeaderText: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      color: 'white',
+    },
+    featureChips: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
+    featureChip: {
+      backgroundColor: 'lightgray',
+      borderRadius: 20,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      marginRight: 10,
+      marginBottom: 10,
+    },
+    featureChipText: {
+      fontSize: 14,
+    },
   });
 
   type Props = NativeStackScreenProps<RootStackParamList, "Map">
@@ -120,61 +165,37 @@ const styles = StyleSheet.create({
             </View>
           </View>
         </ScrollView>
-
-        {/* <Modal 
-        animationType="slide"
-        transparent={true}
-        >
-            
-          {/* {selectedCafe && (
-            <>
-            <View style={{...styles.popup}}>
-            <View style={styles.modalContent}> 
-        
-              <Button
-                onPress={() => openCafeProfile(selectedCafe, navigation)}
-              >open profile</Button>
-              <Button
-                onPress={() => closeModal()}
-             >close</Button>
-              <Text>{selectedCafe.name}</Text>
-              <Text>Number of Guests: 1</Text>
-              <Text>Date: Today</Text>
-              <Button
-                onPress={() => openCafeProfile(selectedCafe, navigation)}
-              >open profile</Button>
-              <Button
-                onPress={() => onIconPress(null)}
-             >close</Button>
-            </>
-          )} */}
-        {/* </View>
-        </View> */}
-        {/* </View> */}
-      {/* </Modal> */}
       
         <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent, display: showOverlay? "flex" : "none"}}>
         
-       
+        <Text style={styles.titleText}>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
 
-        <Text>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
-        <Text> Features: {Features.Laptop}</Text>
-       
+        <View style={styles.featureContainer}>
+          <Text style={styles.featureHeaderText}>Features Available</Text>
+          <View style={styles.featureChips}>
+            {selectedCafe && selectedCafe.features.map((feature, index) => (
+              <View key={index} style={styles.featureChip}>
+                <Text style={styles.featureChipText}>{feature}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
 
-        <View style={{...styles.buttons}}>
+        {/* <View style={{...styles.buttons}}>
 
           <Button onPress={decrementGuests}>-</Button>
           <Text>Number of Guests {numGuests}</Text>
           <Button onPress={incrementGuests}>+</Button>
-        </View>
+        </View> */}
 
         <View style={{...styles.buttons}}>
-          <Button
-            onPress={() => openCafeProfile(selectedCafe, navigation)}
-          >Go to Cafe</Button>
-          <Button
-              onPress={() => onIconPress(null)}
-            >Close</Button>
+        <TouchableOpacity style={styles.grayButton} onPress={() => onIconPress(null)}>
+          <Text style={styles.buttonText}>Close</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.blueButton} onPress={() => openCafeProfile(selectedCafe, navigation)}>
+          <Text style={styles.buttonText}>Book Now</Text>
+        </TouchableOpacity>
         </View>
 
             </View>
