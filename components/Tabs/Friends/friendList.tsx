@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
             onChangeText={updateSearch}
             value={search}
             platform='ios'
+            searchIcon={<Icon name='search'/>}
           />
               {friends.map((friend, i) => {
                 return <ListItem

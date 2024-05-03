@@ -1,14 +1,13 @@
 import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { ICafe, IFilterConfig } from '../../types';
+import { ICafe, IFilterConfig, Price } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
-import { openCafeProfile } from './helpers';
-import { BottomTabBarHeightCallbackContext } from '@react-navigation/bottom-tabs';
-import { flattenDiagnosticMessageText, isWhiteSpaceLike } from 'typescript';
-import React = require('react');
+import { enumToNumber, openCafeProfile, priceIsSmaller } from './helpers';
+
 import { getCaffees } from '../../Api';
+import React from 'react';
 
 const styles = StyleSheet.create({
     container: {
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
       zIndex: 2,
     },
     icon: {
-      position: 'relative',
+      position: 'absolute',
     },
     overlay:{
       flex:1,
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
 
     useEffect(() => {
       setTmpFilterConfig(route.params.filterConfig)
-      const tmpCafes = applyFilter(cafes, route.params.filterConfig)
+      const tmpCafes = applyFilter(getCaffees(), route.params.filterConfig)
       setCafes(tmpCafes)
       console.log(route.params.filterConfig)
       console.log(tmpCafes.length)
@@ -161,15 +160,31 @@ const styles = StyleSheet.create({
 function applyFilter(cafes: ICafe[], filterConfig: IFilterConfig) {
   let tmp = cafes;
 
-  tmp.filter((cafe) => {
-    return filterConfig.rating <= cafe.rating
+  tmp = tmp.filter((cafe) => {
+    return enumToNumber(filterConfig.rating) <= enumToNumber(cafe.rating)
   })
 
-  tmp.filter((cafe) => {
-    filterConfig.features.map((feature) => {
-      cafe.features.includes(feature)
-    }) 
+  tmp = tmp.filter((cafe) => {
+    let returnVal = true;
+      filterConfig.features.map((feature) => {
+        if (!cafe.features.includes(feature)){
+          returnVal = false;
+        } 
+      }) 
+    return returnVal;
   })
-
+  tmp = tmp.filter((cafe) => {
+    let returnVal = true;
+      filterConfig.restrictions.map((restriction) => {
+        if (!cafe.restrictions.includes(restriction)){
+          returnVal = false;
+        } 
+      }) 
+    return returnVal;
+  })
+  tmp = tmp.filter((cafe) => {
+    return priceIsSmaller(filterConfig, cafe.price)
+  })
+  console.log(tmp.length)
   return tmp;
 }

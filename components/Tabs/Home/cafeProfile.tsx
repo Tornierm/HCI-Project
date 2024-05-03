@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { RootStackParamList } from './home';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Cafeprofile from '../../Cafe profile/cafeprofile';
-import React = require('react');
+import React from 'react';
 
 const styles = StyleSheet.create({
     container: {

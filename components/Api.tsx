@@ -25,7 +25,7 @@ const CoffeeShops: ICafe[] = [
             Features.Laptop,
         ],
         location: {
-            left: 100,
+            left: 200,
             top: 200,
         },
         rating: Rating.worst,
@@ -60,8 +60,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Laptop,
             ],
             location: {
-                left: 100,
-                top: 400,
+                left: 200,
+                top: 800,
             },
             rating: Rating.worst,
             price: Price.cheap,
@@ -92,8 +92,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: 100,
-                top: 500,
+                left: 800,
+                top: 200,
             },
             rating: Rating.good,
             image: '../assets/CafèProfileImages/Steven1.jpeg',
@@ -124,8 +124,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: -50,
-                top: 600,
+                left: 800,
+                top: 800,
             },
             rating: Rating.best,
             price: Price.cheap,
@@ -156,8 +156,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Laptop
             ],
             location: {
-                left: 100,
-                top: 500,
+                left: 600,
+                top: 400,
             },
             rating: Rating.neutral,
             price: Price.cheap,
@@ -188,8 +188,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: 0,
-                top: 150,
+                left: 600,
+                top: 700,
             },
             rating: Rating.good,
             image: '../assets/CafèProfileImages/Steven4.jpg',
@@ -220,8 +220,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Laptop
             ],
             location: {
-                left: 50,
-                top: 250,
+                left: 500,
+                top: 500,
             },
             rating: Rating.best,
             price: Price.expensive,
@@ -252,11 +252,11 @@ const CoffeeShops: ICafe[] = [
                 Features.Booth
             ],
             location: {
-                left: -100,
-                top: 500,
+                left: 200,
+                top: 540,
             },
             rating: Rating.neutral,
-            price: Price.middle,
+            price: Price.medium,
             image: '../assets/CafèProfileImages/Steven2.jpeg'
         },
         {
@@ -285,8 +285,8 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: -200,
-                top: 300,
+                left: 500,
+                top: 200,
             },
             rating: Rating.best,
 
@@ -317,7 +317,7 @@ const CoffeeShops: ICafe[] = [
                 Features.Outlet
             ],
             location: {
-                left: -300,
+                left: 300,
                 top: 800,
             },
             rating: Rating.good,
