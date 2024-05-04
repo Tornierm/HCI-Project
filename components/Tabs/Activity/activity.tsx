@@ -5,20 +5,7 @@ import { StyleSheet, View, Text, Image} from 'react-native';
 
 
 const styles = StyleSheet.create({
-    container1: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    tinyLogo: {
-      width: 50,
-      height: 50,
-    },
-    logo: {
-      width: 66,
-      height: 58,
-    },
+    
     container: {
       flex: 1,
       // justifyContent: 'center',
