@@ -9,6 +9,8 @@ import { RootStackParamList } from './home';
 import { openCafeProfile, openActivity } from './helpers';
 import CafeProfile from './cafeProfile';
 import { TouchableOpacity } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 import React from 'react';
 
@@ -19,6 +21,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+      
     },
     mapContainer: {
       flex: 1, 
@@ -62,17 +65,18 @@ const styles = StyleSheet.create({
     },
      modalContent: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      padding: 80,
-      marginLeft: 40,
-      marginTop: 140,
+      padding: 20, // Adjust as needed
       borderRadius: 4,
-      width: '80%',
+      maxWidth: '90%', // Limit the maximum width to 90% of the screen width
+      maxHeight: '90%', // Limit the maximum height to 90% of the screen height
       alignItems: 'center',
-      height: '40%',
-      shadowOpacity: 0.25,
+      justifyContent: 'center',
+      marginTop: 50,
+      marginLeft: 50,
+      
     },
     titleText: {
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: 'bold',
       color: 'white',
       marginBottom: 20, 
@@ -80,31 +84,41 @@ const styles = StyleSheet.create({
     buttonText: {
       color: 'white',
       fontWeight: 'bold',
+      marginTop: 10,
     },
     buttons:{
       justifyContent: 'space-between',
       flexDirection: 'row',
-      marginTop:10,
+      marginTop:15,
+      
     },
     blueButton: {
       backgroundColor: '#3895d3',
       fontWeight: 'bold',
-      marginLeft: 40,
-      padding:10,
+      marginLeft: 50,
+      padding:5,
       borderRadius: 5,
+      textAlign: 'center', 
     },
     grayButton: {
       backgroundColor: 'gray',
       fontWeight: 'bold',
       marginRight: 5,
-      padding:10,
+      padding:5,
       borderRadius: 5,
+      textAlign: 'center', 
     },
     featureContainer: {
       marginBottom: 10,
     },
     featureHeaderText: {
       fontSize: 15,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      color: 'white',
+    },
+    dateHeaderText: {
+      fontSize: 17,
       fontWeight: 'bold',
       marginBottom: 10,
       color: 'white',
@@ -124,6 +138,9 @@ const styles = StyleSheet.create({
     featureChipText: {
       fontSize: 14,
     },
+    offerChipText: {
+      fontSize: 8,
+    },
   });
 
   type Props = NativeStackScreenProps<RootStackParamList, "Map">
@@ -133,11 +150,22 @@ const styles = StyleSheet.create({
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
     // const [numGuests, setNumGuests] = useState(1);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
       setShowOverlay(!showOverlay);
     }
+
+    const handleDateChange = (event, newDate) => {
+      if (newDate !== undefined) {
+        setSelectedDate(newDate);
+      }
+    };
+  
+    
 
     // const incrementGuests = () => {
     //   setNumGuests(numGuests + 1);
@@ -172,10 +200,19 @@ const styles = StyleSheet.create({
           </View>
         </ScrollView>
       
-        <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent, display: showOverlay? "flex" : "none"}}>
-        
+      
+        <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent,display: showOverlay? "flex" : "none"}}>
+        {/* Cafe Name */}
         <Text style={styles.titleText}>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
-
+        {/* Include the Offer */}
+        <View style={styles.featureChips}>
+          {selectedCafe && selectedCafe.offers.map((offer, index) => (
+            <View key={index} style={styles.featureChip}>
+              <Text style={styles.offerChipText}>{offer.description}</Text>
+            </View>
+          ))}
+        </View>
+         {/* Include the Features */}
         <View style={styles.featureContainer}>
           <Text style={styles.featureHeaderText}>Features Available</Text>
           <View style={styles.featureChips}>
@@ -187,6 +224,21 @@ const styles = StyleSheet.create({
           </View>
         </View>
 
+        {/* Include the Date Picker :) */}
+        <Text style={styles.dateHeaderText}>Select date</Text>
+        <DateTimePicker 
+          value={selectedDate}
+          mode="datetime"
+          is24Hour={true} 
+          display="default" 
+          onChange={handleDateChange}
+          style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
+          // themeVariant="light"
+          {...(DateTimePicker as any)}
+        />
+      
+        
+        <Text style={styles.buttonText}>Guests: 2</Text>
 
         {/* <View style={{...styles.buttons}}>
 
@@ -207,6 +259,8 @@ const styles = StyleSheet.create({
 
             </View>
       </View>
+     
+
     );
   }
 
