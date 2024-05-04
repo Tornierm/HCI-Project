@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
             <Text>Time: 12-14 hrs</Text>
           </View>
           <View style={styles.chip}>
-            <Text>Guests: 1</Text>
+            <Text>Guests: 2</Text>
           </View>
           <View style={styles.chip}>
             <Text>Calle de Berenguela, 19</Text>
