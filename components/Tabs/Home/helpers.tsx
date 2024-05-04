@@ -5,4 +5,11 @@ export const openCafeProfile = (cafe: ICafe, navigation) => {
       "CafeProfile",
       { cafe: cafe }
     )
-  }
+}
+
+
+export const openActivity = (navigation) => {
+    navigation.navigate( 
+      "Activity",
+    )
+}

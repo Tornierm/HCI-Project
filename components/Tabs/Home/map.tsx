@@ -6,7 +6,7 @@ import { getCaffees } from '../../Api';
 import { Features, ICafe, Restrictions } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
-import { openCafeProfile } from './helpers';
+import { openCafeProfile, openActivity } from './helpers';
 import CafeProfile from './cafeProfile';
 import { TouchableOpacity } from 'react-native';
 
@@ -132,22 +132,22 @@ const styles = StyleSheet.create({
     const [cafes, setCafes] = useState<ICafe[]>(route.params.cafes)
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
-    const [numGuests, setNumGuests] = useState(1);
+    // const [numGuests, setNumGuests] = useState(1);
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
       setShowOverlay(!showOverlay);
     }
 
-    const incrementGuests = () => {
-      setNumGuests(numGuests + 1);
-    };
+    // const incrementGuests = () => {
+    //   setNumGuests(numGuests + 1);
+    // };
 
-    const decrementGuests = () => {
-      if (numGuests > 1) {
-        setNumGuests(numGuests - 1);
-      }
-    };
+    // const decrementGuests = () => {
+    //   if (numGuests > 1) {
+    //     setNumGuests(numGuests - 1);
+    //   }
+    // };
     
 
     return (
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
           </View>
         </View>
 
+
         {/* <View style={{...styles.buttons}}>
 
           <Button onPress={decrementGuests}>-</Button>
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
           <Text style={styles.buttonText}>Close</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.blueButton} onPress={() => openCafeProfile(selectedCafe, navigation)}>
+        <TouchableOpacity style={styles.blueButton} onPress={() => openActivity(navigation)}>
           <Text style={styles.buttonText}>Book Now</Text>
         </TouchableOpacity>
         </View>
