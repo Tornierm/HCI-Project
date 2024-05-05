@@ -5,9 +5,10 @@ import { FriendsParamList } from './friends';
 import { ICafe, IUser } from '../../types';
 import { useState } from 'react';
 import {Card} from 'react-native-paper';
-import {Icon, Button} from '@rneui/themed';
+import {Icon, Button, Chip} from '@rneui/themed';
 import { openCafeProfile } from '../Home/helpers';
 import { getCaffees } from '../../Api';
+import { color } from '@rneui/base';
 
 const styles = StyleSheet.create({
     container: {
@@ -55,7 +56,16 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
       margin:10,
-    }
+    },
+    chipContainer: {
+      flexDirection: 'row',   // Aligns children in a row
+      justifyContent: 'space-between', // Distributes children evenly with space between them
+      //padding: 10,            // Adds some padding around the container
+      backgroundColor: '#fff', // Sets a background color
+      height: 60, 
+      marginRight: 5,  
+      alignItems: 'center',          // Sets a fixed height for the header
+    },
   });
 
   const Stack = createNativeStackNavigator();
@@ -81,7 +91,13 @@ const styles = StyleSheet.create({
           <Card style={styles.cardContainer}>
             <Card.Cover source={{ uri: '../../../assets/CafèProfileImages/Steven1.jpeg' }} />
             <Card.Content>
-              <Text  style={styles.centerText}>Sukis Cafè</Text>
+              <View style={styles.chipContainer}>
+                <Text  style={styles.centerText}>Sukis Cafè</Text>
+                <Chip
+                title="Halal"
+                type="outline"
+                />
+              </View>
               <Text>I love Sukis Cafe. They have the best halal food in town.</Text>
             </Card.Content>
             <View style={styles.headerContainerReviews}>
@@ -99,7 +115,13 @@ const styles = StyleSheet.create({
           <Card style={styles.cardContainer}>
             <Card.Cover source={{ uri: '../../../assets/CafèProfileImages/Steven2.jpeg' }} />
             <Card.Content>
-              <Text  style={styles.centerText}>Stevens Cafè</Text>
+              <View style={styles.chipContainer}>
+                <Text  style={styles.centerText}>Stevens Cafè</Text>
+                <Chip
+                title="Vegan"
+                type="outline"
+                />
+              </View>
               <Text>I love Stevens Cafe. They have the best waitresses in town.</Text>
             </Card.Content>
             <View style={styles.headerContainerReviews}>
@@ -117,7 +139,13 @@ const styles = StyleSheet.create({
           <Card style={styles.cardContainer}>
             <Card.Cover source={{ uri: '../../../assets/CafèProfileImages/Steven3.jpg' }} />
             <Card.Content>
-              <Text  style={styles.centerText}>Federal Cafè</Text>
+              <View style={styles.chipContainer}>
+                <Text  style={styles.centerText}>Federal Cafè</Text>
+                <Chip
+                title="Vegetarian"
+                type="outline"
+                />
+              </View>
               <Text>Perfect to work with friends.</Text>
             </Card.Content>
             <View style={styles.headerContainerReviews}>
