@@ -168,7 +168,7 @@ const initialReview: IReview = {
   }
 
     return (
-      <View>
+      <ScrollView>
         <ScrollView style= {styles.container}>
           <Header name={props.cafe.name} address={props.cafe.address} />
           <View style={styles.imageContainer}>
@@ -217,7 +217,7 @@ const initialReview: IReview = {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
     );
   };
 
