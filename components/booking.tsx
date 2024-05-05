@@ -6,11 +6,13 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { ICafe, IReview, Rating } from './types';
 import { AirbnbRating, Input } from '@rneui/base';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from './Tabs/Home/home';
 
 const images = {
-  steven: require('../../assets/CafèProfileImages/Steven1.jpeg'),
-  souki: require('../../assets/CafèProfileImages/Steven2.jpeg'),
-  other: require('../../assets/CafèProfileImages/Steven3.jpg'),
+  steven: require('../assets/CafèProfileImages/Steven1.jpeg'),
+  souki: require('../assets/CafèProfileImages/Steven2.jpeg'),
+  other: require('../assets/CafèProfileImages/Steven3.jpg'),
 };
 
 const styles = StyleSheet.create({
@@ -126,10 +128,10 @@ const initialReview: IReview = {
   imageSrc: undefined
 }
 
-  const Cafeprofile = (props: IOwnProps) => {
-    const [showOverlay, setShowOverlay] = useState(false)
+type Props = NativeStackScreenProps<RootStackParamList, "Booking">
+
+  const Booking: React.FC<Props>  = ({route, navigation}) => {
     const [tmpReview, setTmpReview] = useState(initialReview)
-    const [reviews, setReviews] = useState(props.cafe.reviews)
 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
@@ -154,19 +156,6 @@ const initialReview: IReview = {
   const decrementPeople = () => {
     if (numberOfPeople > 1) setNumberOfPeople(numberOfPeople - 1);
   };
-    const createReview = () => {
-      setShowOverlay(true)
-    }
-
-    const cancelReview = () => {
-      setShowOverlay(false)
-    }
-
-    const submitReview = () => {
-      console.log(tmpReview)
-      setReviews([...reviews, tmpReview])
-      setShowOverlay(false)
-    }
 
     const updateTmpReview = (update: Partial<IReview>) => {
       setTmpReview({ ...tmpReview, ...update });
@@ -192,18 +181,19 @@ const initialReview: IReview = {
   }
 
     return (
-      <View>
         <ScrollView style= {styles.container}>
-          <Header name={props.cafe.name} address={props.cafe.address} />
+          <Header name={route.params.cafe.name} address={route.params.cafe.address} />
           <View style={styles.imageContainer}>
             <Image
-              source={determineImage(props.cafe.image)}
+              source={determineImage(route.params.cafe.image)}
               style={styles.stretch}
             />
           </View>
           <Text style={styles.h1}>Book a table</Text>
           <View style={styles.pickerContainer}>
-        <Button onPress={() => showMode('date')} title="Show date picker" />
+          <Text style={styles.h2}>Date</Text>
+          <Text>{date.toString()}</Text>
+        <Button onPress={() => showMode('date')} title="Select a day" />
         {show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -216,19 +206,15 @@ const initialReview: IReview = {
         )}
       </View>
       <View style={styles.pickerContainer}>
-        <Button onPress={() => showMode('time')} title="Show time picker" />
+          <Text style={styles.h2}>Hour</Text>
+          
+        <Button onPress={() => showMode('time')} title="Select an hour" />
       </View>
       <View style={styles.pickerContainer}>
         <Text>Number of People: {numberOfPeople}</Text>
         <Button onPress={decrementPeople} title="-" />
         <Button onPress={incrementPeople} title="+" />
       </View>
-          <Text style={styles.h2}>Date</Text>
-
-          <Text style={styles.h2}>Hour</Text>
-
-          <Text style={styles.h2}>Number of people</Text>
-
         <View style={styles.buttonContainer}>
             <Button
               onPress={() => alert('Booked!')}
@@ -238,26 +224,6 @@ const initialReview: IReview = {
           </View>
           
         </ScrollView>
-      <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
-        <View style={styles.reviewContainer}>
-          <AirbnbRating
-              size={20}
-              defaultRating={0}
-              showRating={false}
-              onFinishRating={(value: number) => updateRating(value)}
-          />
-          <Input 
-            placeholder='Comment...'
-            leftIcon={{ type: 'font-awesome', name: 'comment' }}
-            onChangeText={(value) => updateTmpReview({comment: value})}
-          />
-          <View style={styles.overlayButtonContainer}>
-            <Button onPress={cancelReview}>Cancel</Button>
-            <Button onPress={submitReview}>Submit</Button>
-          </View>
-        </View>
-      </View>
-    </View>
     );
   };
 
@@ -266,6 +232,6 @@ const initialReview: IReview = {
   }
 
 
-  export default Cafeprofile;
+  export default Booking;
 
   

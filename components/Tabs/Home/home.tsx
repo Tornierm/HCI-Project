@@ -3,6 +3,7 @@ import Map from "./map"
 import Filters from "./filters"
 import CafeList from "./list"
 import cafeProfile from "./cafeProfile"
+import Booking from '../../booking';
 
 import React from 'react';
 import { useEffect, useState } from 'react';
@@ -45,6 +46,9 @@ const styles = StyleSheet.create({
     CafeProfile: {
       cafe: ICafe;
     };
+    Booking: {
+      cafe: ICafe;
+    };
   };
 
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -78,6 +82,10 @@ const styles = StyleSheet.create({
             name="CafeList" 
             component={CafeList} 
           />
+          <Stack.Screen 
+            name="Booking"
+            component={Booking} 
+           />
         </Stack.Navigator>
     );
   }
