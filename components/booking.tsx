@@ -1,21 +1,11 @@
-import { StyleSheet,Text, View,Image, ScrollView, TextInput} from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Button, Icon } from '@rneui/themed';
+import { StyleSheet,Text, View,Image, ScrollView, Platform} from 'react-native';
+import { Button } from '@rneui/themed';
 import React, { useState } from 'react';
-import Map from './map';
-import Reviews from './reviews';
-import Header from './header';
-import Features from './features';
-import Schedule from './schedule';
-import Menu from './menu';
-import MilansReviews from './milansReviews';
-import { openBooking } from '../Tabs/Home/helpers';
+import Header from './Cafe profile/header';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-import Info from './info';
-import { ICafe, IReview, Rating } from '../types';
+import { ICafe, IReview, Rating } from './types';
 import { AirbnbRating, Input } from '@rneui/base';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../Tabs/Home/home';
 
 const images = {
   steven: require('../../assets/CafèProfileImages/Steven1.jpeg'),
@@ -99,6 +89,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor:"white",
     padding: 16,
+  },
+  h2:{
+    width: '100%',
+    fontSize: 20,
+    textAlign: "center",
+    marginVertical: 24,
+  },
+  pickerContainer: {
+    margin: 20,
   }
 });
 
@@ -132,6 +131,29 @@ const initialReview: IReview = {
     const [tmpReview, setTmpReview] = useState(initialReview)
     const [reviews, setReviews] = useState(props.cafe.reviews)
 
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [numberOfPeople, setNumberOfPeople] = useState(1);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const incrementPeople = () => {
+    setNumberOfPeople(numberOfPeople + 1);
+  };
+
+  const decrementPeople = () => {
+    if (numberOfPeople > 1) setNumberOfPeople(numberOfPeople - 1);
+  };
     const createReview = () => {
       setShowOverlay(true)
     }
@@ -156,6 +178,7 @@ const initialReview: IReview = {
       updateTmpReview({rating: Rating[getRatingByKey(value-1)]})    
     }
 
+
     function getRatingByKey(index: number): string | undefined {
       // Convert the numeric index to a string to match the enum value
       const value = String(index);
@@ -169,7 +192,7 @@ const initialReview: IReview = {
   }
 
     return (
-      <ScrollView>
+      <View>
         <ScrollView style= {styles.container}>
           <Header name={props.cafe.name} address={props.cafe.address} />
           <View style={styles.imageContainer}>
@@ -178,22 +201,38 @@ const initialReview: IReview = {
               style={styles.stretch}
             />
           </View>
-          <Text style={styles.h1}>Info</Text>
-          <Info createReview={createReview} cafe={props.cafe}/>
-          <Text style={styles.h1}>Reviews</Text>
-          <MilansReviews reviews={reviews}></MilansReviews>
-          {/* <Tabs/> */}
-          {/* <Reviews reviews={props.cafe.reviews}></Reviews> */}
-          <Text style={styles.h1}>Schedule</Text>
-          <Schedule></Schedule>
-          <Text style={styles.h1}>Directions</Text>
-          <Map/>
-          {/* <Features></Features>
-          <Menu></Menu> */}
+          <Text style={styles.h1}>Book a table</Text>
+          <View style={styles.pickerContainer}>
+        <Button onPress={() => showMode('date')} title="Show date picker" />
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </View>
+      <View style={styles.pickerContainer}>
+        <Button onPress={() => showMode('time')} title="Show time picker" />
+      </View>
+      <View style={styles.pickerContainer}>
+        <Text>Number of People: {numberOfPeople}</Text>
+        <Button onPress={decrementPeople} title="-" />
+        <Button onPress={incrementPeople} title="+" />
+      </View>
+          <Text style={styles.h2}>Date</Text>
+
+          <Text style={styles.h2}>Hour</Text>
+
+          <Text style={styles.h2}>Number of people</Text>
+
         <View style={styles.buttonContainer}>
             <Button
-              onPress={() => openBooking(props.cafe, navigator)}
-              title="Book Now"
+              onPress={() => alert('Booked!')}
+              title="Confirm"
               color="#333"
             />
           </View>
@@ -218,114 +257,14 @@ const initialReview: IReview = {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
     );
   };
-
-  /*const Header = ({name, address}) => {
-    const [isActive, setIsActive] = useState(false);
-    return(
-      <View style={styles.headerContainer}>
-      <Icon style={styles.iconButton}
-            name="chevron-left"
-            size={24}
-            color="#ffffff"
-        />
-        <View style={styles.headerAddress}>
-          <Text style={styles.headerTitle}>{name}</Text>
-          <Text style={styles.headerAddress}>{address}</Text>
-        </View>
-        <Icon style={styles.iconButton}
-              name={isActive ? 'favourite' : "favorite-outline"}
-              size={24}
-              color="#ffffff"
-              onPress={setIsActive(!isActive)}
-        />
-      </View>
-    )
-  }*/
-
-  // const Tabs = () => {
-  //   const Tab = createMaterialTopTabNavigator();
-  //   return(
-  //       <Tab.Navigator
-  //       initialRouteName="Map"
-  //       screenOptions={{
-  //         tabBarActiveTintColor: '#000000',
-  //         tabBarLabelStyle: { fontSize: 12 },
-  //         tabBarStyle: { backgroundColor: 'white' },
-  //         tabBarIndicatorStyle: { backgroundColor: 'black' },
-  //       }}>
-  //       <Tab.Screen name="Map" component={Map} 
-  //       options={{
-  //         tabBarIcon: ({ color, size }) => (
-  //         <Icon name="location-pin" color={color} size={size} />
-  //         )
-  //       }}/>
-  //       <Tab.Screen name="Schedule" component={Schedule} 
-  //       options={{
-  //         tabBarIcon: ({ color, size }) => (
-  //         <Icon name="schedule" color={color} size={size} />
-  //         )
-  //       }}/>
-  //       <Tab.Screen name="Features" component={Features} 
-  //       options={{
-  //         tabBarIcon: ({ color, size }) => (
-  //         <Icon name="settings" color={color} size={size} />
-  //         )
-  //       }}/>
-  //       <Tab.Screen name="Menu" component={Menu} 
-  //       options={{
-  //         tabBarIcon: ({ color, size }) => (
-  //         <Icon name="fastfood" color={color} size={size} />
-  //         )
-  //       }}/>
-  //       <Tab.Screen name="Reviews" component={Reviews} initialParams={{ totalReviews: '4.0' }}
-  //       options={{
-  //         tabBarIcon: ({ color, size }) => (
-  //         <Icon name="star" color={color} size={size} />
-  //         )
-  //       }}/>
-  //     </Tab.Navigator>
-  //   );
-  // }
 
   const bookNow = () => {
     return <p>booked!</p>
   }
 
-  
-  //const Tab = createMaterialTopTabNavigator();
-  
-  // Define the components for each tab
-  
-  
-  /*const Schedule = () => (
-    <View style={styles.workInProgress}>
-      <Text h2>Work in progress!</Text>
-      <Text h2>This page is under construction...</Text>
-    </View>
-  );
-  
-  const Features = () => (
-    <View style={styles.workInProgress}>
-      <Text h2>Work in progress!</Text>
-      <Text h2>This page is under construction...</Text>
-    </View>
-  );
-  
-  const Menu = () => (
-    <View style={styles.workInProgress}>
-      <Text h2>Work in progress!</Text>
-      <Text h2>This page is under construction...</Text>
-    </View>
-  );*/
-  
-  /*const Reviews = () => (
-    <View>
-      <Text>Reviews</Text>
-    </View>
-  );  */
 
   export default Cafeprofile;
 

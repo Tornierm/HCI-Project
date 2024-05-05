@@ -7,6 +7,13 @@ export const openCafeProfile = (cafe: ICafe, navigation) => {
     )
   }
 
+  export const openBooking = (cafe: ICafe, navigation) => {
+    navigation.navigate( 
+      "Booking",
+      { cafe: cafe }
+    )
+  }
+
   export const openActivities = (navigation) => {
     navigation.navigate( 
       "Activity"
