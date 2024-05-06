@@ -1,9 +1,11 @@
 import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
+import { ICafe, IFilterConfig } from '../../types';
+import { enumToNumber, openCafeProfile, priceIsSmaller } from './helpers';
+
+import { getCaffees } from '../../Api';
 
 import { StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native';
-import { getCaffees } from '../../Api';
-import { Features, ICafe, Restrictions } from '../../types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
 import { openCafeProfile, openActivity } from './helpers';
@@ -13,6 +15,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 import React from 'react';
+import { useNavigationContainerRef } from '@react-navigation/native';
 
 
 const styles = StyleSheet.create({
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
       zIndex: 2,
     },
     icon: {
-      position: 'relative',
+      position: 'absolute',
     },
     overlay:{
       flex:1,
@@ -56,6 +59,17 @@ const styles = StyleSheet.create({
       alignItems: "center",
       ...StyleSheet.absoluteFillObject, // Takes the entire space of its container
       backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
+    },
+    label: {
+      backgroundColor: "black",
+      color: "white",
+    },
+    header: {
+      width: "100%",
+      padding: 4,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
     popup: {
       flex: 1,
@@ -178,13 +192,16 @@ const styles = StyleSheet.create({
   type Props = NativeStackScreenProps<RootStackParamList, "Map">
   
   const Map: React.FC<Props> = ({ route, navigation }) => {
-    const [cafes, setCafes] = useState<ICafe[]>(route.params.cafes)
+    const [cafes, setCafes] = useState<ICafe[]>(getCaffees())
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
+    const [filterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
     const [numGuests, setNumGuests] = useState(1);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     
+
+    const rootNavigation = useNavigationContainerRef();
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
@@ -194,6 +211,31 @@ const styles = StyleSheet.create({
     const handleDateChange = (event, newDate) => {
       if (newDate !== undefined) {
         setSelectedDate(newDate);
+        
+    useEffect(() => {
+      setTmpFilterConfig(route.params.filterConfig)
+      const tmpCafes = applyFilter(getCaffees(), route.params.filterConfig)
+      setCafes(tmpCafes)
+      console.log(route.params.filterConfig)
+      console.log(tmpCafes.length)
+    },[route.params])
+
+    function openList(): void {
+      navigation.navigate('CafeList', {cafes: cafes});
+    }
+
+    
+
+    function openFilters(): void {
+      navigation.navigate('Filters', {filterConfig: filterConfig})
+    }
+    const incrementGuests = () => {
+      setNumGuests(numGuests + 1);
+    };
+
+    const decrementGuests = () => {
+      if (numGuests > 1) {
+        setNumGuests(numGuests - 1);
       }
     };
   
@@ -210,28 +252,62 @@ const styles = StyleSheet.create({
      };
     
 
+    function book(selectedCafe: ICafe): void {
+      throw new Error('Function not implemented.');
+      //we need to go to activities here
+    }
+
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Button
+            onPress={openList}
+            type="outline"
+            radius={"md"}
+          >
+              Search
+              <Icon 
+                name="search"
+                color="blue"
+              />
+          </Button>
+          <Button
+            onPress={openFilters}
+            type="outline"  
+            radius={"md"}
+          >
+              Filter
+              <Icon 
+                name="filter-alt"
+                color="blue"
+              />
+          </Button>
+        </View>
         <ScrollView>
           <View style={styles.mapContainer}>
             <Image style={styles.map} source={require('../../../assets/Map.png')}>
             </Image>
             <View style={styles.iconContainer}>
               {cafes.map((cafe, i) => {
-                  return <Icon
+                  return <View
                     key={i}
                     style={{...styles.icon, marginTop:cafe.location.top, marginLeft:cafe.location.left}}
+                  >
+                    <Text 
+                      style={{...styles.label}}
+                      onPress={() => onIconPress(cafe)}
+
+                    >{cafe.name}</Text>
+                  <Icon
                     size={40} 
                     name="location-on"
                     color="red"
                     onPress={() => onIconPress(cafe)}
-                    
-                  />
+                  /></View>
               })}
             </View>
           </View>
         </ScrollView>
-      
       
         <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent,display: showOverlay? "flex" : "none"}}>
         {/* Cafe Name */}
@@ -311,3 +387,35 @@ const styles = StyleSheet.create({
   }
 
   export default Map;
+
+function applyFilter(cafes: ICafe[], filterConfig: IFilterConfig) {
+  let tmp = cafes;
+
+  tmp = tmp.filter((cafe) => {
+    return enumToNumber(filterConfig.rating) <= enumToNumber(cafe.rating)
+  })
+
+  tmp = tmp.filter((cafe) => {
+    let returnVal = true;
+      filterConfig.features.map((feature) => {
+        if (!cafe.features.includes(feature)){
+          returnVal = false;
+        } 
+      }) 
+    return returnVal;
+  })
+  tmp = tmp.filter((cafe) => {
+    let returnVal = true;
+      filterConfig.restrictions.map((restriction) => {
+        if (!cafe.restrictions.includes(restriction)){
+          returnVal = false;
+        } 
+      }) 
+    return returnVal;
+  })
+  tmp = tmp.filter((cafe) => {
+    return priceIsSmaller(filterConfig, cafe.price)
+  })
+  console.log(tmp.length)
+  return tmp;
+}

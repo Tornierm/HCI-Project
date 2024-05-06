@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapImage = '../../../assets/CafèProfileImages/map.png';
+const mapImage = require('../../assets/CafèProfileImages/map.png')
 
 const Map = () => {
   return(
     <View style={styles.imageContainer}>
           <Image
             style={styles.stretch}
-            source={{uri:mapImage}}
+            source={mapImage}
           />
           <View style={styles.buttonContainer}>
           <Button
@@ -39,8 +39,7 @@ const Map = () => {
             color="#333"
           />
         </View>
-        </View>
-
+    </View>
   )
 };
 
