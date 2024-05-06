@@ -108,6 +108,11 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       textAlign: 'center', 
     },
+    plusButton: {
+      backgroundColor: 'gray',
+      fontWeight: 'bold',
+      flexDirection: 'row',
+    },
     featureContainer: {
       marginBottom: 10,
     },
@@ -121,6 +126,7 @@ const styles = StyleSheet.create({
       fontSize: 17,
       fontWeight: 'bold',
       marginBottom: 10,
+      marginTop: 5,
       color: 'white',
     },
     featureChips: {
@@ -141,6 +147,32 @@ const styles = StyleSheet.create({
     offerChipText: {
       fontSize: 8,
     },
+    rowcontainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    counterContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 20,
+      backgroundColor: 'gray',
+      textAlign:'center',
+      justifyContent: 'center',
+      height: 40,
+    },
+    button: {
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 20,
+      marginHorizontal: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    counter: {
+      paddingHorizontal: 10,
+      color: 'white',
+      fontWeight: 'bold',
+    },
   });
 
   type Props = NativeStackScreenProps<RootStackParamList, "Map">
@@ -149,7 +181,7 @@ const styles = StyleSheet.create({
     const [cafes, setCafes] = useState<ICafe[]>(route.params.cafes)
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
-    // const [numGuests, setNumGuests] = useState(1);
+    const [numGuests, setNumGuests] = useState(1);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     
@@ -167,15 +199,15 @@ const styles = StyleSheet.create({
   
     
 
-    // const incrementGuests = () => {
-    //   setNumGuests(numGuests + 1);
-    // };
+    const incrementGuests = () => {
+     setNumGuests(numGuests + 1);
+     };
 
-    // const decrementGuests = () => {
-    //   if (numGuests > 1) {
-    //     setNumGuests(numGuests - 1);
-    //   }
-    // };
+     const decrementGuests = () => {
+       if (numGuests > 1) {
+         setNumGuests(numGuests - 1);
+       }
+     };
     
 
     return (
@@ -238,14 +270,28 @@ const styles = StyleSheet.create({
         />
       
         
-        <Text style={styles.buttonText}>Guests: 2</Text>
+        {/* <Text style={styles.buttonText}>Guests: 2</Text> */}
 
-        {/* <View style={{...styles.buttons}}>
-
-          <Button onPress={decrementGuests}>-</Button>
-          <Text>Number of Guests {numGuests}</Text>
-          <Button onPress={incrementGuests}>+</Button>
+          {/* <Text>Number of Guests: </Text>
+        <View style={{...styles.buttonText}}>
+          <Button  style={styles.plusButton} onPress={decrementGuests}>-</Button>
+          <Text > {numGuests} </Text>
+          <Button style={styles.plusButton} onPress={incrementGuests}>+</Button>
         </View> */}
+
+          
+          <Text style={styles.dateHeaderText}>Number of Guests:</Text>
+          <View style={styles.rowcontainer}>
+            <View style={styles.counterContainer}>
+              <TouchableOpacity style={styles.button} onPress={decrementGuests}>
+                <Text style={[styles.buttonText, { lineHeight: 10 }]}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.counter}>{numGuests}</Text>
+              <TouchableOpacity style={styles.button} onPress={incrementGuests}>
+                <Text style={[styles.buttonText, { lineHeight: 10 }]}>+</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
         <View style={{...styles.buttons}}>
         <TouchableOpacity style={styles.grayButton} onPress={() => onIconPress(null)}>
