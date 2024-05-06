@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
       maxHeight: '90%', // Limit the maximum height to 90% of the screen height
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 50,
+      marginTop: 100,
       marginLeft: 50,
       
     },
@@ -286,6 +286,7 @@ const styles = StyleSheet.create({
                     <Text 
                       style={{...styles.label}}
                       onPress={() => onIconPress(cafe)}
+                      
 
                     >{cafe.name}</Text>
                   <Icon
@@ -300,8 +301,10 @@ const styles = StyleSheet.create({
         </ScrollView>
       
         <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent,display: showOverlay? "flex" : "none"}}>
+        
         {/* Cafe Name */}
-        <Text style={styles.titleText}>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
+        <Text style={styles.titleText} onPress={() => openCafeProfile(selectedCafe, navigation)}>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
+        
         {/* Include the Offer */}
         <View style={styles.featureChips}>
           {selectedCafe && selectedCafe.offers.map((offer, index) => (
