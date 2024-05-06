@@ -42,8 +42,9 @@ const styles = StyleSheet.create({
   headerTitleContainer: {
     flexDirection: 'column',
   },
-  iconButton: {
+  button: {
       padding: 10,
+      backgroundColor: '#333'
   }, 
   imageContainer: {
     width: '100%',       // Full width of the screen
@@ -74,7 +75,6 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 24,
     textAlign: "center",
-    marginVertical: 24,
   },
   overlay:{
     flex:1,
@@ -98,9 +98,31 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 24,
   },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    textAlign: 'center'
+  },
   pickerContainer: {
     margin: 20,
-  }
+    width: '80%', // Adjust width as needed
+  },
+  datePicker: {
+    width: '100%',
+    backgroundColor: 'white',
+  },
+  timePicker: {
+    width: '100%',
+    backgroundColor: 'white',
+  },
+  bookingContainer: {
+      flexDirection: 'row',   // Aligns children in a row
+      alignItems: 'center',   // Centers children vertically in the container
+      justifyContent: 'space-between', // Distributes children evenly with space between them
+      padding: 10,            // Adds some padding around the container
+      //backgroundColor: '#333', // Sets a background color
+      height: 60,             // Sets a fixed height for the header
+  },
 });
 
 const determineImage = (image) => {
@@ -132,22 +154,19 @@ type Props = NativeStackScreenProps<RootStackParamList, "Booking">
 
   const Booking: React.FC<Props>  = ({route, navigation}) => {
     const [tmpReview, setTmpReview] = useState(initialReview)
-
-    const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date());
+  
+    const onChangeDate = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setDate(currentDate);
+    };
+  
+    const onChangeTime = (event, selectedTime) => {
+      const currentTime = selectedTime || time;
+      setTime(currentTime);
+    };
 
   const incrementPeople = () => {
     setNumberOfPeople(numberOfPeople + 1);
@@ -189,31 +208,35 @@ type Props = NativeStackScreenProps<RootStackParamList, "Booking">
               style={styles.stretch}
             />
           </View>
-          <Text style={styles.h1}>Book a table</Text>
+          <Text style={styles.h1}>Book now</Text>
+          <Text style={styles.h2}>Select the day</Text>
           <View style={styles.pickerContainer}>
-          <Text style={styles.h2}>Date</Text>
-          <Text>{date.toString()}</Text>
-        <Button onPress={() => showMode('date')} title="Select a day" />
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
-      </View>
-      <View style={styles.pickerContainer}>
-          <Text style={styles.h2}>Hour</Text>
-          
-        <Button onPress={() => showMode('time')} title="Select an hour" />
-      </View>
-      <View style={styles.pickerContainer}>
-        <Text>Number of People: {numberOfPeople}</Text>
-        <Button onPress={decrementPeople} title="-" />
-        <Button onPress={incrementPeople} title="+" />
+            <DateTimePicker
+              testID="datePicker"
+              value={date}
+              mode="date"
+              display="calendar"
+              onChange={onChangeDate}
+              style={styles.datePicker}
+            />
+          </View>
+          <Text style={styles.h2}>Select the time</Text>
+          <View style={styles.pickerContainer}>
+            <DateTimePicker
+              testID="timePicker"
+              value={time}
+              mode="time"
+              display="default"
+              is24Hour={true}
+              onChange={onChangeTime}
+              style={styles.timePicker}
+            />
+          </View>
+      <View style={styles.bookingContainer}>
+        <Text>Number of People: </Text>
+        <Button color='#333' onPress={decrementPeople} title="-" />
+        <Text>{numberOfPeople}</Text>
+        <Button color='#333' onPress={incrementPeople} title="+" />
       </View>
         <View style={styles.buttonContainer}>
             <Button
