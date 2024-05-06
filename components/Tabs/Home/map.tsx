@@ -8,7 +8,11 @@ import { getCaffees } from '../../Api';
 import { StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './home';
+import { openCafeProfile, openActivity } from './helpers';
+import CafeProfile from './cafeProfile';
 import { TouchableOpacity } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 import React from 'react';
 import { useNavigationContainerRef } from '@react-navigation/native';
@@ -20,6 +24,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+      
     },
     mapContainer: {
       flex: 1, 
@@ -74,17 +79,18 @@ const styles = StyleSheet.create({
     },
      modalContent: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      padding: 80,
-      marginLeft: 40,
-      marginTop: 140,
+      padding: 20, // Adjust as needed
       borderRadius: 4,
-      width: '80%',
+      maxWidth: '90%', // Limit the maximum width to 90% of the screen width
+      maxHeight: '90%', // Limit the maximum height to 90% of the screen height
       alignItems: 'center',
-      height: '40%',
-      shadowOpacity: 0.25,
+      justifyContent: 'center',
+      marginTop: 50,
+      marginLeft: 50,
+      
     },
     titleText: {
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: 'bold',
       color: 'white',
       marginBottom: 20, 
@@ -92,25 +98,34 @@ const styles = StyleSheet.create({
     buttonText: {
       color: 'white',
       fontWeight: 'bold',
+      marginTop: 10,
     },
     buttons:{
       justifyContent: 'space-between',
       flexDirection: 'row',
-      marginTop:10,
+      marginTop:15,
+      
     },
     blueButton: {
       backgroundColor: '#3895d3',
       fontWeight: 'bold',
-      marginLeft: 40,
-      padding:10,
+      marginLeft: 50,
+      padding:5,
       borderRadius: 5,
+      textAlign: 'center', 
     },
     grayButton: {
       backgroundColor: 'gray',
       fontWeight: 'bold',
       marginRight: 5,
-      padding:10,
+      padding:5,
       borderRadius: 5,
+      textAlign: 'center', 
+    },
+    plusButton: {
+      backgroundColor: 'gray',
+      fontWeight: 'bold',
+      flexDirection: 'row',
     },
     featureContainer: {
       marginBottom: 10,
@@ -119,6 +134,13 @@ const styles = StyleSheet.create({
       fontSize: 15,
       fontWeight: 'bold',
       marginBottom: 10,
+      color: 'white',
+    },
+    dateHeaderText: {
+      fontSize: 17,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      marginTop: 5,
       color: 'white',
     },
     featureChips: {
@@ -136,6 +158,35 @@ const styles = StyleSheet.create({
     featureChipText: {
       fontSize: 14,
     },
+    offerChipText: {
+      fontSize: 8,
+    },
+    rowcontainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    counterContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 20,
+      backgroundColor: 'gray',
+      textAlign:'center',
+      justifyContent: 'center',
+      height: 40,
+    },
+    button: {
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 20,
+      marginHorizontal: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    counter: {
+      paddingHorizontal: 10,
+      color: 'white',
+      fontWeight: 'bold',
+    },
   });
 
   type Props = NativeStackScreenProps<RootStackParamList, "Map">
@@ -146,6 +197,9 @@ const styles = StyleSheet.create({
     const [selectedCafe, setSelectedCafe] = useState<ICafe>()
     const [filterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
     const [numGuests, setNumGuests] = useState(1);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    
 
     const rootNavigation = useNavigationContainerRef();
 
@@ -154,6 +208,10 @@ const styles = StyleSheet.create({
       setShowOverlay(!showOverlay);
     }
 
+    const handleDateChange = (event, newDate) => {
+      if (newDate !== undefined) {
+        setSelectedDate(newDate);
+        
     useEffect(() => {
       setTmpFilterConfig(route.params.filterConfig)
       const tmpCafes = applyFilter(getCaffees(), route.params.filterConfig)
@@ -180,6 +238,18 @@ const styles = StyleSheet.create({
         setNumGuests(numGuests - 1);
       }
     };
+  
+    
+
+    const incrementGuests = () => {
+     setNumGuests(numGuests + 1);
+     };
+
+     const decrementGuests = () => {
+       if (numGuests > 1) {
+         setNumGuests(numGuests - 1);
+       }
+     };
     
 
     function book(selectedCafe: ICafe): void {
@@ -239,13 +309,18 @@ const styles = StyleSheet.create({
           </View>
         </ScrollView>
       
-        <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent, display: showOverlay? "flex" : "none"}}>
-        
-        <Text 
-          style={styles.titleText}
-          onPress={() => openCafeProfile(selectedCafe, navigation)}
-        >{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
-
+        <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent,display: showOverlay? "flex" : "none"}}>
+        {/* Cafe Name */}
+        <Text style={styles.titleText}>{selectedCafe ? selectedCafe.name : 'Loading...'}</Text>
+        {/* Include the Offer */}
+        <View style={styles.featureChips}>
+          {selectedCafe && selectedCafe.offers.map((offer, index) => (
+            <View key={index} style={styles.featureChip}>
+              <Text style={styles.offerChipText}>{offer.description}</Text>
+            </View>
+          ))}
+        </View>
+         {/* Include the Features */}
         <View style={styles.featureContainer}>
           <Text style={styles.featureHeaderText}>Features Available</Text>
           <View style={styles.featureChips}>
@@ -257,25 +332,57 @@ const styles = StyleSheet.create({
           </View>
         </View>
 
-        {/* <View style={{...styles.buttons}}>
+        {/* Include the Date Picker :) */}
+        <Text style={styles.dateHeaderText}>Select date</Text>
+        <DateTimePicker 
+          value={selectedDate}
+          mode="datetime"
+          is24Hour={true} 
+          display="default" 
+          onChange={handleDateChange}
+          style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
+          // themeVariant="light"
+          {...(DateTimePicker as any)}
+        />
+      
+        
+        {/* <Text style={styles.buttonText}>Guests: 2</Text> */}
 
-          <Button onPress={decrementGuests}>-</Button>
-          <Text>Number of Guests {numGuests}</Text>
-          <Button onPress={incrementGuests}>+</Button>
+          {/* <Text>Number of Guests: </Text>
+        <View style={{...styles.buttonText}}>
+          <Button  style={styles.plusButton} onPress={decrementGuests}>-</Button>
+          <Text > {numGuests} </Text>
+          <Button style={styles.plusButton} onPress={incrementGuests}>+</Button>
         </View> */}
+
+          
+          <Text style={styles.dateHeaderText}>Number of Guests:</Text>
+          <View style={styles.rowcontainer}>
+            <View style={styles.counterContainer}>
+              <TouchableOpacity style={styles.button} onPress={decrementGuests}>
+                <Text style={[styles.buttonText, { lineHeight: 10 }]}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.counter}>{numGuests}</Text>
+              <TouchableOpacity style={styles.button} onPress={incrementGuests}>
+                <Text style={[styles.buttonText, { lineHeight: 10 }]}>+</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
         <View style={{...styles.buttons}}>
         <TouchableOpacity style={styles.grayButton} onPress={() => onIconPress(null)}>
           <Text style={styles.buttonText}>Close</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.blueButton} onPress={() => book(selectedCafe)}>
+        <TouchableOpacity style={styles.blueButton} onPress={() => openActivity(navigation)}>
           <Text style={styles.buttonText}>Book Now</Text>
         </TouchableOpacity>
         </View>
 
             </View>
       </View>
+     
+
     );
   }
 

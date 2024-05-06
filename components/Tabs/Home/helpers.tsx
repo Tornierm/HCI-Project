@@ -5,13 +5,14 @@ export const openCafeProfile = (cafe: ICafe, navigation) => {
       "CafeProfile",
       { cafe: cafe }
     )
-  }
+}
 
-  export const openActivities = (navigation) => {
+
+export const openActivity = (navigation) => {
     navigation.navigate( 
-      "Activity"
+      "Activity",
     )
-  }
+}
 
 
   export function enumToNumber(rating: Rating): number {
