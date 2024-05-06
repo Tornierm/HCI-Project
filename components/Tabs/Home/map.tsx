@@ -1,7 +1,7 @@
 import { Button, Icon } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import { ICafe, IFilterConfig } from '../../types';
-import { enumToNumber, openCafeProfile, priceIsSmaller } from './helpers';
+import { enumToNumber, priceIsSmaller } from './helpers';
 
 import { getCaffees } from '../../Api';
 
@@ -211,6 +211,8 @@ const styles = StyleSheet.create({
     const handleDateChange = (event, newDate) => {
       if (newDate !== undefined) {
         setSelectedDate(newDate);
+      }
+    }
         
     useEffect(() => {
       setTmpFilterConfig(route.params.filterConfig)
@@ -238,18 +240,6 @@ const styles = StyleSheet.create({
         setNumGuests(numGuests - 1);
       }
     };
-  
-    
-
-    const incrementGuests = () => {
-     setNumGuests(numGuests + 1);
-     };
-
-     const decrementGuests = () => {
-       if (numGuests > 1) {
-         setNumGuests(numGuests - 1);
-       }
-     };
     
 
     function book(selectedCafe: ICafe): void {
