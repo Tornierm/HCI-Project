@@ -23,6 +23,7 @@ const CoffeeShops: ICafe[] = [
         ],
         features: [
             Features.Laptop,
+            Features.Wifi
         ],
         location: {
             left: 200,
