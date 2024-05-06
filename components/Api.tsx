@@ -10,7 +10,7 @@ const CoffeeShops: ICafe[] = [
         offers: [
             {
                 name: "super offer",
-                description: "This describes everything that is offered in this offer.",
+                description: "Only 2 hours working session throughout the day.",
                 price: 20,
             }
         ],
