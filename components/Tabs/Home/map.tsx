@@ -11,7 +11,7 @@ import { RootStackParamList } from './home';
 import { openCafeProfile, openActivity } from './helpers';
 import CafeProfile from './cafeProfile';
 import { TouchableOpacity } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 
 import React from 'react';
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   });
 
   type Props = NativeStackScreenProps<RootStackParamList, "Map">
-  
+
   const Map: React.FC<Props> = ({ route, navigation }) => {
     const [cafes, setCafes] = useState<ICafe[]>(getCaffees())
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
@@ -198,10 +198,24 @@ const styles = StyleSheet.create({
     const [filterConfig, setTmpFilterConfig] = useState<IFilterConfig>(route.params.filterConfig);
     const [numGuests, setNumGuests] = useState(1);
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showTimePicker, setShowTimePicker] = useState(false);
+    const [mode, setMode] = useState('date');
     
 
     const rootNavigation = useNavigationContainerRef();
+
+    const showMode = (newMode) => {
+      if(newMode == 'date'){
+        setShowDatePicker(true);
+      }
+      else {
+      setShowTimePicker(true);
+      }
+      const currentMode =  newMode;
+      setMode(currentMode);
+    };
 
     const onIconPress = (cafe: ICafe) => {
       setSelectedCafe(cafe)
@@ -209,9 +223,22 @@ const styles = StyleSheet.create({
     }
 
     const handleDateChange = (event, newDate) => {
-      if (newDate !== undefined) {
+      /*if (newDate !== undefined) {
         setSelectedDate(newDate);
-      }
+      }*/
+      console.log(newDate);
+      const currentDate = newDate;
+      console.log(currentDate);
+      setShowDatePicker(false);
+      setSelectedDate(currentDate);
+    }
+    const handleTimeChange = (event, newTime) => {
+      /*if (newDate !== undefined) {
+        setSelectedDate(newDate);
+      }*/
+      const currentTime = newTime;
+      setShowTimePicker(false);
+      setSelectedTime(currentTime);
     }
         
     useEffect(() => {
@@ -326,18 +353,30 @@ const styles = StyleSheet.create({
         </View>
 
         {/* Include the Date Picker :) */}
-        <Text style={styles.dateHeaderText}>Select date</Text>
-        <DateTimePicker 
+        <Text style={styles.dateHeaderText}>Date: {selectedDate.getDate()}/{selectedDate.getMonth()+1}/{selectedDate.getFullYear()}</Text>
+        <Button onPress={() => showMode('date')} title="Select the day" />
+        {showDatePicker && <DateTimePicker 
           value={selectedDate}
-          mode="datetime"
+          mode="date"
           is24Hour={true} 
           display="default" 
           onChange={handleDateChange}
           style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
           // themeVariant="light"
           {...(DateTimePicker as any)}
-        />
-      
+        />}
+        <Text style={styles.dateHeaderText}>Time: {selectedTime.getHours()<10 ? '0' + selectedTime.getHours(): selectedTime.getHours()}:{selectedTime.getMinutes()<10 ? '0' + selectedTime.getMinutes(): selectedTime.getMinutes()}</Text>
+        <Button onPress={() => showMode('time')} title="Select the time" />
+        {showTimePicker && <DateTimePicker 
+          value={selectedTime}
+          mode={mode}
+          is24Hour={true} 
+          display="default" 
+          onChange={handleTimeChange}
+          style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
+          // themeVariant="light"
+          {...(DateTimePicker as any)}
+        />}
         
         {/* <Text style={styles.buttonText}>Guests: 2</Text> */}
 
