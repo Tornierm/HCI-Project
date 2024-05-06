@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
             {friend.name}
           </Text>
           <Card style={styles.cardContainer}>
-            <Card.Cover source={{ uri: '../../../assets/CafèProfileImages/Steven1.jpeg' }} />
+            <Card.Cover source={{ uri: '../../../assets/CafèProfileImages/Steven2.jpeg' }} />
             <Card.Content>
               <View style={styles.chipContainer}>
                 <Text  style={styles.centerText}>Sukis Cafè</Text>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
             </Card.Actions>
           </Card>
           <Card style={styles.cardContainer}>
-            <Card.Cover source={{ uri: '../../../assets/CafèProfileImages/Steven2.jpeg' }} />
+            <Card.Cover source={{ uri: '../../../assets/CafèProfileImages/Steven1.jpeg' }} />
             <Card.Content>
               <View style={styles.chipContainer}>
                 <Text  style={styles.centerText}>Stevens Cafè</Text>
