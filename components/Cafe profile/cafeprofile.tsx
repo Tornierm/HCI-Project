@@ -9,6 +9,7 @@ import Features from './features';
 import Schedule from './schedule';
 import Menu from './menu';
 import MilansReviews from './milansReviews';
+import { openBooking } from '../Tabs/Home/helpers';
 
 import Info from './info';
 import { ICafe, IReview, Rating } from '../types';
@@ -169,7 +170,7 @@ const initialReview: IReview = {
   }
 
     return (
-      <View>
+      <ScrollView>
         <ScrollView style= {styles.container}>
           <Header name={props.cafe.name} address={props.cafe.address} />
           <View style={styles.imageContainer}>
@@ -190,13 +191,13 @@ const initialReview: IReview = {
           <Map/>
           {/* <Features></Features>
           <Menu></Menu> */}
-        <View style={styles.buttonContainer}>
+        {/*<View style={styles.buttonContainer}>
             <Button
-              onPress={() => alert('Booked!')}
+              onPress={() => openBooking(props.cafe, navigator)}
               title="Book Now"
               color="#333"
             />
-          </View>
+          </View>*/}
           
         </ScrollView>
       <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
@@ -218,7 +219,7 @@ const initialReview: IReview = {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
     );
   };
 
