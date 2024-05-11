@@ -155,17 +155,41 @@ type Props = NativeStackScreenProps<RootStackParamList, "Booking">
   const Booking: React.FC<Props>  = ({route, navigation}) => {
     const [tmpReview, setTmpReview] = useState(initialReview)
     const [numberOfPeople, setNumberOfPeople] = useState(1);
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState(new Date());
-  
-    const onChangeDate = (event, selectedDate) => {
-      const currentDate = selectedDate || date;
-      setDate(currentDate);
-    };
-  
-    const onChangeTime = (event, selectedTime) => {
-      const currentTime = selectedTime || time;
-      setTime(currentTime);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showTimePicker, setShowTimePicker] = useState(false);
+    const [mode, setMode] = useState('date');
+
+
+const handleDateChange = (event, newDate) => {
+      /*if (newDate !== undefined) {
+        setSelectedDate(newDate);
+      }*/
+      console.log(newDate);
+      const currentDate = newDate;
+      console.log(currentDate);
+      setShowDatePicker(false);
+      setSelectedDate(currentDate);
+    }
+    const handleTimeChange = (event, newTime) => {
+      /*if (newDate !== undefined) {
+        setSelectedDate(newDate);
+      }*/
+      const currentTime = newTime;
+      setShowTimePicker(false);
+      setSelectedTime(currentTime);
+    }
+	
+	const showMode = (newMode) => {
+      if(newMode == 'date'){
+        setShowDatePicker(true);
+      }
+      else {
+      setShowTimePicker(true);
+      }
+      const currentMode =  newMode;
+      setMode(currentMode);
     };
 
   const incrementPeople = () => {
@@ -211,26 +235,30 @@ type Props = NativeStackScreenProps<RootStackParamList, "Booking">
           <Text style={styles.h1}>Book now</Text>
           <Text style={styles.h2}>Select the day</Text>
           <View style={styles.pickerContainer}>
-            <DateTimePicker
-              testID="datePicker"
-              value={date}
-              mode="date"
-              display="calendar"
-              onChange={onChangeDate}
-              style={styles.datePicker}
-            />
-          </View>
-          <Text style={styles.h2}>Select the time</Text>
-          <View style={styles.pickerContainer}>
-            <DateTimePicker
-              testID="timePicker"
-              value={time}
-              mode="time"
-              display="default"
-              is24Hour={true}
-              onChange={onChangeTime}
-              style={styles.timePicker}
-            />
+          <Text>Date: {selectedDate.getDate()}/{selectedDate.getMonth()+1}/{selectedDate.getFullYear()}</Text>
+        <Button onPress={() => showMode('date')} title="Select the day" />
+        {showDatePicker && <DateTimePicker 
+          value={selectedDate}
+          mode="date"
+          is24Hour={true} 
+          display="default" 
+          onChange={handleDateChange}
+          style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
+          // themeVariant="light"
+          {...(DateTimePicker as any)}
+        />}
+        <Text>Time: {selectedTime.getHours()<10 ? '0' + selectedTime.getHours(): selectedTime.getHours()}:{selectedTime.getMinutes()<10 ? '0' + selectedTime.getMinutes(): selectedTime.getMinutes()}</Text>
+        <Button onPress={() => showMode('time')} title="Select the time" />
+        {showTimePicker && <DateTimePicker 
+          value={selectedTime}
+          mode={mode}
+          is24Hour={true} 
+          display="default" 
+          onChange={handleTimeChange}
+          style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
+          // themeVariant="light"
+          {...(DateTimePicker as any)}
+        />}
           </View>
       <View style={styles.bookingContainer}>
         <Text>Number of People: </Text>
