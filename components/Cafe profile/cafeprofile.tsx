@@ -142,6 +142,7 @@ const initialReview: IReview = {
 
     const submitReview = () => {
       console.log(tmpReview)
+      alert('Thank you for your review!');
       setReviews([...reviews, tmpReview])
       setShowOverlay(false)
     }

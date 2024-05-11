@@ -10,7 +10,7 @@ const CoffeeShops: ICafe[] = [
         offers: [
             {
                 name: "super offer",
-                description: "This describes everything that is offered in this offer.",
+                description: "Only 2 hours working session throughout the day.",
                 price: 20,
             }
         ],
@@ -23,6 +23,7 @@ const CoffeeShops: ICafe[] = [
         ],
         features: [
             Features.Laptop,
+            Features.Wifi
         ],
         location: {
             left: 200,
@@ -30,7 +31,7 @@ const CoffeeShops: ICafe[] = [
         },
         rating: Rating.worst,
         price: Price.cheap,
-        image: 'steven'
+        image: '../../assets/CafèProfileImages/Steven1.jpeg'
     },
     /*
         add more cafes here
@@ -65,7 +66,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.worst,
             price: Price.cheap,
-            image: 'souki'
+            image: '../../assets/CafèProfileImages/Steven2.jpeg'
         },
         {
             name: "The Green Spoon",
@@ -96,7 +97,7 @@ const CoffeeShops: ICafe[] = [
                 top: 200,
             },
             rating: Rating.good,
-            image: 'souki',
+            image: '../../assets/CafèProfileImages/Steven3.jpg',
             price: Price.medium,
             address: "Calle de la Palma, 15, Madrid, Spain"
         },
@@ -129,7 +130,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
             price: Price.cheap,
-            image: 'other'
+            image: '../../assets/CafèProfileImages/Steven1.jpeg'
         },
         {
             name: "Caffeine Hub",
@@ -161,7 +162,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.neutral,
             price: Price.cheap,
-            image: 'other'
+            image: '../../assets/CafèProfileImages/Steven4.jpg'
         },
         {
             name: "Booth Café",
@@ -192,7 +193,7 @@ const CoffeeShops: ICafe[] = [
                 top: 700,
             },
             rating: Rating.good,
-            image: 'other',
+            image: '../../assets/CafèProfileImages/Steven2.jpeg',
             price: Price.medium,
         },
         {
@@ -225,7 +226,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
             price: Price.expensive,
-            image: 'other'
+            image: '../../assets/CafèProfileImages/Steven3.jpg'
         },
         {
             name: "Quiet Corner",
@@ -257,7 +258,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.neutral,
             price: Price.medium,
-            image: 'other'
+            image: '../../assets/CafèProfileImages/Steven1.jpeg'
         },
         {
             name: "Veggie Vista",
@@ -290,7 +291,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.best,
 
-            image: 'other',
+            image: '../../assets/CafèProfileImages/Steven4.jpg',
             price: Price.cheap
         },
         {
@@ -322,7 +323,7 @@ const CoffeeShops: ICafe[] = [
             },
             rating: Rating.good,
 
-            image: 'other',
+            image: '../../assets/CafèProfileImages/Steven1.jpeg',
             price: Price.cheap
         }
 ]   
