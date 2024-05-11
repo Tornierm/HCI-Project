@@ -268,7 +268,7 @@ const handleDateChange = (event, newDate) => {
       </View>
         <View style={styles.buttonContainer}>
             <Button
-              onPress={() => alert('Booked!')}
+              onPress={() => openActivity(navigation)}}
               title="Confirm"
               color="#333"
             />

@@ -269,8 +269,8 @@ const styles = StyleSheet.create({
           <Text style={styles.buttonText}>Close</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.blueButton} onPress={() => book(selectedCafe)}>
-          <Text style={styles.buttonText}>Book Now</Text>
+        <TouchableOpacity style={styles.blueButton} onPress={() => openCafeProfile(selectedCafe, navigation)}>
+          <Text style={styles.buttonText}>Visit</Text>
         </TouchableOpacity>
         </View>
 
