@@ -190,13 +190,13 @@ const initialReview: IReview = {
           <Map/>
           {/* <Features></Features>
           <Menu></Menu> */}
-        <View style={styles.buttonContainer}>
+        {/*<View style={styles.buttonContainer}>
             <Button
               onPress={() => openBooking(props.cafe, navigator)}
               title="Book Now"
               color="#333"
             />
-          </View>
+          </View>*/}
           
         </ScrollView>
       <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>

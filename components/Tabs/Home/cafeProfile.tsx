@@ -29,11 +29,13 @@ const CafeProfile: React.FC<Props> = ({ route, navigation }) => {
     return (
       <View style={styles.container}>
         <Cafeprofile cafe={route.params.cafe} goBack={() => navigation.goBack()}/>
+        <View style = {{margin: 10}}>
             <Button
               onPress={() => openBooking(route.params.cafe, navigation)}
               title="Book Now"
               color="#333"
             />
+            </View>
       </View>
     );
   }

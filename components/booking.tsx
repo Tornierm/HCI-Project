@@ -8,6 +8,7 @@ import { ICafe, IReview, Rating } from './types';
 import { AirbnbRating, Input } from '@rneui/base';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './Tabs/Home/home';
+import { openActivity } from './Tabs/Home/helpers';
 
 const images = {
   steven: require('../assets/CafèProfileImages/Steven1.jpeg'),
@@ -268,7 +269,7 @@ const handleDateChange = (event, newDate) => {
       </View>
         <View style={styles.buttonContainer}>
             <Button
-              onPress={() => openActivity(navigation)}}
+              onPress={() => openActivity(navigation)}
               title="Confirm"
               color="#333"
             />
