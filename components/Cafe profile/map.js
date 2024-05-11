@@ -2,7 +2,6 @@ import { Button, Icon } from '@rneui/themed';
 import {React} from 'react';
 import { StyleSheet, Text, View,Image, Dimensions, ScrollView } from 'react-native';
 
-
 const styles = StyleSheet.create({
   imageContainer: {
     width: '100%', 
@@ -23,14 +22,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapImage = '../../../assets/CafèProfileImages/map.png';
+const mapImage = require('../../assets/CafèProfileImages/map.png');
 
 const Map = () => {
   return(
     <View style={styles.imageContainer}>
           <Image
             style={styles.stretch}
-            source={{uri:mapImage}}
+            source={require('../../assets/CafèProfileImages/map.png')}
           />
           <View style={styles.buttonContainer}>
           <Button

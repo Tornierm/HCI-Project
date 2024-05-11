@@ -65,7 +65,7 @@ headerTitleContainer: {
 
 
   const Cafeprofile = ({name, address, image}) => {
-    
+    console.log(image)
     return (
       <ScrollView style= {styles.container}>
         <Header name={name} address={address} />
