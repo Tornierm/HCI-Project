@@ -301,32 +301,35 @@ const styles = StyleSheet.create({
           </Button>
         </View>
         <ScrollView
-          horizontal={true}
         >
-          <View style={styles.mapContainer}>
-            <Image style={styles.map} source={require('../../../assets/Map.png')}>
-            </Image>
-            <View style={styles.iconContainer}>
-              {cafes.map((cafe, i) => {
-                  return <View
-                    key={i}
-                    style={{...styles.icon, marginTop:cafe.location.top, marginLeft:cafe.location.left}}
-                  >
-                    <Text 
-                      style={{...styles.label}}
-                      onPress={() => onIconPress(cafe)}
-                      
+          <ScrollView
+            horizontal={true}
+          >
+            <View style={styles.mapContainer}>
+              <Image style={styles.map} source={require('../../../assets/Map.png')}>
+              </Image>
+              <View style={styles.iconContainer}>
+                {cafes.map((cafe, i) => {
+                    return <View
+                      key={i}
+                      style={{...styles.icon, marginTop:cafe.location.top, marginLeft:cafe.location.left}}
+                    >
+                      <Text 
+                        style={{...styles.label}}
+                        onPress={() => onIconPress(cafe)}
+                        
 
-                    >{cafe.name}</Text>
-                  <Icon
-                    size={40} 
-                    name="location-on"
-                    color="red"
-                    onPress={() => onIconPress(cafe)}
-                  /></View>
-              })}
+                      >{cafe.name}</Text>
+                    <Icon
+                      size={40} 
+                      name="location-on"
+                      color="red"
+                      onPress={() => onIconPress(cafe)}
+                    /></View>
+                })}
+              </View>
             </View>
-          </View>
+          </ScrollView>
         </ScrollView>
       
         <View style={{...styles.overlay, ...styles.popup, ...styles.modalContent,display: showOverlay? "flex" : "none"}}>
