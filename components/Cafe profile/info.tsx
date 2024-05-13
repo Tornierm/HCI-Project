@@ -96,8 +96,8 @@ export default function Info(props: IOwnProps) {
             <View
                 style={styles.tags}
             >
-            {props.cafe.restrictions.map((restriction) => {
-                return <Chip>{restriction}</Chip>
+            {props.cafe.restrictions.map((restriction, i) => {
+                return <Chip key={i}>{restriction}</Chip>
             })}
          </View>
         </View>

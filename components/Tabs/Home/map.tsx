@@ -300,7 +300,9 @@ const styles = StyleSheet.create({
               />
           </Button>
         </View>
-        <ScrollView>
+        <ScrollView
+          horizontal={true}
+        >
           <View style={styles.mapContainer}>
             <Image style={styles.map} source={require('../../../assets/Map.png')}>
             </Image>

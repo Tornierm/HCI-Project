@@ -1,73 +1,10 @@
 import { Features, ICafe, IUser, Price, Rating, Restrictions } from "./types";
 const CoffeeShops: ICafe[] = [
-    {
-        name: "Stevens",
-        address: "Calle de Berenguela, 19",
-        restrictions: [
-            Restrictions.Halal,
-            Restrictions.Vegan
-        ],
-        offers: [
-            {
-                name: "super offer",
-                description: "Only 2 hours working session throughout the day.",
-                price: 20,
-            }
-        ],
-        reviews: [
-            {
-                userName: "Steven",
-                comment: "Thsi was the best food ever!",
-                imageSrc: "review1.jpg"
-            }
-        ],
-        features: [
-            Features.Laptop,
-            Features.Wifi
-        ],
-        location: {
-            left: 200,
-            top: 200,
-        },
-        rating: Rating.worst,
-        price: Price.cheap,
-        image: '../../assets/CafèProfileImages/Steven1.jpeg'
-    },
+    
     /*
         add more cafes here
     */
-        {
-            name: "Sukis cafè",
-            address: "Calle de Berenguela, 19",
-            restrictions: [
-                Restrictions.Halal,
-                Restrictions.Vegan
-            ],
-            offers: [
-                {
-                    name: "super offer",
-                    description: "This describes everything that is offered in this offer.",
-                    price: 20,
-                }
-            ],
-            reviews: [
-                {
-                    userName: "Sophia",
-                    comment: "I love this place!",
-                    imageSrc: "review1.jpg"
-                }
-            ],
-            features: [
-                Features.Laptop,
-            ],
-            location: {
-                left: 200,
-                top: 800,
-            },
-            rating: Rating.worst,
-            price: Price.cheap,
-            image: '../../assets/CafèProfileImages/Steven2.jpeg'
-        },
+        
         {
             name: "The Green Spoon",
             restrictions: [
@@ -85,7 +22,8 @@ const CoffeeShops: ICafe[] = [
                 {
                     userName: "Suki",
                     comment: "Great atmosphere and friendly staff.",
-                    imageSrc: "review1.jpg"
+                    imageSrc: "review1.jpg",
+                    rating: Rating.worst
                 }
             ],
             features: [
@@ -325,7 +263,72 @@ const CoffeeShops: ICafe[] = [
 
             image: '../../assets/CafèProfileImages/Steven1.jpeg',
             price: Price.cheap
-        }
+        },
+        {
+            name: "Sukis cafè",
+            address: "Calle de Berenguela, 19",
+            restrictions: [
+                Restrictions.Halal,
+                Restrictions.Vegan
+            ],
+            offers: [
+                {
+                    name: "super offer",
+                    description: "This describes everything that is offered in this offer.",
+                    price: 20,
+                }
+            ],
+            reviews: [
+                {
+                    userName: "Sophia",
+                    comment: "I love this place!",
+                    imageSrc: "review1.jpg"
+                }
+            ],
+            features: [
+                Features.Laptop,
+            ],
+            location: {
+                left: 200,
+                top: 800,
+            },
+            rating: Rating.worst,
+            price: Price.cheap,
+            image: '../../assets/CafèProfileImages/Steven2.jpeg'
+        },
+        {
+            name: "Stevens",
+            address: "Calle de Berenguela, 19",
+            restrictions: [
+                Restrictions.Halal,
+                Restrictions.Vegan
+            ],
+            offers: [
+                {
+                    name: "super offer",
+                    description: "Only 2 hours working session throughout the day.",
+                    price: 20,
+                }
+            ],
+            reviews: [
+                {
+                    userName: "Steven",
+                    comment: "Thsi was the best food ever!",
+                    imageSrc: "review1.jpg"
+                }
+            ],
+            features: [
+                Features.Laptop,
+                Features.Wifi
+            ],
+            location: {
+                left: 200,
+                top: 200,
+            },
+            rating: Rating.worst,
+            price: Price.cheap,
+            image: '../../assets/CafèProfileImages/Steven1.jpeg'
+        },
 ]   
 
 const Friends: IUser[] = [
