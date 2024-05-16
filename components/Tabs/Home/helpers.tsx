@@ -13,10 +13,6 @@ export const openCafeProfile = (cafe: ICafe, navigation) => {
     navigation.navigate( 
       "Booking",
       { cafe: cafe }
-}
-export const openActivity = (navigation) => {
-    navigation.navigate( 
-      "Activity",
     )
 }
 

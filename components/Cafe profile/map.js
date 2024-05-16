@@ -36,7 +36,7 @@ const Map = () => {
           <Button
             onPress={() => alert('Opening Google Maps...')}
             title="Open in Google Maps"
-            color="#333"
+            color="#3895d3"
           />
         </View>
     </View>

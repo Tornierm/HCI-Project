@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         
         <View style={styles.chipsContainer}>
         <View style={styles.chip}>
-            <Text>Thursday, 4th April</Text>
+            <Text>Monday, 27th May</Text>
           </View>
           <View style={styles.chip}>
             <Text>Time: 12-14 hrs</Text>

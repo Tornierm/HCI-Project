@@ -33,7 +33,7 @@ const CafeProfile: React.FC<Props> = ({ route, navigation }) => {
             <Button
               onPress={() => openBooking(route.params.cafe, navigation)}
               title="Book Now"
-              color="#333"
+              color="#3895d3"
             />
             </View>
       </View>

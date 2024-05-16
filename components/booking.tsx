@@ -157,11 +157,11 @@ type Props = NativeStackScreenProps<RootStackParamList, "Booking">
     const [tmpReview, setTmpReview] = useState(initialReview)
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedTime, setSelectedTime] = useState(new Date());
+    const [selectedStartTime, setSelectedStartTime] = useState(new Date());
+    const [selectedEndTime, setSelectedEndTime] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
     const [mode, setMode] = useState('date');
-
 
 const handleDateChange = (event, newDate) => {
       /*if (newDate !== undefined) {
@@ -173,13 +173,24 @@ const handleDateChange = (event, newDate) => {
       setShowDatePicker(false);
       setSelectedDate(currentDate);
     }
-    const handleTimeChange = (event, newTime) => {
+    const handleStartTimeChange = (event, newTime) => {
+      console.log('start');
+      /*if (newDate !== undefined) {
+        setSelectedDate(newDate);
+      }*/
+      const isEnd = true;
+      const currentTime = newTime;
+      setShowTimePicker(false);
+      setSelectedStartTime(currentTime);
+    }
+    const handleEndTimeChange = (event, newTime) => {
+      console.log('end');
       /*if (newDate !== undefined) {
         setSelectedDate(newDate);
       }*/
       const currentTime = newTime;
       setShowTimePicker(false);
-      setSelectedTime(currentTime);
+      setSelectedEndTime(currentTime);
     }
 	
 	const showMode = (newMode) => {
@@ -237,7 +248,7 @@ const handleDateChange = (event, newDate) => {
           <Text style={styles.h2}>Select the day</Text>
           <View style={styles.pickerContainer}>
           <Text>Date: {selectedDate.getDate()}/{selectedDate.getMonth()+1}/{selectedDate.getFullYear()}</Text>
-        <Button onPress={() => showMode('date')} title="Select the day" />
+        <Button onPress={() => showMode('date')} color={'#3895d3'} title="Select the day" />
         {showDatePicker && <DateTimePicker 
           value={selectedDate}
           mode="date"
@@ -248,14 +259,26 @@ const handleDateChange = (event, newDate) => {
           // themeVariant="light"
           {...(DateTimePicker as any)}
         />}
-        <Text>Time: {selectedTime.getHours()<10 ? '0' + selectedTime.getHours(): selectedTime.getHours()}:{selectedTime.getMinutes()<10 ? '0' + selectedTime.getMinutes(): selectedTime.getMinutes()}</Text>
-        <Button onPress={() => showMode('time')} title="Select the time" />
+        <Text>From: {selectedStartTime.getHours()<10 ? '0' + selectedStartTime.getHours(): selectedStartTime.getHours()}:{selectedStartTime.getMinutes()<10 ? '0' + selectedStartTime.getMinutes(): selectedStartTime.getMinutes()}</Text>
+        <Button onPress={() => showMode('time')} color={'#3895d3'} title="Select the time" />
         {showTimePicker && <DateTimePicker 
-          value={selectedTime}
+          value={selectedStartTime}
           mode={mode}
           is24Hour={true} 
           display="default" 
-          onChange={handleTimeChange}
+          onChange={handleStartTimeChange}
+          style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
+          // themeVariant="light"
+          {...(DateTimePicker as any)}
+        />}
+        <Text>To: {selectedEndTime.getHours()<10 ? '0' + selectedEndTime.getHours(): selectedEndTime.getHours()}:{selectedEndTime.getMinutes()<10 ? '0' + selectedEndTime.getMinutes(): selectedEndTime.getMinutes()}</Text>
+        <Button onPress={() => showMode('time')} color={'#3895d3'} title="Select the time" />
+        {showTimePicker && <DateTimePicker 
+          value={selectedEndTime}
+          mode={mode}
+          is24Hour={true} 
+          display="default" 
+          onChange={handleEndTimeChange}
           style={{ backgroundColor: 'lightgray' , borderRadius: 10}}
           // themeVariant="light"
           {...(DateTimePicker as any)}
@@ -263,15 +286,18 @@ const handleDateChange = (event, newDate) => {
           </View>
       <View style={styles.bookingContainer}>
         <Text>Number of People: </Text>
-        <Button color='#333' onPress={decrementPeople} title="-" />
+        <Button color='#3895d3' onPress={decrementPeople} title="-" />
         <Text>{numberOfPeople}</Text>
-        <Button color='#333' onPress={incrementPeople} title="+" />
+        <Button color='#3895d3' onPress={incrementPeople} title="+" />
       </View>
         <View style={styles.buttonContainer}>
             <Button
-              onPress={() => openActivity(navigation)}
+              onPress={() => {
+                alert('Booking successful!');
+                openActivity(navigation)
+              }}
               title="Confirm"
-              color="#333"
+              color="#3895d3"
             />
           </View>
           

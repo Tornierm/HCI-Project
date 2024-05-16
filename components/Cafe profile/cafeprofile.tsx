@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject, // Takes the entire space of its container
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
     padding: 32,
+    maxHeight:500
   },
   reviewContainer:{
     width: "100%",
