@@ -74,7 +74,7 @@ export default function Info(props: IOwnProps) {
                 style={styles.tags}
             >
                 {props.cafe.features.map((feature) => {
-                    return <Chip>{feature}</Chip>
+                    return <Chip color={'#3895d3'}>{feature}</Chip>
                 })}
             </View>
         </View>
@@ -85,7 +85,7 @@ export default function Info(props: IOwnProps) {
             <View
                 style={styles.tags}
             >
-            <Chip>{determinePriceText(props.cafe.price)}</Chip>
+            <Chip color={'#3895d3'}>{determinePriceText(props.cafe.price)}</Chip>
             </View>
         </View>
 
@@ -97,7 +97,7 @@ export default function Info(props: IOwnProps) {
                 style={styles.tags}
             >
             {props.cafe.restrictions.map((restriction, i) => {
-                return <Chip key={i}>{restriction}</Chip>
+                return <Chip key={i} color={'#3895d3'}>{restriction}</Chip>
             })}
          </View>
         </View>

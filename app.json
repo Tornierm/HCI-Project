@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HCI_Project",
-    "slug": "HCI_Project",
+    "name": "SitDown",
+    "slug": "SitDown",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sitdownupm.SitDown"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ca32a0e8-8066-419e-956a-e3558e1f7589"
+      }
     }
   }
 }

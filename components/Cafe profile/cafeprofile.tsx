@@ -9,6 +9,7 @@ import Features from './features';
 import Schedule from './schedule';
 import Menu from './menu';
 import MilansReviews from './milansReviews';
+import { openBooking } from '../Tabs/Home/helpers';
 
 import Info from './info';
 import { ICafe, IReview, Rating } from '../types';
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject, // Takes the entire space of its container
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
     padding: 32,
+    maxHeight:500
   },
   reviewContainer:{
     width: "100%",
@@ -169,7 +171,7 @@ const initialReview: IReview = {
   }
 
     return (
-      <View>
+      <ScrollView>
         <ScrollView style= {styles.container}>
           <Header name={props.cafe.name} address={props.cafe.address} />
           <View style={styles.imageContainer}>
@@ -190,13 +192,13 @@ const initialReview: IReview = {
           <Map/>
           {/* <Features></Features>
           <Menu></Menu> */}
-        <View style={styles.buttonContainer}>
+        {/*<View style={styles.buttonContainer}>
             <Button
-              onPress={() => alert('Booked!')}
+              onPress={() => openBooking(props.cafe, navigator)}
               title="Book Now"
               color="#333"
             />
-          </View>
+          </View>*/}
           
         </ScrollView>
       <View style={{...styles.overlay, display: showOverlay? "flex" : "none"}}>
@@ -218,7 +220,7 @@ const initialReview: IReview = {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
     );
   };
 

@@ -354,11 +354,16 @@ const styles = StyleSheet.create({
                 <Text style={styles.featureChipText}>{feature}</Text>
               </View>
             ))}
+            {selectedCafe && selectedCafe.restrictions.map((restriction, index) => (
+              <View key={index} style={styles.featureChip}>
+                <Text style={styles.featureChipText}>{restriction}</Text>
+              </View>
+            ))}
           </View>
         </View>
 
         {/* Include the Date Picker :) */}
-        <Text style={styles.dateHeaderText}>Date: {selectedDate.getDate()}/{selectedDate.getMonth()+1}/{selectedDate.getFullYear()}</Text>
+        {/*<Text style={styles.dateHeaderText}>Date: {selectedDate.getDate()}/{selectedDate.getMonth()+1}/{selectedDate.getFullYear()}</Text>
         <Button onPress={() => showMode('date')} title="Select the day" />
         {showDatePicker && <DateTimePicker 
           value={selectedDate}
@@ -393,7 +398,7 @@ const styles = StyleSheet.create({
         </View> */}
 
           
-          <Text style={styles.dateHeaderText}>Number of Guests:</Text>
+          {/*<Text style={styles.dateHeaderText}>Number of Guests:</Text>
           <View style={styles.rowcontainer}>
             <View style={styles.counterContainer}>
               <TouchableOpacity style={styles.button} onPress={decrementGuests}>
@@ -404,15 +409,15 @@ const styles = StyleSheet.create({
                 <Text style={[styles.buttonText, { lineHeight: 10 }]}>+</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </View>*/}
 
         <View style={{...styles.buttons}}>
         <TouchableOpacity style={styles.grayButton} onPress={() => onIconPress(null)}>
           <Text style={styles.buttonText}>Close</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.blueButton} onPress={() => openActivity(navigation)}>
-          <Text style={styles.buttonText}>Book Now</Text>
+        <TouchableOpacity style={styles.blueButton} onPress={() => openCafeProfile(selectedCafe, navigation)}>
+          <Text style={styles.buttonText}>Visit</Text>
         </TouchableOpacity>
         </View>
 
